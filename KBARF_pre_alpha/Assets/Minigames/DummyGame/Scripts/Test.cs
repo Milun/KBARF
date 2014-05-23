@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class scr_test : MonoBehaviour {
+public class Test : MonoBehaviour {
 
 	MiniCommon mc;
 
@@ -16,22 +16,22 @@ public class scr_test : MonoBehaviour {
 	{
 		if (Input.GetKey("up"))
 		{
-			mc.Move(Vector2.up*0.2f);
+			mc.Move(Vector2.up*0.4f);
 		}
 
 		if (Input.GetKey("down"))
 		{
-			mc.Move(-Vector2.up*0.2f);
+			mc.Move(-Vector2.up*0.4f);
 		}
 
 		if (Input.GetKey("right"))
 		{
-			mc.Move(Vector2.right*0.2f);
+			mc.Move(Vector2.right*0.4f);
 		}
 		
 		if (Input.GetKey("left"))
 		{
-			mc.Move(-Vector2.right*0.2f);
+			mc.Move(-Vector2.right*0.4f);
 		}
 	}
 }

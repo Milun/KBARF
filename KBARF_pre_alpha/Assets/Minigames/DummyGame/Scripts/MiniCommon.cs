@@ -3,43 +3,35 @@ using System.Collections;
 
 public class MiniCommon : MonoBehaviour {
 
-	private float			x = 0.0f;
-	private float			y = 0.0f;
+	// The players position on the screen.
+	protected Vector2 pos = Vector2.zero;
 
-	private int				xPixel = 0;
-	private int				yPixel = 0;
-
-	private static float 	pixelSize = 0.1f;
+	Global global;
 
 	// Use this for initialization
-	void Start () {
-	
+	void Awake ()
+	{
+		// Establish a link to global statistics.
+		global = GameObject.Find("MiniGame1").GetComponent<Global> ();
+
+		// Be sure our custom (not on the grid) location is recorded at the start.
+		pos = new Vector2(transform.position.x, transform.position.y);
 	}
 
 	public void Move(Vector2 v)
 	{
-		x += v.x;
-		y += v.y;
-
-		int xFloor = (int)Mathf.Floor (x);
-		int yFloor = (int)Mathf.Floor (y);
-
-		// If we've moved to the next pixel, we need to synch y with x to make
-		// diagonals jitter (or "jump") at the same time.
-		if (xFloor != xPixel)
-		{
-			xPixel = xFloor;
-			y = (float)yFloor;
-		}
-
-		yPixel = yFloor;
+		pos += v;
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		transform.position = new Vector3 (Mathf.Floor (x)*pixelSize,
-		                                  Mathf.Floor (y)*pixelSize,
+		// Make everything move at the exact same intervals.
+		if (!global.Frame()) return;
+
+		// Snap to the fake "pixel grid".
+		transform.position = new Vector3 (Mathf.Floor (pos.x)*global.PIXEL_SIZE,
+		                                  Mathf.Floor (pos.y)*global.PIXEL_SIZE,
 		                                  transform.position.z);
 	}
 }
