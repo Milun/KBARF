@@ -5,13 +5,12 @@ using System.Collections;
 public class scr_mouseLook : MonoBehaviour {
 
 	[SerializeField] private float lookSpeed = 1.0f;
+	[SerializeField] private float moveSpeed = 0.1f;
 
-	private float x = 0.0f;
-	private float y = 0.0f;
+	private float xAim 		= 0.0f;
+	private float yAim 		= 0.0f;
 
-	private float moveSpeed = 0.1f;
-
-	Quaternion rotStart;
+	private Quaternion rotStart;
 
 	void Start() {
 
@@ -21,47 +20,57 @@ public class scr_mouseLook : MonoBehaviour {
 		Screen.lockCursor = true;
 	}
 
+	private void MouseAim()
+	{
+		// Change the angle of the camera.
+		xAim += lookSpeed * Input.GetAxis ("Mouse X");
+		yAim += lookSpeed * Input.GetAxis ("Mouse Y");
+
+		// Wrap the camera angles around.
+		if (xAim < -360.0f)
+		{
+			xAim += 360.0f;
+		}
+		else if (xAim > 360.0f)
+		{
+			xAim -= 360.0f;
+		}
+		
+		if (yAim < -90.0f)
+		{
+			yAim = -90.0f;
+		}
+		else if (yAim > 90.0f)
+		{
+			yAim = 90.0f;
+		}
+
+		// Actually change the angle of the camera.
+		Quaternion xQ = Quaternion.AngleAxis (xAim, Vector3.up);
+		Quaternion yQ = Quaternion.AngleAxis (yAim, -Vector3.right);
+
+		transform.localRotation = rotStart * xQ * yQ;
+	}
+
 	// Update is called once per frame
 	void Update () {
 	
-		x += lookSpeed * Input.GetAxis ("Mouse X");
-		y += lookSpeed * Input.GetAxis ("Mouse Y");
+		MouseAim ();
 
-		if (x < -360.0f)
-			x += 360.0f;
-		else if (x > 360.0f)
-			x -= 360.0f;
-	
-		if (y < -90.0f)
-			y = -90.0f;
-		else if (y > 90.0f)
-			y = 90.0f;
+		Vector3 xVec = new Vector3(Mathf.Sin ( Mathf.Deg2Rad*xAim )*moveSpeed,
+		                           0.0f,
+		                           Mathf.Cos ( Mathf.Deg2Rad*xAim )*moveSpeed);
 
-		
+		Vector3 yVec = new Vector3(Mathf.Sin ( Mathf.Deg2Rad*xAim+90.0f )*moveSpeed,
+		                           0.0f,
+		                           Mathf.Cos ( Mathf.Deg2Rad*xAim+90.0f )*moveSpeed);
 
-		
-		Quaternion xQuaternion = Quaternion.AngleAxis (x, Vector3.up);
-		Quaternion yQuaternion = Quaternion.AngleAxis (y, -Vector3.right);
-		
-		transform.localRotation = rotStart * xQuaternion * yQuaternion;
 
-		if (Input.GetKey("w"))
-		{
-			transform.position += new Vector3( Mathf.Sin ( Mathf.Deg2Rad*x )*moveSpeed, 0.0f, Mathf.Cos ( Mathf.Deg2Rad*x )*moveSpeed);
-		}
-		else if (Input.GetKey("s"))
-		{
-			transform.position -= new Vector3( Mathf.Sin ( Mathf.Deg2Rad*x )*moveSpeed, 0.0f, Mathf.Cos ( Mathf.Deg2Rad*x )*moveSpeed);
-		}
+		if (Input.GetKey("w")) 		transform.position += xVec;
+		else if (Input.GetKey("s")) transform.position -= xVec;
 
-		if (Input.GetKey("a"))
-		{
-			transform.position += new Vector3( Mathf.Sin ( Mathf.Deg2Rad*(x-90.0f) )*moveSpeed, 0.0f, Mathf.Cos ( Mathf.Deg2Rad*(x-90.0f) )*moveSpeed);
-		}
-		else if (Input.GetKey("d"))
-		{
-			transform.position += new Vector3( Mathf.Sin ( Mathf.Deg2Rad*(x+90.0f) )*moveSpeed, 0.0f, Mathf.Cos ( Mathf.Deg2Rad*(x+90.0f) )*moveSpeed);
-		}
+		if (Input.GetKey("a"))		transform.position -= yVec;
+		else if (Input.GetKey("d")) transform.position += yVec;
 
 	}
 }
