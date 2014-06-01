@@ -19,6 +19,8 @@ public class MouseLook : MonoBehaviour {
 
 	private GameScreen gameScreen = null;				// The GameScreen the player is currently assigned to.	
 
+	private Vector3 camRotation = Vector3.zero;
+
 	void Start() {
 
 		startAim = transform.localRotation;
@@ -28,9 +30,35 @@ public class MouseLook : MonoBehaviour {
 
 	private void MouseAim()
 	{
+		// Rotate mouse based on your rotation.
+		float x = Input.GetAxis ("Mouse X");
+		float y = Input.GetAxis ("Mouse Y");
+
+		//if (transform.eulerAngles.z >= 180.0f) x = -x;
+		//if (camRotation.z >= 180.0f) x = -x;
+
+		//print (transform.rotation.x + " " + transform.rotation.y + " " + transform.rotation.z + " " + transform.rotation.w);
+
+		/*Vector2 vecOrigin = new Vector2(x, Input.GetAxis ("Mouse Y"));
+
+		float length = vecOrigin.magnitude;
+
+		float angle 	= Vector2.Angle (Vector2.up, vecOrigin);
+
+		if (vecOrigin.x < 0.0f)
+		{
+			angle = 360 - angle;
+		}
+
+		float angleNew 	= angle - camRotation.z;
+
+		Vector2 vecNew = new Vector2 (Mathf.Cos (angleNew * Mathf.Deg2Rad), Mathf.Sin (angleNew * Mathf.Deg2Rad));
+		vecNew.Normalize ();
+		vecNew *= length;*/
+
 		// Change the angle of the camera.
-		xAim += lookSpeed * Input.GetAxis ("Mouse X");
-		yAim += lookSpeed * Input.GetAxis ("Mouse Y");
+		xAim += lookSpeed * y;
+		yAim += lookSpeed * x;
 
 		// Wrap the camera angles around.
 		if (xAim < -360.0f)
@@ -42,83 +70,44 @@ public class MouseLook : MonoBehaviour {
 			xAim -= 360.0f;
 		}
 		
-		if (yAim < -90.0f)
+		// Clamp looking up and down.
+		if (yAim < -360.0f)
 		{
-			yAim = -90.0f;
+			yAim += 360.0f;
 		}
-		else if (yAim > 90.0f)
+		else if (yAim > 360.0f)
 		{
-			yAim = 90.0f;
+			yAim -= 360.0f;
 		}
 
+		// Rotated
+		//Vector2 
+
+		transform.Rotate (-Vector3.right * y);
+		transform.Rotate (Vector3.up * x);
+
+		//transform.eulerAngles = new Vector3 (-xAim, yAim, camRotation.z);
+
 		// Actually change the angle of the camera.
-		Quaternion xQ = Quaternion.AngleAxis (xAim, Vector3.up);
-		Quaternion yQ = Quaternion.AngleAxis (yAim, -Vector3.right);
-		
-		transform.localRotation = startAim * xQ * yQ;
+		//transform.eulerAngles += camRotation;
+
+		// Quaternion xQ = Quaternion.AngleAxis (xAim, Vector3.up);
+		// Quaternion yQ = Quaternion.AngleAxis (yAim, -Vector3.right);
+
+		//transform.localRotation = startAim * xQ * yQ;
+		//transform.eulerAngles += camRotation;
 	}
 
 	private void Move()
 	{
-		Vector3 xVec = new Vector3(Mathf.Sin ( Mathf.Deg2Rad*xAim )*moveSpeed,
-		                           0.0f,
-		                           Mathf.Cos ( Mathf.Deg2Rad*xAim )*moveSpeed);
+		if 		(Input.GetKey("w")) transform.position += transform.forward*moveSpeed;
+		else if (Input.GetKey("s")) transform.position -= transform.forward*moveSpeed;
 		
-		Vector3 yVec = new Vector3(Mathf.Sin ( Mathf.Deg2Rad*xAim+90.0f )*moveSpeed,
-		                           0.0f,
-		                           Mathf.Cos ( Mathf.Deg2Rad*xAim+90.0f )*moveSpeed);
-		
-		
-		if 		(Input.GetKey("w")) transform.position += xVec;
-		else if (Input.GetKey("s")) transform.position -= xVec;
-		
-		if 		(Input.GetKey("a"))	transform.position -= yVec;
-		else if (Input.GetKey("d")) transform.position += yVec;
-	}
+		if 		(Input.GetKey("a"))	transform.position -= transform.right*moveSpeed;
+		else if (Input.GetKey("d")) transform.position += transform.right*moveSpeed;
 
-	// Returns true if it's moved to the target.
-	private bool MoveToPos(Vector3 pos, float speed)
-	{
-		// Check if the camera is at the correct position.
-		if ((pos - transform.position).magnitude <= 0.05f)
-		{
-			return true;
-		}
-
-		// Move the camera.
-		transform.position += (pos - transform.position) * speed;
-
-		return false;
-	}
-
-	// Returns true if it's rotated to the target.
-	private bool MoveToRot (Vector3 rot, float speed)
-	{
-		// Get the angle between where we want to rotate and where we're currently rotated.
-		float minAngleX = rot.x - transform.eulerAngles.x;
-		float minAngleY = rot.y - transform.eulerAngles.y;
-		
-		// Check if the camera is at the correct rotation.
-		if (Mathf.Abs(minAngleX) <= 0.05f &&
-		    Mathf.Abs(minAngleY) <= 0.05f)
-		{
-			return true;
-		}
-		
-		// Calculate the correct angle to use.
-		while (minAngleX < -180.0f) 	minAngleX += 360.0f;
-		while (minAngleX > 180)			minAngleX -= 360;
-		while (minAngleY < -180.0f) 	minAngleY += 360.0f;
-		while (minAngleY > 180)			minAngleY -= 360;
-
-		// Rotate the camera.
-		transform.eulerAngles += new Vector3 (minAngleX * speed, minAngleY * speed, 0.0f);
-		
-		// Manipulate the MouseAim to make the game think we're moving the mouse like this.
-		xAim = rot.y;
-		yAim = rot.x;
-		
-		return false;
+		if 		(Input.GetKey("q")) transform.eulerAngles += new Vector3(0.0f, 0.0f, 1.0f);
+		else if (Input.GetKey("e")) transform.eulerAngles -= new Vector3(0.0f, 0.0f, 1.0f);
 	}
 
 	public void EnterGameScreen(GameScreen gs)
@@ -139,11 +128,17 @@ public class MouseLook : MonoBehaviour {
 		                                 gameScreen.targetPos.z + normPos.z*GAME_SCREEN_LEAVE_DISTANCE);
 
 		// If we've finished leaving the screen, free both it and the screen.
-		if (MoveToPos (targetPos, GAME_SCREEN_LOOK_SPEED))
+		Vector3 move = Stat3DMove.MoveToPos (transform.position,
+		                                     targetPos,
+		                                     GAME_SCREEN_LOOK_SPEED);
+		if (move == Vector3.zero)
 		{
 			gameScreen = null;
 			state = "";
+			return;
 		}
+
+		transform.position += move;
 	}
 
 	private void ClickGameScreen()
@@ -183,8 +178,12 @@ public class MouseLook : MonoBehaviour {
 		// If the player is looking at the screen, move them to the ideal position.
 		if (state == "screen_lock")
 		{
-			MoveToPos(gameScreen.targetPos, GAME_SCREEN_LOOK_SPEED);
-			MoveToRot(gameScreen.targetRotation, GAME_SCREEN_LOOK_SPEED);
+			transform.position 		+= Stat3DMove.MoveToPos(transform.position, 	gameScreen.targetPos, GAME_SCREEN_LOOK_SPEED);
+			transform.eulerAngles 	+= Stat3DMove.MoveToRot(transform.eulerAngles, gameScreen.targetRotation, GAME_SCREEN_LOOK_SPEED);
+
+			// Manipulate the MouseAim to make the game think we're moving the mouse like this.
+			xAim = gameScreen.targetRotation.y;
+			yAim = gameScreen.targetRotation.x;
 
 			return;
 		}
