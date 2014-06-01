@@ -22,6 +22,7 @@ public static class Stat3DMove {
 		// Get the angle between where we want to rotate and where we're currently rotated.
 		float minAngleX = rot.x - passEul.x;
 		float minAngleY = rot.y - passEul.y;
+		float minAngleZ = rot.z - passEul.z;
 		
 		// Check if the camera is at the correct rotation.
 		if (Mathf.Abs(minAngleX) <= 0.05f &&
@@ -35,9 +36,11 @@ public static class Stat3DMove {
 		while (minAngleX > 180)			minAngleX -= 360;
 		while (minAngleY < -180.0f) 	minAngleY += 360.0f;
 		while (minAngleY > 180)			minAngleY -= 360;
+		while (minAngleZ < -180.0f) 	minAngleZ += 360.0f;
+		while (minAngleZ > 180)			minAngleZ -= 360;
 		
 		// Rotate the camera.
-		return new Vector3 (minAngleX * speed, minAngleY * speed, 0.0f);
+		return new Vector3 (minAngleX * speed, minAngleY * speed, minAngleZ * speed);
 	}
 
 	// Returns a vector going in the direction the thing is rotated in.
