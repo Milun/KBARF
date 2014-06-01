@@ -1,0 +1,3 @@
+When you approach the screen from really really close, it zooms you in a bit closer.
+Mouse aim is drunken. Rotating along X needs to not be altered by rotating along Y somehow.
+Maybe set the z rotation to 0, do the normal original mouselook, then set it back.
