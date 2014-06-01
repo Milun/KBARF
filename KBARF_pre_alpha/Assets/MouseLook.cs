@@ -89,6 +89,7 @@ public class MouseLook : MonoBehaviour {
 		{
 			gameScreen = null;
 			state = "";
+			camMove = Vector3.zero;
 			return;
 		}
 

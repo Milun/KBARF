@@ -40,11 +40,7 @@ public static class Stat3DMove {
 		while (minAngleZ > 180)			minAngleZ -= 360;
 		
 		// Rotate the camera.
-<<<<<<< HEAD
 		return passEul + new Vector3 (minAngleX * speed, minAngleY * speed, minAngleZ * speed);
-=======
-		return new Vector3 (minAngleX * speed, minAngleY * speed, minAngleZ * speed);
->>>>>>> 8358adb15a706e3cb58e3129ebc5344c6b24e603
 	}
 
 	// Returns a vector going in the direction the thing is rotated in.
