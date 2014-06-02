@@ -78,7 +78,7 @@ public class MouseLook : MonoBehaviour {
 		// Move away from the screen.
 		Vector3 normPos = (this.transform.position - gameScreen.transform.position).normalized;
 		Vector3 targetPos = new Vector3 (gameScreen.targetPos.x + normPos.x*GAME_SCREEN_LEAVE_DISTANCE,
-		                                 this.transform.position.y,
+		                                 gameScreen.targetPos.y + normPos.y*GAME_SCREEN_LEAVE_DISTANCE,
 		                                 gameScreen.targetPos.z + normPos.z*GAME_SCREEN_LEAVE_DISTANCE);
 
 		// If we've finished leaving the screen, free both it and the screen.
@@ -133,12 +133,12 @@ public class MouseLook : MonoBehaviour {
 		// If the player is looking at the screen, move them to the ideal position.
 		if (state == "screen_lock")
 		{
-			transform.position 		= Stat3DMove.MoveToPos(transform.position, 	gameScreen.targetPos, GAME_SCREEN_LOOK_SPEED);
-			transform.eulerAngles 	= Stat3DMove.MoveToRot(transform.eulerAngles, gameScreen.targetRotation, GAME_SCREEN_LOOK_SPEED);
+			transform.position 		= Stat3DMove.MoveToPos(transform.position, 		gameScreen.targetPos, GAME_SCREEN_LOOK_SPEED);
+			transform.eulerAngles 	= Stat3DMove.MoveToRot(transform.eulerAngles, 	gameScreen.targetRot, GAME_SCREEN_LOOK_SPEED);
 
 			// Manipulate the MouseAim to make the game think we're moving the mouse like this.
-			xAim = gameScreen.targetRotation.y;
-			yAim = gameScreen.targetRotation.x;
+			xAim = gameScreen.targetRot.y;
+			yAim = gameScreen.targetRot.x;
 
 			return;
 		}
