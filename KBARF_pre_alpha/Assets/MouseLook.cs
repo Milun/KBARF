@@ -47,33 +47,34 @@ public class MouseLook : MonoBehaviour {
 		transform.Rotate (Vector3.up * xAim);
 	}
 
+
 	private void Move()
 	{
 		float frictionExtra = 0.0f;
 		if (Input.GetKey("space")) frictionExtra = 0.02f;
 
-		move *= friction - frictionExtra;
+		rigidbody.velocity *= friction - frictionExtra;
 		rot *= friction - frictionExtra;
 
-		if 		(Input.GetKey("w")) move += transform.forward*moveAccel;
-		else if (Input.GetKey("s")) move -= transform.forward*moveAccel;
+		if 		(Input.GetKey("w")) rigidbody.velocity += transform.forward*moveAccel;
+		else if (Input.GetKey("s")) rigidbody.velocity -= transform.forward*moveAccel;
 		
-		if 		(Input.GetKey("a"))	move -= transform.right*moveAccel;
-		else if (Input.GetKey("d")) move += transform.right*moveAccel;
+		if 		(Input.GetKey("a"))	rigidbody.velocity -= transform.right*moveAccel;
+		else if (Input.GetKey("d")) rigidbody.velocity += transform.right*moveAccel;
 
 		if 		(Input.GetKey("q")) rot += rotAccel;
 		else if (Input.GetKey("e")) rot -= rotAccel;
 
-		if (move.magnitude > moveSpeed)
+		if (rigidbody.velocity.magnitude > moveSpeed)
 		{
-			move.Normalize();
-			move *= moveSpeed;
+			rigidbody.velocity.Normalize();
+			rigidbody.velocity *= moveSpeed;
 		}
 
 		if 		(rot > rotSpeed) 	rot = rotSpeed;
 		else if (rot < -rotSpeed) 	rot = -rotSpeed;
 
-		transform.position += move;
+		//rigidbody.velocity = move;
 		transform.eulerAngles += new Vector3(0.0f, 0.0f, rot);
 	}
 
@@ -157,6 +158,8 @@ public class MouseLook : MonoBehaviour {
 			// Manipulate the MouseAim to make the game think we're moving the mouse like this.
 			xAim = gameScreen.targetRot.y;
 			yAim = gameScreen.targetRot.x;
+
+			rigidbody.velocity = Vector3.zero;
 
 			return;
 		}
