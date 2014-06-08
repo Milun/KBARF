@@ -6,13 +6,13 @@ public class MiniCommon : MonoBehaviour {
 	// The players position on the screen.
 	protected Vector2 pos = Vector2.zero;
 
-	Global global;
+	public Global2D global;
 
 	// Use this for initialization
 	void Awake ()
 	{
 		// Establish a link to global statistics.
-		global = GameObject.Find("MiniGame1").GetComponent<Global> ();
+		global = transform.parent.GetComponent<Global2D> ();
 
 		// Be sure our custom (not on the grid) location is recorded at the start.
 		pos = new Vector2(transform.position.x, transform.position.y);

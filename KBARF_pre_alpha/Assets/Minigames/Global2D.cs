@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Global : MonoBehaviour {
+public class Global2D : MonoBehaviour {
 	
 	[SerializeField] private float 			frameDelay = 0.1f;
 	[SerializeField] private float 			pixelSize = 0.05f;
