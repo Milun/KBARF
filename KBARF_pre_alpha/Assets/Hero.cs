@@ -36,6 +36,8 @@ public class Hero : MonoBehaviour {
 		if (state == "screen_lock") return;
 		
 		gameScreen = gs;
+		gameScreen.Enter (GetComponent<MainInput> ());
+
 		state = "screen_lock";
 	}
 
@@ -53,7 +55,9 @@ public class Hero : MonoBehaviour {
 		                                     GAME_SCREEN_LOOK_SPEED);
 		if (move == transform.position)
 		{
+			gameScreen.Leave();
 			gameScreen = null;
+
 			state = "";
 			
 			return;

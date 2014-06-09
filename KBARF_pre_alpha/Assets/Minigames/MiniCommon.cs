@@ -7,12 +7,14 @@ public class MiniCommon : MonoBehaviour {
 	protected Vector2 pos = Vector2.zero;
 
 	public Global2D global;
+	public MiniInput input;
 
 	// Use this for initialization
 	void Awake ()
 	{
 		// Establish a link to global statistics.
 		global = transform.parent.GetComponent<Global2D> ();
+		input = transform.parent.GetComponent<MiniInput> ();
 
 		// Be sure our custom (not on the grid) location is recorded at the start.
 		pos = new Vector2(transform.position.x, transform.position.y);

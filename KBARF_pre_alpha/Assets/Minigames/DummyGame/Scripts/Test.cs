@@ -14,22 +14,22 @@ public class Test : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKey("up"))
+		if (mc.input.HoldUp())
 		{
 			mc.Move(Vector2.up*0.4f);
 		}
 
-		if (Input.GetKey("down"))
+		if (mc.input.HoldDown())
 		{
 			mc.Move(-Vector2.up*0.4f);
 		}
 
-		if (Input.GetKey("right"))
+		if (mc.input.HoldRight())
 		{
 			mc.Move(Vector2.right*0.4f);
 		}
 		
-		if (Input.GetKey("left"))
+		if (mc.input.HoldLeft())
 		{
 			mc.Move(-Vector2.right*0.4f);
 		}
