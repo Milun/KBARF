@@ -13,8 +13,8 @@ public class MiniCommon : MonoBehaviour {
 	void Awake ()
 	{
 		// Establish a link to global statistics.
-		global = transform.parent.GetComponent<Global2D> ();
-		input = transform.parent.GetComponent<MiniInput> ();
+		global = StatMini.GetMiniContainer(transform).GetComponent<Global2D> ();
+		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
 
 		// Be sure our custom (not on the grid) location is recorded at the start.
 		pos = new Vector2(transform.position.x, transform.position.y);

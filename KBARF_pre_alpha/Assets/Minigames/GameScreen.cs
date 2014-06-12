@@ -19,12 +19,12 @@ public class GameScreen : MonoBehaviour {
 
 	public void Enter(MainInput pass)
 	{
-		transform.parent.parent.GetComponent<MiniInput> ().SetInput (pass);
+		StatMini.GetMiniContainer (transform).GetComponent<MiniInput>().SetInput(pass);
 	}
 
 	public void Leave()
 	{
-		transform.parent.parent.GetComponent<MiniInput> ().FreeInput();
+		StatMini.GetMiniContainer (transform).GetComponent<MiniInput>().FreeInput();
 	}
 	
 	public Vector3 targetPos

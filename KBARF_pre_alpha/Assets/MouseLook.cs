@@ -8,11 +8,8 @@ public class MouseLook : MonoBehaviour {
 
 	private float xAim 		= 0.0f;						// The aim of the mouselook.
 	private float yAim 		= 0.0f;
-	private Quaternion startAim;						// Initial rotation of the camera
 
 	void Start() {
-
-		startAim = transform.localRotation;
 
 		Screen.showCursor = false;
 	}
