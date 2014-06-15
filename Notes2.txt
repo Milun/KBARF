@@ -1,0 +1,35 @@
+Milun: ok
+Milun: Idea
+Milun: First game is DOS game right?
+Milun: so it runs on an old, command line PC
+Milun: now when you boot the PC up
+Milun: it says something along the lines of
+Never Go Full $teamworks: ya
+Milun: /loading balloon.dos ver-1.02 unstable beta
+Milun: now
+Never Go Full $teamworks: u gotta do some commands to get ito it
+Milun: if you get
+Milun: a high enough score
+Milun: the game
+Milun: crashes
+Never Go Full $teamworks: scrawled instructions
+Milun: giving you access
+Milun: to the console
+Milun: and then you can fuck with the space ships
+Milun: behavior
+Never Go Full $teamworks: ooh shit
+Never Go Full $teamworks: nice
+Milun: which you couldnt do
+Milun: cos the game auto boors
+Milun: *boots
+Milun: and like
+Milun: quitting it is disabled
+Milun: by father
+Milun: like
+Never Go Full $teamworks: good idea
+Milun: !father-block.wad is preventing that operation!
+Milun: then obviously when you do crash it
+Milun: it just says
+Milun: "Type !help for help"
+Milun: etc
+Never Go Full $teamworks: perfect
