@@ -3,15 +3,19 @@ using System.Collections;
 
 public class ShipDoor : ClickObj {
 
+	public bool locked = false;
+
 	// Perform this when the object is clicked.
 	public void Action()
 	{
-		StatMain.GetAnimation(transform).Play ("shipdoor_anim_open");
+		if (!locked)
+			StatMain.GetAnimation(transform).Play ("shipdoor_anim_open");
+		else
+			StatMain.GetAnimation(transform).Play ("shipdoor_anim_locked");
 	}
 
 	// Use this for initialization
 	void Start () {
-		StatMain.GetAnimation (transform).animation ["shipdoor_anim_open"].speed = 0.25f;
 	}
 	
 	// Update is called once per frame
