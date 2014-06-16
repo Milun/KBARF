@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent( typeof(MouseLook))]
 public class Hero : MonoBehaviour {
 
-	private const float GAME_SCREEN_LOOK_DISTANCE  = 4.0f; 
+	private const float GAME_SCREEN_LOOK_DISTANCE  = 12.0f; 
 	private const float GAME_SCREEN_LEAVE_DISTANCE = 2.0f;
 	private const float GAME_SCREEN_LOOK_SPEED 	   = 0.08f;
 
@@ -90,6 +90,11 @@ public class Hero : MonoBehaviour {
 			if (hit.transform.gameObject.GetComponent<GameScreen>())
 			{
 				EnterGameScreen(hit.transform.gameObject.GetComponent<GameScreen>());
+			}
+
+			if (hit.transform.gameObject.GetComponent<ShipDoor>())
+			{
+				hit.transform.gameObject.GetComponent<ShipDoor>().Action();
 			}
 		}
 	}
