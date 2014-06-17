@@ -87,14 +87,15 @@ public class Hero : MonoBehaviour {
 		                    out hit,
 		                    GAME_SCREEN_LOOK_DISTANCE) )	// If the screen is too far away, do nothing.
 		{
-			if (hit.transform.gameObject.GetComponent<GameScreen>())
+			if (hit.transform.GetComponent<GameScreen>())
 			{
-				EnterGameScreen(hit.transform.gameObject.GetComponent<GameScreen>());
+				EnterGameScreen(hit.transform.GetComponent<GameScreen>());
 			}
 
-			if (hit.transform.gameObject.GetComponent<ShipDoor>())
+			if (hit.transform.GetComponent<ClickObj>())
 			{
-				hit.transform.gameObject.GetComponent<ShipDoor>().Action();
+				print("WAT?");
+				hit.transform.GetComponent<ClickObj>().PressAction(hit);
 			}
 		}
 	}
