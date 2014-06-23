@@ -4,7 +4,8 @@ using System.Collections;
 public class Global2D : MonoBehaviour {
 	
 	[SerializeField] private float 			frameDelay = 0.1f;
-	[SerializeField] private float 			pixelSize = 0.05f;
+	[SerializeField] private float 			pixelJump = 1.0f;
+	[SerializeField] private float			pixelSize = 0.01f;
 
 	private float							frameTime = 0.0f;
 	private bool 							frameActive = false;
@@ -33,6 +34,14 @@ public class Global2D : MonoBehaviour {
 		}
 
 		frameTime -= Time.deltaTime;
+	}
+
+	public float PIXEL_JUMP
+	{
+		get
+		{
+			return pixelJump;
+		}
 	}
 
 	public float PIXEL_SIZE
