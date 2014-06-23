@@ -4,8 +4,8 @@ using System.Collections;
 public class MiniCommon : MonoBehaviour {
 
 	// The players position on the screen.
-	public Vector2 pos = Vector2.zero;
-	public Vector2 vel = Vector2.zero;
+	private Vector2 pos = Vector2.zero;
+	private Vector2 vel = Vector2.zero;
 	public int layer   = 1;				// The layer that this object is on and should interact with.
 
 	private LayerMask layerMask;

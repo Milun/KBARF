@@ -9,6 +9,7 @@ public class PlatHero : MonoBehaviour {
 	[SerializeField] private float moveSpeed = 0.5f;
 	[SerializeField] private float gravity = 0.1f;
 	[SerializeField] private float ySpeedMax = 1.0f;
+	[SerializeField] private float jumpHeight = 2.0f;
 
 	// Use this for initialization
 	void Awake ()
@@ -17,15 +18,24 @@ public class PlatHero : MonoBehaviour {
 		pc = GetComponent<PlatCollisions> ();	
 	}
 
-	void OnTriggerEnter2D(Collider2D collision) 
-	{
-		mc.YSpeed = 1.0f;
-		print ("DSF");
-	}
-
 	private void Gravity()
 	{
-		if (pc.ColBot (mc.vel.y))
+		if (pc.ColBot (mc.Vel.y))
+		{
+			mc.YSpeed = 0.0f;
+
+			if (mc.input.HoldUp())
+			{
+				if (mc.YSpeed == 0.0f)
+				{
+					mc.YSpeed = jumpHeight;
+				}
+			}
+
+			return;
+		}
+
+		if (pc.ColTop (mc.Vel.y))
 		{
 			mc.YSpeed = 0.0f;
 			return;
@@ -44,13 +54,7 @@ public class PlatHero : MonoBehaviour {
 	{
 		Gravity ();
 
-		if (mc.input.HoldUp())
-		{
-			if (mc.YSpeed == 0.0f)
-			{
-				mc.YSpeed = 2.0f;
-			}
-		}
+
 
 		if (mc.input.HoldRight() && !pc.ColSides(moveSpeed))
 		{

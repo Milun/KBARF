@@ -23,6 +23,8 @@ public class MainInput : MonoBehaviour {
 		return Input.GetKey("right");
 	}
 
+
+
 	// Use this for initialization
 	void Start () {
 	
@@ -31,5 +33,10 @@ public class MainInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		if (Input.GetKey("q"))
+		{
+			StatMini.DEBUG = !StatMini.DEBUG;
+		}
+
 	}
 }
