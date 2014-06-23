@@ -3,7 +3,9 @@ using System.Collections;
 
 public static class StatMini {
 
-	public static float PIXEL_SIZE 0.001f;
+	#region STATIC VARIABLES
+	public static float PIXEL_SIZE = 0.01f;
+	#endregion
 
 	// Get the container of the Minigame.
 	public static Transform GetMiniContainer (Transform pass)

@@ -6,6 +6,9 @@ public class MiniCommon : MonoBehaviour {
 	// The players position on the screen.
 	public Vector2 pos = Vector2.zero;
 	public Vector2 vel = Vector2.zero;
+	public int layer   = 1;				// The layer that this object is on and should interact with.
+
+	private LayerMask layerMask;
 
 	public Global2D global;
 	public MiniInput input;
@@ -18,13 +21,24 @@ public class MiniCommon : MonoBehaviour {
 		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
 
 		// Be sure our custom (not on the grid) location is recorded at the start.
-		pos = new Vector2(transform.position.x/0.01f,
-		                  transform.position.y/0.01f);
+		pos = new Vector2(transform.position.x/StatMini.PIXEL_SIZE,
+		                  transform.position.y/StatMini.PIXEL_SIZE);
+
+		// Set the layer mask we're using.
+		layerMask = 1 << layer;
 	}
 
 	void Start()
 	{
 
+	}
+
+	public LayerMask Layer
+	{
+		get
+		{
+			return layerMask;
+		}
 	}
 
 	public Vector2 Pos
@@ -108,14 +122,14 @@ public class MiniCommon : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		Move (move);
+		pos += vel;
 
 		// Make everything move at the exact same intervals.
 		if (!global.Frame()) return;
 
 		// Snap to the fake "pixel grid".
-		transform.position = new Vector3 (Mathf.Floor (pos.x)*global.PIXEL_JUMP*global.PIXEL_SIZE,
-		                                  Mathf.Floor (pos.y)*global.PIXEL_JUMP*global.PIXEL_SIZE,
+		transform.position = new Vector3 (Mathf.Ceil (pos.x)*global.PIXEL_JUMP*global.PIXEL_SIZE,
+		                                  Mathf.Ceil (pos.y)*global.PIXEL_JUMP*global.PIXEL_SIZE,
 		                                  transform.position.z);
 	}
 }

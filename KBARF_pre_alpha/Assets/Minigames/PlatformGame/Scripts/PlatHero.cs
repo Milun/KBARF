@@ -4,6 +4,7 @@ using System.Collections;
 public class PlatHero : MonoBehaviour {
 
 	MiniCommon mc;
+	PlatCollisions pc;
 
 	[SerializeField] private float moveSpeed = 0.5f;
 	[SerializeField] private float gravity = 0.1f;
@@ -13,6 +14,7 @@ public class PlatHero : MonoBehaviour {
 	void Awake ()
 	{
 		mc = GetComponent<MiniCommon> ();	
+		pc = GetComponent<PlatCollisions> ();	
 	}
 
 	void OnTriggerEnter2D(Collider2D collision) 
@@ -23,25 +25,17 @@ public class PlatHero : MonoBehaviour {
 
 	private void Gravity()
 	{
+		if (pc.ColBot (mc.vel.y))
+		{
+			mc.YSpeed = 0.0f;
+			return;
+		}
+
 		mc.YSpeed -= gravity;
 
 		if (mc.YSpeed < -ySpeedMax)
 		{
 			mc.YSpeed = -ySpeedMax;
-		}
-
-		var layerMask = 1 << 9;
-		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.pos.x+0.01f, mc.pos.y-8.0f, 0.0f) * mc.global.PIXEL_SIZE,
-		                                     	mc.move,
-		                                     	mc.move.magnitude*mc.global.PIXEL_SIZE,
-		                                     	layerMask);
-		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.pos.x+7.99f, mc.pos.y-8.0f, 0.0f) * mc.global.PIXEL_SIZE,
-		                                         mc.move,
-		                                         mc.move.magnitude*mc.global.PIXEL_SIZE,
-		                                         layerMask);
-		if (hitLeft.collider != null || hitRight.collider != null)
-		{
-			mc.YSpeed = 0.0f;
 		}
 	}
 
@@ -58,14 +52,17 @@ public class PlatHero : MonoBehaviour {
 			}
 		}
 
-		if (mc.input.HoldRight())
+		if (mc.input.HoldRight() && !pc.ColSides(moveSpeed))
 		{
-			mc.Move(Vector2.right*moveSpeed);
+			mc.XSpeed = moveSpeed;
 		}
-		
-		if (mc.input.HoldLeft())
+		else if (mc.input.HoldLeft() && !pc.ColSides(-moveSpeed))
 		{
-			mc.Move(-Vector2.right*moveSpeed);
+			mc.XSpeed = -moveSpeed;
+		}
+		else
+		{
+			mc.XSpeed = 0.0f;
 		}
 	}
 }
