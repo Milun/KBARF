@@ -5,7 +5,7 @@ public class MiniCommon : MonoBehaviour {
 
 	// The players position on the screen.
 	public Vector2 pos = Vector2.zero;
-	public Vector2 move = Vector2.zero;
+	public Vector2 vel = Vector2.zero;
 
 	public Global2D global;
 	public MiniInput input;
@@ -27,9 +27,30 @@ public class MiniCommon : MonoBehaviour {
 
 	}
 
-	public void Move(Vector2 v)
+	public Vector2 Pos
 	{
-		pos += v;
+		get
+		{
+			return pos;
+		}
+
+		set
+		{
+			pos = value;
+		}
+	}
+
+	public Vector2 Vel
+	{
+		get
+		{
+			return vel;
+		}
+		
+		set
+		{
+			vel = value;
+		}
 	}
 
 	public float X
@@ -41,7 +62,7 @@ public class MiniCommon : MonoBehaviour {
 		
 		set
 		{
-			move = new Vector2(value, pos.y);
+			pos = new Vector2(value, pos.y);
 		}
 	}
 
@@ -54,7 +75,7 @@ public class MiniCommon : MonoBehaviour {
 		
 		set
 		{
-			move = new Vector2(pos.x, value);
+			pos = new Vector2(pos.x, value);
 		}
 	}
 
@@ -62,12 +83,12 @@ public class MiniCommon : MonoBehaviour {
 	{
 		get
 		{
-			return move.x;
+			return vel.x;
 		}
 
 		set
 		{
-			move = new Vector2(value, move.y);
+			vel = new Vector2(value, vel.y);
 		}
 	}
 
@@ -75,12 +96,12 @@ public class MiniCommon : MonoBehaviour {
 	{
 		get
 		{
-			return move.y;
+			return vel.y;
 		}
 
 		set
 		{
-			move = new Vector2(move.x, value);
+			vel = new Vector2(vel.x, value);
 		}
 	}
 
