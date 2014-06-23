@@ -30,6 +30,11 @@ public class Hero : MonoBehaviour {
 		mouseLook = GetComponent<MouseLook> ();
 	}
 
+	void Start ()
+	{
+		EnterGameScreen(GameObject.Find("mod_screen_TEST").GetComponent<GameScreen>());
+	}
+
 	public void EnterGameScreen(GameScreen gs)
 	{
 		// Don't set the screen if you're already looking at it.
@@ -106,7 +111,7 @@ public class Hero : MonoBehaviour {
 		// Check if the player has clicked on a game screen.
 		ClickGameScreen ();
 		
-		// If the player is looking at the screen, move them to the ideal position.
+		/*// If the player is looking at the screen, move them to the ideal position.
 		if (state == "screen_lock")
 		{
 			// Stop any velocity you had.
@@ -135,7 +140,7 @@ public class Hero : MonoBehaviour {
 		}
 		
 		// Otherwise allow movement normally.
-		Move ();
+		Move ();*/
 	}
 
 
