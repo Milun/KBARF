@@ -20,7 +20,7 @@ public class PlatCollisions : MonoBehaviour {
 		if (mc.YSpeed != 0.0f) return false;
 
 		// Give +0.1f to make them not intefere with the side collisions.
-		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.1f,
+		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.5f,
 		                                                     mc.Pos.y + offset.y - bounds.y + 0.1f,
 		                                                     0.0f) * StatMini.PIXEL_SIZE,
 		                                         Vector2.up,
@@ -31,7 +31,7 @@ public class PlatCollisions : MonoBehaviour {
 			return true;
 		}
 		
-		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.1f,
+		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.5f,
 		                                                      mc.Pos.y + offset.y - bounds.y + 0.1f,
 		                                                      0.0f) * StatMini.PIXEL_SIZE,
 		                                          Vector2.up,
@@ -51,7 +51,7 @@ public class PlatCollisions : MonoBehaviour {
 			return false;
 		
 		// Give +0.1f to make them not intefere with the side collisions.
-		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.1f,
+		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.5f,
 		                                                     mc.Pos.y + offset.y - bounds.y + 0.1f,
 		                                                     0.0f) * StatMini.PIXEL_SIZE,
 		                                         Vector2.up,
@@ -63,7 +63,7 @@ public class PlatCollisions : MonoBehaviour {
 			return true;
 		}
 
-		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.1f,
+		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.5f,
 		                                                      mc.Pos.y + offset.y - bounds.y + 0.1f,
 		                                                      0.0f) * StatMini.PIXEL_SIZE,
 		                                          Vector2.up,
@@ -84,7 +84,7 @@ public class PlatCollisions : MonoBehaviour {
 			return false;
 		
 		// Give +0.1f to make them not intefere with the side collisions.
-		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.1f,
+		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.5f,
 		                                                     mc.Pos.y + offset.y - 0.1f,
 		                                                     0.0f) * StatMini.PIXEL_SIZE,
 		                                         Vector2.up,
@@ -96,7 +96,7 @@ public class PlatCollisions : MonoBehaviour {
 			return true;
 		}
 		
-		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.1f,
+		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.5f,
 		                                                      mc.Pos.y + offset.y - 0.1f,
 		                                                      0.0f) * StatMini.PIXEL_SIZE,
 		                                          Vector2.up,
