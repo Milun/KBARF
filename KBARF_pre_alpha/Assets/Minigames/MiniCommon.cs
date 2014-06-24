@@ -119,6 +119,14 @@ public class MiniCommon : MonoBehaviour {
 		}
 	}
 
+	public void SnapToGrid()
+	{
+		// Snap to the fake "pixel grid".
+		transform.position = new Vector3 (Mathf.Ceil (pos.x)*global.PIXEL_JUMP*global.PIXEL_SIZE,
+		                                  Mathf.Ceil (pos.y)*global.PIXEL_JUMP*global.PIXEL_SIZE,
+		                                  transform.position.z);
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -127,9 +135,6 @@ public class MiniCommon : MonoBehaviour {
 		// Make everything move at the exact same intervals.
 		if (!global.Frame()) return;
 
-		// Snap to the fake "pixel grid".
-		transform.position = new Vector3 (Mathf.Ceil (pos.x)*global.PIXEL_JUMP*global.PIXEL_SIZE,
-		                                  Mathf.Ceil (pos.y)*global.PIXEL_JUMP*global.PIXEL_SIZE,
-		                                  transform.position.z);
+		SnapToGrid ();
 	}
 }

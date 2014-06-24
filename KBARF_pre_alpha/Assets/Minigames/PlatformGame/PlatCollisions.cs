@@ -15,6 +15,36 @@ public class PlatCollisions : MonoBehaviour {
 		mc = GetComponent<MiniCommon> ();
 	}
 
+	public bool OnGround()
+	{
+		if (mc.YSpeed != 0.0f) return false;
+
+		// Give +0.1f to make them not intefere with the side collisions.
+		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.1f,
+		                                                     mc.Pos.y + offset.y - bounds.y + 0.1f,
+		                                                     0.0f) * StatMini.PIXEL_SIZE,
+		                                         Vector2.up,
+		                                         -0.1f * StatMini.PIXEL_SIZE,
+		                                         mc.Layer);
+		if (hitLeft.collider != null)
+		{
+			return true;
+		}
+		
+		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.1f,
+		                                                      mc.Pos.y + offset.y - bounds.y + 0.1f,
+		                                                      0.0f) * StatMini.PIXEL_SIZE,
+		                                          Vector2.up,
+		                                          -0.1f * StatMini.PIXEL_SIZE,
+		                                          mc.Layer);
+		if (hitRight.collider != null)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+
 	public bool ColBot(float dist)
 	{
 		if (mc.YSpeed >= 0.0f)

@@ -23,15 +23,6 @@ public class PlatHero : MonoBehaviour {
 		if (pc.ColBot (mc.Vel.y))
 		{
 			mc.YSpeed = 0.0f;
-
-			if (mc.input.HoldUp())
-			{
-				if (mc.YSpeed == 0.0f)
-				{
-					mc.YSpeed = jumpHeight;
-				}
-			}
-
 			return;
 		}
 
@@ -54,7 +45,10 @@ public class PlatHero : MonoBehaviour {
 	{
 		Gravity ();
 
-
+		if (mc.input.HoldUp() && pc.OnGround())
+		{
+			mc.YSpeed = jumpHeight;
+		}
 
 		if (mc.input.HoldRight() && !pc.ColSides(moveSpeed))
 		{
