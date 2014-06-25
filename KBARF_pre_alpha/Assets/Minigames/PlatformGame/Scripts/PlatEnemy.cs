@@ -3,15 +3,25 @@ using System.Collections;
 
 public class PlatEnemy : MonoBehaviour {
 
-	MiniCommon mc;
-	PlatCollisions pc;
+	private MiniCommon mc;
+	private PlatCollisions pc;
 
 	[SerializeField] private float animSpeed = 0.1f;
+	[SerializeField] private Vector2 startMove = Vector2.zero;
 
 	void Awake ()
 	{
 		mc = GetComponent<MiniCommon> ();	
 		pc = GetComponent<PlatCollisions> ();	
+	}
+
+	// Use this for initialization
+	void Start () {
+		
+		GetComponent<Animator>().speed = animSpeed;
+		
+		mc.Vel = startMove;
+		
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -20,14 +30,7 @@ public class PlatEnemy : MonoBehaviour {
 		
 	}
 
-	// Use this for initialization
-	void Start () {
-	
-		GetComponent<Animator>().speed = animSpeed;
 
-		mc.XSpeed = mc.YSpeed = 0.2f;
-
-	}
 	
 	// Update is called once per frame
 	void Update () {
