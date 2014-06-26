@@ -3,7 +3,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class MiniCommon : MonoBehaviour {
+public class PlatCommon : MonoBehaviour {
 	
 	// The players position on the screen.
 	public int layer   = 1;				// The layer that this object is on and should interact with.
@@ -13,9 +13,7 @@ public class MiniCommon : MonoBehaviour {
 	public MiniInput input;
 	public Rigidbody2D rb;
 
-	[SerializeField] private Texture2D texture;
-	private Sprite sprite;
-	private GameObject go;
+	[SerializeField] private SpriteManager sManager;
 
 	// Use this for initialization
 	void Awake ()
@@ -25,14 +23,6 @@ public class MiniCommon : MonoBehaviour {
 		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
 
 		rb = GetComponent<Rigidbody2D>();
-
-		// Create the sprite which follows you.
-		sprite = Sprite.Create(texture,
-		                       new Rect(0, 0, texture.width, texture.height),
-		                       new Vector2(0,0),
-		                       1.0f);
-
-		Instantiate (go);
 
 		// Set the layer mask we're using.
 		layerMask = 1 << layer;
@@ -132,11 +122,11 @@ public class MiniCommon : MonoBehaviour {
 	public void SnapToGrid()
 	{
 		// Snap to the fake "pixel grid".
-		anim.bodyPosition = new Vector3 ( Mathf.Ceil (transform.position.x/global.PIXEL_JUMP)
+		/*anim.bodyPosition = new Vector3 ( Mathf.Ceil (transform.position.x/global.PIXEL_JUMP)
 		                                  *global.PIXEL_JUMP,
 		                                 Mathf.Ceil (transform.position.y/global.PIXEL_JUMP)
 		                                  *global.PIXEL_JUMP,
-		                                  transform.position.z);
+		                                  transform.position.z);*/
 	}
 
 	// Update is called once per frame

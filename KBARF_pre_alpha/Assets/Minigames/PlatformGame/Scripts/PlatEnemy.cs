@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlatEnemy : MonoBehaviour {
 
-	private MiniCommon mc;
+	private PlatCommon pCommon;
 	private PlatCollisions pc;
 
 	[SerializeField] private float animSpeed = 0.1f;
@@ -11,7 +11,7 @@ public class PlatEnemy : MonoBehaviour {
 
 	void Awake ()
 	{
-		mc = GetComponent<MiniCommon> ();	
+		pCommon = GetComponent<PlatCommon> ();	
 		pc = GetComponent<PlatCollisions> ();	
 	}
 
@@ -20,7 +20,7 @@ public class PlatEnemy : MonoBehaviour {
 		
 		GetComponent<Animator>().speed = animSpeed;
 		
-		mc.Vel = startMove;
+		pCommon.Vel = startMove;
 		
 	}
 

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlatGravity : MonoBehaviour {
 
-	private MiniCommon mc;
+	private PlatCommon pCommon;
 	private PlatCollisions pc;
 
 	[SerializeField] private float gravity = 0.1f;
@@ -12,23 +12,23 @@ public class PlatGravity : MonoBehaviour {
 
 	void Awake ()
 	{
-		mc = GetComponent<MiniCommon> ();
+		pCommon = GetComponent<PlatCommon> ();
 		pc = GetComponent<PlatCollisions> ();
 	}
 
 	private void Update()
 	{
 		// If there is a collision below, stop.
-		if (pc.ColBot (mc.Vel.y))
+		if (pc.ColBot (pCommon.Vel.y))
 		{
-			mc.YSpeed = 0.0f;
+			pCommon.YSpeed = 0.0f;
 			onGround = true;
 			print ("TRUE");
 			return;
 		}
 
 		// Otherwise, fall with gravity.
-		mc.YSpeed -= gravity;
+		pCommon.YSpeed -= gravity;
 		onGround = false;
 		
 		/*if (mc.YSpeed < -ySpeedMax)

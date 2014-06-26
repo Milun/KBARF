@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlatHero : MonoBehaviour {
 
-	private MiniCommon mc;
+	private PlatCommon pCommon;
 	private PlatCollisions pc;
 	private PlatGravity pg;
 
@@ -13,7 +13,7 @@ public class PlatHero : MonoBehaviour {
 	// Use this for initialization
 	void Awake ()
 	{
-		mc = GetComponent<MiniCommon> ();	
+		pCommon = GetComponent<PlatCommon> ();	
 		pc = GetComponent<PlatCollisions> ();
 		pg = GetComponent<PlatGravity> ();	
 	}
@@ -27,23 +27,23 @@ public class PlatHero : MonoBehaviour {
 			return;
 		}*/
 
-		if (mc.input.HoldUp() && pg.OnGround)
+		if (pCommon.input.HoldUp() && pg.OnGround)
 		{
 			//mc.YSpeed = jumpHeight;
 		}
 
-		if (mc.input.HoldRight() && !pc.ColSides(moveSpeed))
+		if (pCommon.input.HoldRight() && !pc.ColSides(moveSpeed))
 		{
 			print ("HEY!");
-			mc.XSpeed = moveSpeed;
+			pCommon.XSpeed = moveSpeed;
 		}
-		else if (mc.input.HoldLeft() && !pc.ColSides(-moveSpeed))
+		else if (pCommon.input.HoldLeft() && !pc.ColSides(-moveSpeed))
 		{
-			mc.XSpeed = -moveSpeed;
+			pCommon.XSpeed = -moveSpeed;
 		}
 		else
 		{
-			mc.XSpeed = 0.0f;
+			pCommon.XSpeed = 0.0f;
 		}
 	}
 }

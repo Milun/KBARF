@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(MiniCommon))]
+[RequireComponent(typeof(PlatCommon))]
 public class PlatCollisions : MonoBehaviour {
 
-	MiniCommon mc;
+	private PlatCommon pCommon;
 
 	[SerializeField] private Vector2 offset = Vector2.zero;	// Example: [2, -1]
 	[SerializeField] private Vector2 bounds = Vector2.zero; // Example: [8, 8]
@@ -12,36 +12,36 @@ public class PlatCollisions : MonoBehaviour {
 	// Use this for initialization
 	void Awake ()
 	{
-		mc = GetComponent<MiniCommon> ();
+		pCommon = GetComponent<PlatCommon> ();
 	}
 
 	public bool ColBot(float dist)
 	{
-		if (mc.YSpeed >= 0.0f)
+		if (pCommon.YSpeed >= 0.0f)
 			return false;
 		
 		// Give +0.1f to make them not intefere with the side collisions.
-		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.5f,
-		                                                     mc.Pos.y + offset.y - bounds.y + 0.1f,
+		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(pCommon.Pos.x + offset.x + 0.5f,
+		                                                     pCommon.Pos.y + offset.y - bounds.y + 0.1f,
 		                                                     0.0f),
 		                                         Vector2.up,
 		                                         dist,
-		                                         mc.Layer);
+		                                         pCommon.Layer);
 		if (hitLeft.collider != null)
 		{
-			mc.Y = hitLeft.point.y + bounds.y + offset.y;
+			pCommon.Y = hitLeft.point.y + bounds.y + offset.y;
 			return true;
 		}
 
-		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.5f,
-		                                                      mc.Pos.y + offset.y - bounds.y + 0.1f,
+		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(pCommon.Pos.x + offset.x + bounds.x - 0.5f,
+		                                                      pCommon.Pos.y + offset.y - bounds.y + 0.1f,
 		                                                      0.0f),
 		                                          Vector2.up,
 		                                          dist,
-		                                          mc.Layer);
+		                                          pCommon.Layer);
 		if (hitRight.collider != null)
 		{
-			mc.Y = hitRight.point.y + bounds.y + offset.y;
+			pCommon.Y = hitRight.point.y + bounds.y + offset.y;
 			return true;
 		}
 
@@ -50,31 +50,31 @@ public class PlatCollisions : MonoBehaviour {
 
 	public bool ColTop(float dist)
 	{
-		if (mc.YSpeed <= 0.0f)
+		if (pCommon.YSpeed <= 0.0f)
 			return false;
 		
 		// Give +0.1f to make them not intefere with the side collisions.
-		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.5f,
-		                                                     mc.Pos.y + offset.y - 0.1f,
+		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(pCommon.Pos.x + offset.x + 0.5f,
+		                                                     pCommon.Pos.y + offset.y - 0.1f,
 		                                                     0.0f),
 		                                         Vector2.up,
 		                                         dist,
-		                                         mc.Layer);
+		                                         pCommon.Layer);
 		if (hitLeft.collider != null && !hitLeft.collider.tag.Contains("PlatWallPass"))
 		{
-			mc.Y = hitLeft.point.y + offset.y;
+			pCommon.Y = hitLeft.point.y + offset.y;
 			return true;
 		}
 		
-		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.5f,
-		                                                      mc.Pos.y + offset.y - 0.1f,
+		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(pCommon.Pos.x + offset.x + bounds.x - 0.5f,
+		                                                      pCommon.Pos.y + offset.y - 0.1f,
 		                                                      0.0f),
 		                                          Vector2.up,
 		                                          dist,
-		                                          mc.Layer);
+		                                          pCommon.Layer);
 		if (hitRight.collider != null && !hitRight.collider.tag.Contains("PlatWallPass"))
 		{
-			mc.Y = hitRight.point.y + offset.y;
+			pCommon.Y = hitRight.point.y + offset.y;
 			return true;
 		}
 		
@@ -98,28 +98,28 @@ public class PlatCollisions : MonoBehaviour {
 			x = offset.x + bounds.x;
 		}
 
-		RaycastHit2D hitTop = Physics2D.Raycast(new Vector3(mc.Pos.x + x,
-		                                                    mc.Pos.y - offset.y - 0.5f,
+		RaycastHit2D hitTop = Physics2D.Raycast(new Vector3(pCommon.Pos.x + x,
+		                                                    pCommon.Pos.y - offset.y - 0.5f,
 		                                                    0.0f),
 		                                         Vector2.right * dist,
 		                                         dist,
-		                                         mc.Layer);
+		                                         pCommon.Layer);
 		if (hitTop.collider != null && !hitTop.collider.tag.Contains("PlatWallPass"))
 		{
-			mc.X = hitTop.point.x - x;
+			pCommon.X = hitTop.point.x - x;
 			print ("VEL-L");
 			return true;
 		}
 		
-		RaycastHit2D hitBottom = Physics2D.Raycast(new Vector3(mc.Pos.x + x,
-		                                                       mc.Pos.y + offset.y - bounds.y + 0.5f,
+		RaycastHit2D hitBottom = Physics2D.Raycast(new Vector3(pCommon.Pos.x + x,
+		                                                       pCommon.Pos.y + offset.y - bounds.y + 0.5f,
 		                                                       0.0f),
 		                                          Vector2.right * dist,
 		                                          dist,
-		                                          mc.Layer);
+		                                          pCommon.Layer);
 		if (hitBottom.collider != null && !hitBottom.collider.tag.Contains("PlatWallPass"))
 		{
-			mc.X = hitBottom.point.x - x;
+			pCommon.X = hitBottom.point.x - x;
 			print ("VEL-R");
 			return true;
 		}

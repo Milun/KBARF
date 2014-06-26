@@ -3,27 +3,25 @@ using System.Collections;
 
 public class PlatBounce : MonoBehaviour {
 
-	private MiniCommon mc;
-	private PlatCollisions pc;
+	private PlatCommon 		pCommon;
+	private PlatCollisions 	pCollisions;
 
 	void Awake ()
 	{
-		mc = GetComponent<MiniCommon> ();
-		pc = GetComponent<PlatCollisions> ();
+		pCommon = GetComponent<PlatCommon> ();
+		pCollisions = GetComponent<PlatCollisions> ();
 	}
 
 	void Update()
 	{
-		if (pc.ColSides(mc.XSpeed))
+		if (pCollisions.ColSides(pCommon.XSpeed))
 		{
-			print ("zibbidy");
-			mc.XSpeed *= -1.0f;
+			pCommon.XSpeed *= -1.0f;
 		}
 
-		if (pc.ColTop(mc.YSpeed) || pc.ColBot(mc.YSpeed))
+		if (pCollisions.ColTop(pCommon.YSpeed) || pCollisions.ColBot(pCommon.YSpeed))
 		{
-			print ("zobbity");
-			mc.YSpeed *= -1.0f;
+			pCommon.YSpeed *= -1.0f;
 		}
 	}
 }
