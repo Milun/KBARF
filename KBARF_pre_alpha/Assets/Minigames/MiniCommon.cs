@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class MiniCommon : MonoBehaviour {
-
+	
 	// The players position on the screen.
-	private Vector2 pos = Vector2.zero;
-	private Vector2 vel = Vector2.zero;
 	public int layer   = 1;				// The layer that this object is on and should interact with.
-
 	private LayerMask layerMask;
 
 	public Global2D global;
 	public MiniInput input;
+	public Animator anim;
+	public Rigidbody2D rb;
+	public SpriteRenderer sr;
 
 	// Use this for initialization
 	void Awake ()
@@ -20,9 +22,15 @@ public class MiniCommon : MonoBehaviour {
 		global = StatMini.GetMiniContainer(transform).GetComponent<Global2D> ();
 		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
 
-		// Be sure our custom (not on the grid) location is recorded at the start.
-		pos = new Vector2(transform.position.x/StatMini.PIXEL_SIZE,
-		                  transform.position.y/StatMini.PIXEL_SIZE);
+		rb = GetComponent<Rigidbody2D>();
+
+		// Don't move the animation after the root.
+		anim = GetComponent<Animator>();
+		anim.applyRootMotion = false;
+
+		sr = GetComponent<SpriteRenderer>();
+
+		sr.transform.position = new Vector2 (1.0f, 1.0f);
 
 		// Set the layer mask we're using.
 		layerMask = 1 << layer;
@@ -45,12 +53,12 @@ public class MiniCommon : MonoBehaviour {
 	{
 		get
 		{
-			return pos;
+			return transform.position;
 		}
 
 		set
 		{
-			pos = value;
+			transform.position = value;
 		}
 	}
 
@@ -58,12 +66,12 @@ public class MiniCommon : MonoBehaviour {
 	{
 		get
 		{
-			return vel;
+			return rb.velocity;
 		}
 		
 		set
 		{
-			vel = value;
+			rb.velocity = value;
 		}
 	}
 
@@ -71,12 +79,12 @@ public class MiniCommon : MonoBehaviour {
 	{
 		get
 		{
-			return pos.x;
+			return transform.position.x;
 		}
 		
 		set
 		{
-			pos = new Vector2(value, pos.y);
+			transform.position = new Vector2(value, transform.position.y);
 		}
 	}
 
@@ -84,12 +92,12 @@ public class MiniCommon : MonoBehaviour {
 	{
 		get
 		{
-			return pos.y;
+			return transform.position.y;
 		}
 		
 		set
 		{
-			pos = new Vector2(pos.x, value);
+			transform.position = new Vector2(transform.position.x, value);
 		}
 	}
 
@@ -97,12 +105,12 @@ public class MiniCommon : MonoBehaviour {
 	{
 		get
 		{
-			return vel.x;
+			return rb.velocity.x;
 		}
 
 		set
 		{
-			vel = new Vector2(value, vel.y);
+			rb.velocity = new Vector2(value, rb.velocity.y);
 		}
 	}
 
@@ -110,28 +118,28 @@ public class MiniCommon : MonoBehaviour {
 	{
 		get
 		{
-			return vel.y;
+			return rb.velocity.y;
 		}
 
 		set
 		{
-			vel = new Vector2(vel.x, value);
+			rb.velocity = new Vector2(rb.velocity.x, value);
 		}
 	}
 
 	public void SnapToGrid()
 	{
 		// Snap to the fake "pixel grid".
-		transform.position = new Vector3 (Mathf.Ceil (pos.x)*global.PIXEL_JUMP*global.PIXEL_SIZE,
-		                                  Mathf.Ceil (pos.y)*global.PIXEL_JUMP*global.PIXEL_SIZE,
+		anim.bodyPosition = new Vector3 ( Mathf.Ceil (transform.position.x/global.PIXEL_JUMP)
+		                                  *global.PIXEL_JUMP,
+		                                 Mathf.Ceil (transform.position.y/global.PIXEL_JUMP)
+		                                  *global.PIXEL_JUMP,
 		                                  transform.position.z);
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		pos += vel;
-
 		// Make everything move at the exact same intervals.
 		if (!global.Frame()) return;
 

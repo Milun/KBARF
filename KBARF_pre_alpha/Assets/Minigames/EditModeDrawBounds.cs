@@ -13,10 +13,10 @@ public class EditModeDrawBounds : MonoBehaviour {
 		if (!StatMini.DEBUG)
 						return;
 
-		Debug.DrawRay(transform.position, Vector3.right * bounds.x * StatMini.PIXEL_SIZE, color);
-		Debug.DrawRay(transform.position + Vector3.down * bounds.y * StatMini.PIXEL_SIZE, Vector3.right * bounds.x * StatMini.PIXEL_SIZE, color);
-		Debug.DrawRay(transform.position, Vector3.down * bounds.y * StatMini.PIXEL_SIZE, color);
-		Debug.DrawRay(transform.position + Vector3.right * bounds.x * StatMini.PIXEL_SIZE, Vector3.down * bounds.y * StatMini.PIXEL_SIZE, color);
+		Debug.DrawRay(transform.position, Vector3.right * bounds.x, color);
+		Debug.DrawRay(transform.position + Vector3.down * bounds.y, Vector3.right * bounds.x, color);
+		Debug.DrawRay(transform.position, Vector3.down * bounds.y, color);
+		Debug.DrawRay(transform.position + Vector3.right * bounds.x, Vector3.down * bounds.y, color);
 
 	}
 	#endif

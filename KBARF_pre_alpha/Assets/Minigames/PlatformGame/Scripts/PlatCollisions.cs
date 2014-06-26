@@ -23,25 +23,25 @@ public class PlatCollisions : MonoBehaviour {
 		// Give +0.1f to make them not intefere with the side collisions.
 		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.5f,
 		                                                     mc.Pos.y + offset.y - bounds.y + 0.1f,
-		                                                     0.0f) * StatMini.PIXEL_SIZE,
+		                                                     0.0f),
 		                                         Vector2.up,
-		                                         dist * StatMini.PIXEL_SIZE,
+		                                         dist,
 		                                         mc.Layer);
 		if (hitLeft.collider != null)
 		{
-			mc.Y = hitLeft.point.y/StatMini.PIXEL_SIZE + bounds.y + offset.y;
+			mc.Y = hitLeft.point.y + bounds.y + offset.y;
 			return true;
 		}
 
 		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.5f,
 		                                                      mc.Pos.y + offset.y - bounds.y + 0.1f,
-		                                                      0.0f) * StatMini.PIXEL_SIZE,
+		                                                      0.0f),
 		                                          Vector2.up,
-		                                          dist * StatMini.PIXEL_SIZE,
+		                                          dist,
 		                                          mc.Layer);
 		if (hitRight.collider != null)
 		{
-			mc.Y = hitRight.point.y/StatMini.PIXEL_SIZE + bounds.y + offset.y;
+			mc.Y = hitRight.point.y + bounds.y + offset.y;
 			return true;
 		}
 
@@ -56,25 +56,25 @@ public class PlatCollisions : MonoBehaviour {
 		// Give +0.1f to make them not intefere with the side collisions.
 		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + 0.5f,
 		                                                     mc.Pos.y + offset.y - 0.1f,
-		                                                     0.0f) * StatMini.PIXEL_SIZE,
+		                                                     0.0f),
 		                                         Vector2.up,
-		                                         dist * StatMini.PIXEL_SIZE,
+		                                         dist,
 		                                         mc.Layer);
 		if (hitLeft.collider != null && !hitLeft.collider.tag.Contains("PlatWallPass"))
 		{
-			mc.Y = hitLeft.point.y/StatMini.PIXEL_SIZE + offset.y;
+			mc.Y = hitLeft.point.y + offset.y;
 			return true;
 		}
 		
 		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(mc.Pos.x + offset.x + bounds.x - 0.5f,
 		                                                      mc.Pos.y + offset.y - 0.1f,
-		                                                      0.0f) * StatMini.PIXEL_SIZE,
+		                                                      0.0f),
 		                                          Vector2.up,
-		                                          dist * StatMini.PIXEL_SIZE,
+		                                          dist,
 		                                          mc.Layer);
 		if (hitRight.collider != null && !hitRight.collider.tag.Contains("PlatWallPass"))
 		{
-			mc.Y = hitRight.point.y/StatMini.PIXEL_SIZE + offset.y;
+			mc.Y = hitRight.point.y + offset.y;
 			return true;
 		}
 		
@@ -100,26 +100,26 @@ public class PlatCollisions : MonoBehaviour {
 
 		RaycastHit2D hitTop = Physics2D.Raycast(new Vector3(mc.Pos.x + x,
 		                                                    mc.Pos.y - offset.y - 0.5f,
-		                                                    0.0f) * StatMini.PIXEL_SIZE,
+		                                                    0.0f),
 		                                         Vector2.right * dist,
-		                                         dist * StatMini.PIXEL_SIZE,
+		                                         dist,
 		                                         mc.Layer);
 		if (hitTop.collider != null && !hitTop.collider.tag.Contains("PlatWallPass"))
 		{
-			mc.X = hitTop.point.x/StatMini.PIXEL_SIZE - x;
+			mc.X = hitTop.point.x - x;
 			print ("VEL-L");
 			return true;
 		}
 		
 		RaycastHit2D hitBottom = Physics2D.Raycast(new Vector3(mc.Pos.x + x,
 		                                                       mc.Pos.y + offset.y - bounds.y + 0.5f,
-		                                                       0.0f) * StatMini.PIXEL_SIZE,
+		                                                       0.0f),
 		                                          Vector2.right * dist,
-		                                          dist * StatMini.PIXEL_SIZE,
+		                                          dist,
 		                                          mc.Layer);
 		if (hitBottom.collider != null && !hitBottom.collider.tag.Contains("PlatWallPass"))
 		{
-			mc.X = hitBottom.point.x/StatMini.PIXEL_SIZE - x;
+			mc.X = hitBottom.point.x - x;
 			print ("VEL-R");
 			return true;
 		}

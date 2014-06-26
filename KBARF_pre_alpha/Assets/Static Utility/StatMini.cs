@@ -4,7 +4,6 @@ using System.Collections;
 public static class StatMini {
 
 	#region STATIC VARIABLES
-	public static float PIXEL_SIZE = 0.01f;
 	public static bool DEBUG = true;
 	#endregion
 

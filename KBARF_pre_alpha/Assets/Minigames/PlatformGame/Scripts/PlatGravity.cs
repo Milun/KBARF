@@ -23,6 +23,7 @@ public class PlatGravity : MonoBehaviour {
 		{
 			mc.YSpeed = 0.0f;
 			onGround = true;
+			print ("TRUE");
 			return;
 		}
 
@@ -30,10 +31,10 @@ public class PlatGravity : MonoBehaviour {
 		mc.YSpeed -= gravity;
 		onGround = false;
 		
-		if (mc.YSpeed < -ySpeedMax)
+		/*if (mc.YSpeed < -ySpeedMax)
 		{
 			mc.YSpeed = -ySpeedMax;
-		}
+		}*/
 	}
 
 	public bool OnGround

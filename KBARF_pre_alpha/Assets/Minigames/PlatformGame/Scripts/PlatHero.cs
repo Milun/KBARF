@@ -18,27 +18,23 @@ public class PlatHero : MonoBehaviour {
 		pg = GetComponent<PlatGravity> ();	
 	}
 
-	private void Gravity()
-	{
-		if (pc.ColTop (mc.Vel.y))
-		{
-			mc.YSpeed = 0.0f;
-			return;
-		}
-	}
-
 	// Update is called once per frame
 	void Update ()
 	{
-		Gravity ();
+		/*if (pc.ColTop (mc.Vel.y))
+		{
+			mc.YSpeed = 0.0f;
+			return;
+		}*/
 
 		if (mc.input.HoldUp() && pg.OnGround)
 		{
-			mc.YSpeed = jumpHeight;
+			//mc.YSpeed = jumpHeight;
 		}
 
 		if (mc.input.HoldRight() && !pc.ColSides(moveSpeed))
 		{
+			print ("HEY!");
 			mc.XSpeed = moveSpeed;
 		}
 		else if (mc.input.HoldLeft() && !pc.ColSides(-moveSpeed))

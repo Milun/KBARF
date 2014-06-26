@@ -29,11 +29,9 @@ public class PlatEnemy : MonoBehaviour {
 			print ("Whoops");
 		
 	}
-
-
 	
 	// Update is called once per frame
 	void Update () {
-	
+
 	}
 }
