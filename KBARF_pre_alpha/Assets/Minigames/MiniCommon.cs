@@ -11,9 +11,11 @@ public class MiniCommon : MonoBehaviour {
 
 	public Global2D global;
 	public MiniInput input;
-	public Animator anim;
 	public Rigidbody2D rb;
-	public SpriteRenderer sr;
+
+	[SerializeField] private Texture2D texture;
+	private Sprite sprite;
+	private GameObject go;
 
 	// Use this for initialization
 	void Awake ()
@@ -24,13 +26,13 @@ public class MiniCommon : MonoBehaviour {
 
 		rb = GetComponent<Rigidbody2D>();
 
-		// Don't move the animation after the root.
-		anim = GetComponent<Animator>();
-		anim.applyRootMotion = false;
+		// Create the sprite which follows you.
+		sprite = Sprite.Create(texture,
+		                       new Rect(0, 0, texture.width, texture.height),
+		                       new Vector2(0,0),
+		                       1.0f);
 
-		sr = GetComponent<SpriteRenderer>();
-
-		sr.transform.position = new Vector2 (1.0f, 1.0f);
+		Instantiate (go);
 
 		// Set the layer mask we're using.
 		layerMask = 1 << layer;
@@ -38,7 +40,7 @@ public class MiniCommon : MonoBehaviour {
 
 	void Start()
 	{
-
+		//GameObject test = instantiate
 	}
 
 	public LayerMask Layer
