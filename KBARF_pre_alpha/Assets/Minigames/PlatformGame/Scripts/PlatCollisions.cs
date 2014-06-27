@@ -1,60 +1,66 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(PlatCommon))]
 public class PlatCollisions : MonoBehaviour {
 
 	private PlatCommon pCommon;
 
 	[SerializeField] private Vector2 offset = Vector2.zero;	// Example: [2, -1]
 	[SerializeField] private Vector2 bounds = Vector2.zero; // Example: [8, 8]
+	private PlatBound bb;
+	private Vector2 p0;
+	private Vector2 p1;
+
+	private GameObject platCollisionManager;
+	private PlatCollisionManager pcm;
 
 	// Use this for initialization
 	void Awake ()
 	{
 		pCommon = GetComponent<PlatCommon> ();
+		pcm = GameObject.Find("CollisionManager").GetComponent<PlatCollisionManager> ();
+
+		bb = this.gameObject.AddComponent<PlatBound>();
+		bb.p0 = offset;
+		bb.p1 = new Vector2(offset.x + bounds.x, offset.y - bounds.x);
+
+		p0 = offset;
+		p1 = new Vector2(offset.x + bounds.x, offset.y - bounds.x);
+
+		bb.p0 += new Vector2(transform.position.x, transform.position.y);
+		bb.p1 += new Vector2(transform.position.x, transform.position.y);
+
+		pcm.AddCol (bb);
 	}
 
-	public bool ColBot(float dist)
+	void Create()
 	{
-		if (pCommon.YSpeed > 0.0f)
-			return false;
 
-		// Give +0.1f to make them not intefere with the side collisions.
-		RaycastHit2D hitLeft = Physics2D.Raycast(new Vector3(pCommon.Pos.x + offset.x + 0.5f,
-		                                                     pCommon.Pos.y + offset.y - bounds.y + 0.5f,
-		                                                     0.0f),
-		                                         Vector2.up,
-		                                         dist,
-		                                         pCommon.Layer);
-		if (hitLeft.collider != null &&
-		    (
-				hitLeft.collider.tag == "PlatWallPass" ||
-		 	  	hitLeft.collider.tag == "PlatWallSolid"
-			)
-		   )
-		{
-			pCommon.Y = hitLeft.point.y + bounds.y + offset.y + 0.1f;
-			return true;
-		}
+	}	
 
-		RaycastHit2D hitRight = Physics2D.Raycast(new Vector3(pCommon.Pos.x + offset.x + bounds.x - 0.5f,
-		                                                      pCommon.Pos.y + offset.y - bounds.y + 0.5f,
-		                                                      0.0f),
-		                                          Vector2.up,
-		                                          dist,
-		                                          pCommon.Layer);
-		if (hitRight.collider != null &&
-		     (
-				hitRight.collider.tag == "PlatWallPass" ||
-				hitRight.collider.tag == "PlatWallSolid"
-			 )
-		    )
-		{
-			pCommon.Y = hitRight.point.y + bounds.y + offset.y + 0.1f;
-			return true;
-		}
+	void Update()
+	{
 
-		return false;
+	}
+
+	public void CheckCollisions()
+	{
+		bb.p0 = p0 + pCommon.Pos;
+		bb.p1 = p1 + pCommon.Pos;
+
+		if (pCommon.XSpeed > 0.0f) bb.p1 += Vector2.right * pCommon.XSpeed;
+		if (pCommon.XSpeed < 0.0f) bb.p0 += Vector2.right * pCommon.XSpeed;
+		if (pCommon.YSpeed > 0.0f) bb.p0 += Vector2.up * pCommon.XSpeed;
+		if (pCommon.YSpeed < 0.0f) bb.p1 += Vector2.up * pCommon.XSpeed;
+
+		bb.draw ();
+
+		Vector2 test = pcm.CheckCol (bb, pCommon.Vel);
+
+		if (test.x != 0.0f)
+						pCommon.X = test.x;
+		if (test.y != 0.0f)
+						pCommon.Y = test.y;
+	
 	}
 }

@@ -1,19 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlatCommon : MonoBehaviour {
 	
 	// The players position on the screen.
 	public int layer   = 1;				// The layer that this object is on and should interact with.
 	private LayerMask layerMask;
 
+	private Vector2 pos;				// The objects REAL position.
+	private Vector2 vel;				// The objects REAL velocity.
+
 	public Global2D global;
 	public MiniInput input;
-	public Rigidbody2D rb;
-
-	[SerializeField] private GameObject platMask;
-	private GameObject pMask;
 
 	// Use this for initialization
 	void Awake ()
@@ -22,21 +20,15 @@ public class PlatCommon : MonoBehaviour {
 		global = StatMini.GetMiniContainer(transform).GetComponent<Global2D> ();
 		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
 
-		rb = GetComponent<Rigidbody2D>();
-
 		// Set the layer mask we're using.
 		layerMask = 1 << layer;
+
+		pos = new Vector2(transform.position.x, transform.position.y);
 	}
 
 	void Start()
 	{
-		// Create your sprite mask. Pass all your sprite info to it.
-		pMask = (GameObject) Instantiate(platMask, transform.position, transform.rotation);
 
-		UnityEditorInternal.ComponentUtility.CopyComponent(this.GetComponent<SpriteRenderer>());
-		UnityEditorInternal.ComponentUtility.PasteComponentAsNew(pMask);
-
-		Destroy(this.GetComponent<SpriteRenderer>());
 	}
 
 	public LayerMask Layer
@@ -51,12 +43,12 @@ public class PlatCommon : MonoBehaviour {
 	{
 		get
 		{
-			return transform.position;
+			return pos;
 		}
 
 		set
 		{
-			transform.position = value;
+			pos = value;
 		}
 	}
 
@@ -64,12 +56,12 @@ public class PlatCommon : MonoBehaviour {
 	{
 		get
 		{
-			return rb.velocity;
+			return vel;
 		}
 		
 		set
 		{
-			rb.velocity = value;
+			vel = value;
 		}
 	}
 
@@ -77,12 +69,12 @@ public class PlatCommon : MonoBehaviour {
 	{
 		get
 		{
-			return transform.position.x;
+			return pos.x;
 		}
 		
 		set
 		{
-			transform.position = new Vector2(value, transform.position.y);
+			pos = new Vector2(value, pos.y);
 		}
 	}
 
@@ -90,12 +82,12 @@ public class PlatCommon : MonoBehaviour {
 	{
 		get
 		{
-			return transform.position.y;
+			return pos.y;
 		}
 		
 		set
 		{
-			transform.position = new Vector2(transform.position.x, value);
+			pos = new Vector2(pos.x, value);
 		}
 	}
 
@@ -103,12 +95,12 @@ public class PlatCommon : MonoBehaviour {
 	{
 		get
 		{
-			return rb.velocity.x;
+			return vel.x;
 		}
 
 		set
 		{
-			rb.velocity = new Vector2(value, rb.velocity.y);
+			vel = new Vector2(value, vel.y);
 		}
 	}
 
@@ -116,28 +108,30 @@ public class PlatCommon : MonoBehaviour {
 	{
 		get
 		{
-			return rb.velocity.y;
+			return vel.y;
 		}
 
 		set
 		{
-			rb.velocity = new Vector2(rb.velocity.x, value);
+			vel = new Vector2(vel.x, value);
 		}
 	}
 
 	public void SnapToGrid()
 	{
 		// Snap to the fake "pixel grid".
-		pMask.transform.position = new Vector3 (Mathf.Floor (transform.position.x/global.PIXEL_JUMP)
-		                                  		*global.PIXEL_JUMP,
-		                                        Mathf.Floor (transform.position.y/global.PIXEL_JUMP)
-		                                  		*global.PIXEL_JUMP,
-		                                  		transform.position.z);
+		transform.position = new Vector3 (Mathf.Floor (pos.x/global.PIXEL_JUMP)
+		                                  *global.PIXEL_JUMP,
+		                                  Mathf.Floor (pos.y/global.PIXEL_JUMP)
+		                                  *global.PIXEL_JUMP,
+		                                  transform.position.z);
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
+		pos += vel;
+
 		// Make everything move at the exact same intervals.
 		if (!global.Frame()) return;
 

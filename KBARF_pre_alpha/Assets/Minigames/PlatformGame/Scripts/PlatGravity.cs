@@ -21,13 +21,13 @@ public class PlatGravity : MonoBehaviour {
 	private void Update()
 	{
 		// If there is a collision below, stop.
-		if (pc.ColBot (-anchorLength))
+		/*if (pc.ColBot (-anchorLength))
 		{
 			pCommon.YSpeed = 0.0f;
 			onGround = true;
 		
 			return;
-		}
+		}*/
 
 		// Otherwise, fall with gravity.
 		pCommon.YSpeed -= gravity;
