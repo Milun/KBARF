@@ -29,15 +29,14 @@ public class PlatHero : MonoBehaviour {
 
 		if (pCommon.input.HoldUp() && pg.OnGround)
 		{
-			//mc.YSpeed = jumpHeight;
+			pCommon.YSpeed = jumpHeight;
 		}
 
-		if (pCommon.input.HoldRight() && !pc.ColSides(moveSpeed))
+		if (pCommon.input.HoldRight())
 		{
-			print ("HEY!");
 			pCommon.XSpeed = moveSpeed;
 		}
-		else if (pCommon.input.HoldLeft() && !pc.ColSides(-moveSpeed))
+		else if (pCommon.input.HoldLeft())
 		{
 			pCommon.XSpeed = -moveSpeed;
 		}

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlatCommon : MonoBehaviour {
 	
@@ -13,7 +12,8 @@ public class PlatCommon : MonoBehaviour {
 	public MiniInput input;
 	public Rigidbody2D rb;
 
-	[SerializeField] private SpriteManager sManager;
+	[SerializeField] private GameObject platMask;
+	private GameObject pMask;
 
 	// Use this for initialization
 	void Awake ()
@@ -30,7 +30,13 @@ public class PlatCommon : MonoBehaviour {
 
 	void Start()
 	{
-		//GameObject test = instantiate
+		// Create your sprite mask. Pass all your sprite info to it.
+		pMask = (GameObject) Instantiate(platMask, transform.position, transform.rotation);
+
+		UnityEditorInternal.ComponentUtility.CopyComponent(this.GetComponent<SpriteRenderer>());
+		UnityEditorInternal.ComponentUtility.PasteComponentAsNew(pMask);
+
+		Destroy(this.GetComponent<SpriteRenderer>());
 	}
 
 	public LayerMask Layer
@@ -122,11 +128,11 @@ public class PlatCommon : MonoBehaviour {
 	public void SnapToGrid()
 	{
 		// Snap to the fake "pixel grid".
-		/*anim.bodyPosition = new Vector3 ( Mathf.Ceil (transform.position.x/global.PIXEL_JUMP)
-		                                  *global.PIXEL_JUMP,
-		                                 Mathf.Ceil (transform.position.y/global.PIXEL_JUMP)
-		                                  *global.PIXEL_JUMP,
-		                                  transform.position.z);*/
+		pMask.transform.position = new Vector3 (Mathf.Floor (transform.position.x/global.PIXEL_JUMP)
+		                                  		*global.PIXEL_JUMP,
+		                                        Mathf.Floor (transform.position.y/global.PIXEL_JUMP)
+		                                  		*global.PIXEL_JUMP,
+		                                  		transform.position.z);
 	}
 
 	// Update is called once per frame

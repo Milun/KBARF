@@ -10,6 +10,8 @@ public class PlatGravity : MonoBehaviour {
 	[SerializeField] private float ySpeedMax = 1.0f;
 	private bool onGround = false;
 
+	private float anchorLength = 1.0f;
+
 	void Awake ()
 	{
 		pCommon = GetComponent<PlatCommon> ();
@@ -19,11 +21,11 @@ public class PlatGravity : MonoBehaviour {
 	private void Update()
 	{
 		// If there is a collision below, stop.
-		if (pc.ColBot (pCommon.Vel.y))
+		if (pc.ColBot (-anchorLength))
 		{
 			pCommon.YSpeed = 0.0f;
 			onGround = true;
-			print ("TRUE");
+		
 			return;
 		}
 
@@ -31,10 +33,10 @@ public class PlatGravity : MonoBehaviour {
 		pCommon.YSpeed -= gravity;
 		onGround = false;
 		
-		/*if (mc.YSpeed < -ySpeedMax)
+		if (pCommon.YSpeed < -ySpeedMax)
 		{
-			mc.YSpeed = -ySpeedMax;
-		}*/
+			pCommon.YSpeed = -ySpeedMax;
+		}
 	}
 
 	public bool OnGround

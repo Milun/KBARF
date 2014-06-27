@@ -32,6 +32,7 @@ public class PlatEnemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		if (pc.ColBot (-1.0f))
+						pCommon.YSpeed = -pCommon.YSpeed;
 	}
 }
