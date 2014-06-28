@@ -39,11 +39,6 @@ public class PlatCollisions : MonoBehaviour {
 		pBound.pBL = pBL + pCommon.Pos;
 		pBound.pTR = pTR + pCommon.Pos;
 
-		if (pCommon.XSpeed > 0.0f) pBound.pTR += Vector2.right * pCommon.XSpeed;
-		if (pCommon.XSpeed < 0.0f) pBound.pBL += Vector2.right * pCommon.XSpeed;
-		if (pCommon.YSpeed > 0.0f) pBound.pTR += Vector2.up * pCommon.YSpeed;
-		if (pCommon.YSpeed < 0.0f) pBound.pBL += Vector2.up * pCommon.YSpeed;
-
 		pColManager.CheckCol (pBound, this);
 	}
 }

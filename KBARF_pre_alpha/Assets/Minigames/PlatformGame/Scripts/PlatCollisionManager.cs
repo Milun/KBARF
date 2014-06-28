@@ -12,7 +12,7 @@ public class PlatCollisionManager : MonoBehaviour {
 			// Ignore your own collision if it's in the list.
 			if (pBound.IsEqual(e)) continue;
 
-			if (CompareBB (pBound, e, pCollision)) return true;
+			CompareBB (pBound, e, pCollision);
 		}
 
 		// No collisions.
@@ -34,15 +34,15 @@ public class PlatCollisionManager : MonoBehaviour {
 
 	private bool CompareBB(PlatBound pBound, PlatBound pOther, PlatCollisions pCollision)
 	{
-		float safe = 1.0f;
+		float safe = 2.0f;
 
 
 		// Check for X collision.
 		if (
 			(pBound.pBL.x > pOther.pTR.x) ||
 			(pBound.pTR.x < pOther.pBL.x) ||
-			(pBound.pBL.y + safe > pOther.pTR.y) ||
-			(pBound.pTR.y - safe < pOther.pBL.y)
+			(pBound.pBL.y - pCollision.pCommon.YSpeed + safe > pOther.pTR.y) ||
+			(pBound.pTR.y - pCollision.pCommon.YSpeed - safe < pOther.pBL.y)
 			)
 		{
 			
@@ -51,20 +51,22 @@ public class PlatCollisionManager : MonoBehaviour {
 		{
 			if (pCollision.pCommon.XSpeed < 0.0f)
 			{
-				pCollision.pCommon.X = pOther.pTR.x; 
+				pCollision.pCommon.X = pOther.pTR.x;
 			}
 			else if (pCollision.pCommon.XSpeed > 0.0f)
 			{
-				pCollision.pCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x; 
+				pCollision.pCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x;
 			}
+
+			//return true;
 		}
 
 		// Check for Y collision.
 		if (
-			(pBound.pBL.x + safe > pOther.pTR.x) ||
-			(pBound.pTR.x - safe < pOther.pBL.x) ||
-			(pBound.pBL.y > pOther.pTR.y) ||
-			(pBound.pTR.y < pOther.pBL.y)
+			(pBound.pBL.x - pCollision.pCommon.XSpeed + safe > pOther.pTR.x) ||
+			(pBound.pTR.x - pCollision.pCommon.XSpeed - safe < pOther.pBL.x) ||
+			(pBound.pBL.y + pCollision.pCommon.YSpeed > pOther.pTR.y) ||
+			(pBound.pTR.y + pCollision.pCommon.YSpeed < pOther.pBL.y)
 			)
 		{
 			
@@ -78,12 +80,15 @@ public class PlatCollisionManager : MonoBehaviour {
 			}
 			else if (pCollision.pCommon.YSpeed > 0.0f)
 			{
-				pCollision.pCommon.Y = pOther.pBL.y - pCollision.pTR.y - pCollision.pBL.y; 
+				pCollision.pCommon.Y = pOther.pBL.y - pCollision.pTR.y - pCollision.pBL.y;
+				pCollision.pCommon.YSpeed = 0.0f;
 			}
+
+			//return true;
 		}
 
 
 
-		return true;
+		return false;
 	}
 }

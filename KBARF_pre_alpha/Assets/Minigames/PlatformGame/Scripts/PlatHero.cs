@@ -29,7 +29,7 @@ public class PlatHero : MonoBehaviour {
 
 		pc.CheckCol ();
 
-		if (pCommon.input.HoldUp() && pg.OnGround)
+		if (pCommon.input.HoldUp() && pCommon.YSpeed == 0.0f)
 		{
 			pCommon.YSpeed = jumpHeight;
 		}
