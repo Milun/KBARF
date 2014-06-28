@@ -3,25 +3,25 @@ using System.Collections.Generic;
 
 public class PlatCollisionManager : MonoBehaviour {
 	
-	public List<PlatBound> bb = new List<PlatBound>();
+	public List<PlatBound> pBounds = new List<PlatBound>();
 
-	public Vector2 CheckCol(PlatBound myBb, Vector2 vel)
+	public bool CheckCol(PlatBound pBound, PlatCollisions pCollision)
 	{
-		foreach (PlatBound e in bb)
+		foreach (PlatBound e in pBounds)
 		{
-			if (myBb.IsEqual(e)) continue;
+			// Ignore your own collision if it's in the list.
+			if (pBound.IsEqual(e)) continue;
 
-			Vector2 op = CompareBB (myBb, e, vel);
-
-			if (op != Vector2.zero) return op;
+			if (CompareBB (pBound, e, pCollision)) return true;
 		}
 
-		return Vector2.zero;
+		// No collisions.
+		return false;
 	}
 
 	void Update()
 	{
-		foreach (PlatBound e in bb)
+		foreach (PlatBound e in pBounds)
 		{
 			e.draw();
 		}
@@ -29,39 +29,61 @@ public class PlatCollisionManager : MonoBehaviour {
 
 	public void AddCol(PlatBound passBB)
 	{
-		bb.Add (passBB);
+		pBounds.Add (passBB);
 	}
 
-	private Vector2 CompareBB(PlatBound bb0, PlatBound bb1, Vector2 vel)
+	private bool CompareBB(PlatBound pBound, PlatBound pOther, PlatCollisions pCollision)
 	{
-		// Check for no collision.
-		if (bb0.p0.x > bb1.p1.x) return Vector2.zero;
-		if (bb0.p1.x < bb1.p0.x) return Vector2.zero;
-		if (bb0.p0.y < bb1.p1.y) return Vector2.zero;
-		if (bb0.p1.y > bb1.p0.y) return Vector2.zero;
+		float safe = 1.0f;
 
-		float fx = 0.0f;
-		float fy = 0.0f;
 
-		// Move to the location.
-		if (vel.x < 0.0f)
+		// Check for X collision.
+		if (
+			(pBound.pBL.x > pOther.pTR.x) ||
+			(pBound.pTR.x < pOther.pBL.x) ||
+			(pBound.pBL.y + safe > pOther.pTR.y) ||
+			(pBound.pTR.y - safe < pOther.pBL.y)
+			)
 		{
-			fx = bb1.p0.x; 
+			
 		}
-		else if (vel.x > 0.0f)
+		else // Collision!
 		{
-			fx = bb1.p1.x; 
-		}
-
-		if (vel.y < 0.0f)
-		{
-			fy = bb1.p1.y; 
-		}
-		else if (vel.y > 0.0f)
-		{
-			fy = bb1.p0.y; 
+			if (pCollision.pCommon.XSpeed < 0.0f)
+			{
+				pCollision.pCommon.X = pOther.pTR.x; 
+			}
+			else if (pCollision.pCommon.XSpeed > 0.0f)
+			{
+				pCollision.pCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x; 
+			}
 		}
 
-		return new Vector2 (fx, fy);
+		// Check for Y collision.
+		if (
+			(pBound.pBL.x + safe > pOther.pTR.x) ||
+			(pBound.pTR.x - safe < pOther.pBL.x) ||
+			(pBound.pBL.y > pOther.pTR.y) ||
+			(pBound.pTR.y < pOther.pBL.y)
+			)
+		{
+			
+		}
+		else // Collision!
+		{
+			if (pCollision.pCommon.YSpeed < 0.0f)
+			{
+				pCollision.pCommon.Y = pOther.pTR.y;
+				pCollision.pCommon.YSpeed = 0.0f;
+			}
+			else if (pCollision.pCommon.YSpeed > 0.0f)
+			{
+				pCollision.pCommon.Y = pOther.pBL.y - pCollision.pTR.y - pCollision.pBL.y; 
+			}
+		}
+
+
+
+		return true;
 	}
 }

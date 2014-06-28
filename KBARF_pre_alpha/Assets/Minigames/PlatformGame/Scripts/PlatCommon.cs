@@ -120,9 +120,9 @@ public class PlatCommon : MonoBehaviour {
 	public void SnapToGrid()
 	{
 		// Snap to the fake "pixel grid".
-		transform.position = new Vector3 (Mathf.Floor (pos.x/global.PIXEL_JUMP)
+		transform.position = new Vector3 (Mathf.Ceil (pos.x/global.PIXEL_JUMP)
 		                                  *global.PIXEL_JUMP,
-		                                  Mathf.Floor (pos.y/global.PIXEL_JUMP)
+		                                  Mathf.Ceil (pos.y/global.PIXEL_JUMP)
 		                                  *global.PIXEL_JUMP,
 		                                  transform.position.z);
 	}

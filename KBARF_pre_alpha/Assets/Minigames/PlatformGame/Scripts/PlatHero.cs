@@ -27,7 +27,7 @@ public class PlatHero : MonoBehaviour {
 			return;
 		}*/
 
-		pc.CheckCollisions ();
+		pc.CheckCol ();
 
 		if (pCommon.input.HoldUp() && pg.OnGround)
 		{
