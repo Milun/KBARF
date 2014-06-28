@@ -4,7 +4,7 @@ using System.Collections;
 public class PlatEnemy : MonoBehaviour {
 
 	private PlatCommon pCommon;
-	private PlatCollisions pc;
+	private PlatCollision pc;
 
 	[SerializeField] private float animSpeed = 0.1f;
 	[SerializeField] private Vector2 startMove = Vector2.zero;
@@ -12,7 +12,7 @@ public class PlatEnemy : MonoBehaviour {
 	void Awake ()
 	{
 		pCommon = GetComponent<PlatCommon> ();	
-		pc = GetComponent<PlatCollisions> ();	
+		pc = GetComponent<PlatCollision> ();	
 	}
 
 	// Use this for initialization
@@ -32,6 +32,6 @@ public class PlatEnemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		pc.CheckCol ();
 	}
 }

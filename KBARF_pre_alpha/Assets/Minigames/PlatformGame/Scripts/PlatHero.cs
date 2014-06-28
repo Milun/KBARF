@@ -4,7 +4,7 @@ using System.Collections;
 public class PlatHero : MonoBehaviour {
 
 	private PlatCommon pCommon;
-	private PlatCollisions pc;
+	private PlatCollision pc;
 	private PlatGravity pg;
 
 	[SerializeField] private float moveSpeed = 0.5f;
@@ -14,7 +14,7 @@ public class PlatHero : MonoBehaviour {
 	void Awake ()
 	{
 		pCommon = GetComponent<PlatCommon> ();	
-		pc = GetComponent<PlatCollisions> ();
+		pc = GetComponent<PlatCollision> ();
 		pg = GetComponent<PlatGravity> ();	
 	}
 
@@ -29,7 +29,7 @@ public class PlatHero : MonoBehaviour {
 
 		pc.CheckCol ();
 
-		if (pCommon.input.HoldUp() && pCommon.YSpeed == 0.0f)
+		if (pCommon.input.HoldUp() && pc.IsColDown())
 		{
 			pCommon.YSpeed = jumpHeight;
 		}

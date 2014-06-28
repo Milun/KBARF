@@ -6,7 +6,8 @@ public class PlatBound : MonoBehaviour {
 	// REMEMBER! The textures pivot MUST be the bottom-left corner!
 	public Vector2 pBL 	= Vector2.zero;
 	public Vector2 pTR 	= Vector2.zero;
-	
+	public bool solid = true;
+
 	public bool IsEqual(PlatBound other)
 	{
 		return (other.pBL == pBL && other.pTR == pTR);
@@ -20,4 +21,6 @@ public class PlatBound : MonoBehaviour {
 		Debug.DrawRay (pTR, -Vector2.right 	* 8.0f);
 		Debug.DrawRay (pTR, -Vector2.up 	* 8.0f);
 	}
+
+
 }

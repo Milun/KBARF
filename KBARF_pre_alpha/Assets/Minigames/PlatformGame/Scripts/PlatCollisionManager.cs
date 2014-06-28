@@ -5,26 +5,28 @@ public class PlatCollisionManager : MonoBehaviour {
 	
 	public List<PlatBound> pBounds = new List<PlatBound>();
 
-	public bool CheckCol(PlatBound pBound, PlatCollisions pCollision)
+	public Vector2 CheckCol(PlatBound pBound, PlatCollision pCollision)
 	{
+		Vector2 op = Vector2.zero;
+
 		foreach (PlatBound e in pBounds)
 		{
 			// Ignore your own collision if it's in the list.
 			if (pBound.IsEqual(e)) continue;
 
-			CompareBB (pBound, e, pCollision);
+			op += CompareBB (pBound, e, pCollision);
 		}
 
 		// No collisions.
-		return false;
+		return op;
 	}
 
 	void Update()
 	{
-		foreach (PlatBound e in pBounds)
-		{
-			e.draw();
-		}
+		//foreach (PlatBound e in pBounds)
+		//{
+		//	e.draw();
+		//}
 	}
 
 	public void AddCol(PlatBound passBB)
@@ -32,65 +34,80 @@ public class PlatCollisionManager : MonoBehaviour {
 		pBounds.Add (passBB);
 	}
 
-	private bool CompareBB(PlatBound pBound, PlatBound pOther, PlatCollisions pCollision)
+	private Vector2 CompareBB(PlatBound pBound, PlatBound pOther, PlatCollision pCollision)
 	{
-		float safe = 2.0f;
-
-
-		// Check for X collision.
-		if (
-			(pBound.pBL.x + pCollision.pCommon.XSpeed > pOther.pTR.x) ||
-			(pBound.pTR.x + pCollision.pCommon.XSpeed < pOther.pBL.x) ||
-			(pBound.pBL.y - pCollision.pCommon.YSpeed + safe > pOther.pTR.y) ||
-			(pBound.pTR.y - pCollision.pCommon.YSpeed - safe < pOther.pBL.y)
-			)
-		{
-			
-		}
-		else // Collision!
-		{
-			if (pCollision.pCommon.XSpeed < 0.0f)
-			{
-				pCollision.pCommon.X = pOther.pTR.x;
-				pCollision.pCommon.XSpeed = 0.0f;
-			}
-			else if (pCollision.pCommon.XSpeed > 0.0f)
-			{
-				pCollision.pCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x;
-				pCollision.pCommon.XSpeed = 0.0f;
-			}
-
-			//return true;
-		}
+		float safe = 1.0f;
 
 		// Check for Y collision.
-		if (
-			(pBound.pBL.x - pCollision.pCommon.XSpeed + safe > pOther.pTR.x) ||
-			(pBound.pTR.x - pCollision.pCommon.XSpeed - safe < pOther.pBL.x) ||
-			(pBound.pBL.y + pCollision.pCommon.YSpeed > pOther.pTR.y) ||
-			(pBound.pTR.y + pCollision.pCommon.YSpeed < pOther.pBL.y)
-			)
+		if (!pOther.solid)
 		{
-			
-		}
-		else // Collision!
-		{
-			if (pCollision.pCommon.YSpeed < 0.0f)
+			if (
+				pCollision.pCommon.YSpeed < 0.0f &&
+				(pBound.pBL.x - pCollision.pCommon.XSpeed + safe < pOther.pTR.x) &&
+				(pBound.pTR.x - pCollision.pCommon.XSpeed - safe > pOther.pBL.x) &&
+				(pBound.pBL.y + pCollision.pCommon.YSpeed - 1.0f < pOther.pTR.y) &&
+				(pBound.pBL.y + 1.0f			 				 > pOther.pTR.y)
+				)
 			{
 				pCollision.pCommon.Y = pOther.pTR.y;
-				pCollision.pCommon.YSpeed = 0.0f;
-			}
-			else if (pCollision.pCommon.YSpeed > 0.0f)
-			{
-				pCollision.pCommon.Y = pOther.pBL.y - pCollision.pTR.y - pCollision.pBL.y;
-				pCollision.pCommon.YSpeed = 0.0f;
+
+				return Vector2.up;
 			}
 
-			//return true;
+			return Vector2.zero;
+		}
+		else
+		{
+			// Note: Two squares can only touch on one side.
+			// Also, assumes you can't be touched from opposite sides.
+
+			// Check for X collision.
+			if (
+				pCollision.pCommon.XSpeed != 0.0f &&
+				(pBound.pBL.x + pCollision.pCommon.XSpeed < pOther.pTR.x) &&
+				(pBound.pTR.x + pCollision.pCommon.XSpeed > pOther.pBL.x) &&
+				(pBound.pBL.y - pCollision.pCommon.YSpeed + safe < pOther.pTR.y) &&
+				(pBound.pTR.y - pCollision.pCommon.YSpeed - safe > pOther.pBL.y)
+				)
+			{
+				if (pCollision.pCommon.XSpeed < 0.0f)
+				{
+					pCollision.pCommon.X = pOther.pTR.x;
+
+					return Vector2.right;
+				}
+				else if (pCollision.pCommon.XSpeed > 0.0f)
+				{
+					pCollision.pCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x;
+
+					return -Vector2.right;
+				}
+			}
+
+			// Check for Y collision.
+			if (
+				pCollision.pCommon.YSpeed != 0.0f &&
+				(pBound.pBL.x - pCollision.pCommon.XSpeed + safe < pOther.pTR.x) &&
+				(pBound.pTR.x - pCollision.pCommon.XSpeed - safe > pOther.pBL.x) &&
+				(pBound.pBL.y + pCollision.pCommon.YSpeed < pOther.pTR.y) &&
+				(pBound.pTR.y + pCollision.pCommon.YSpeed > pOther.pBL.y)
+				)
+			{
+				if (pCollision.pCommon.YSpeed < 0.0f)
+				{
+					pCollision.pCommon.Y = pOther.pTR.y;
+
+					return Vector2.up;
+				}
+				else if (pCollision.pCommon.YSpeed > 0.0f)
+				{
+					pCollision.pCommon.Y = pOther.pBL.y - pCollision.pTR.y - pCollision.pBL.y;
+
+					return -Vector2.up;
+				}
+			}
 		}
 
-
-
-		return false;
+		return Vector2.zero;
 	}
 }

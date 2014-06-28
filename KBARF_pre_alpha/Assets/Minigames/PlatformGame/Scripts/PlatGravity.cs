@@ -4,7 +4,7 @@ using System.Collections;
 public class PlatGravity : MonoBehaviour {
 
 	private PlatCommon pCommon;
-	private PlatCollisions pc;
+	private PlatCollision pc;
 
 	[SerializeField] private float gravity = 0.1f;
 	[SerializeField] private float ySpeedMax = 1.0f;
@@ -15,7 +15,7 @@ public class PlatGravity : MonoBehaviour {
 	void Awake ()
 	{
 		pCommon = GetComponent<PlatCommon> ();
-		pc = GetComponent<PlatCollisions> ();
+		pc = GetComponent<PlatCollision> ();
 	}
 
 	private void Update()
