@@ -39,8 +39,8 @@ public class PlatCollisionManager : MonoBehaviour {
 
 		// Check for X collision.
 		if (
-			(pBound.pBL.x > pOther.pTR.x) ||
-			(pBound.pTR.x < pOther.pBL.x) ||
+			(pBound.pBL.x + pCollision.pCommon.XSpeed > pOther.pTR.x) ||
+			(pBound.pTR.x + pCollision.pCommon.XSpeed < pOther.pBL.x) ||
 			(pBound.pBL.y - pCollision.pCommon.YSpeed + safe > pOther.pTR.y) ||
 			(pBound.pTR.y - pCollision.pCommon.YSpeed - safe < pOther.pBL.y)
 			)
@@ -52,10 +52,12 @@ public class PlatCollisionManager : MonoBehaviour {
 			if (pCollision.pCommon.XSpeed < 0.0f)
 			{
 				pCollision.pCommon.X = pOther.pTR.x;
+				pCollision.pCommon.XSpeed = 0.0f;
 			}
 			else if (pCollision.pCommon.XSpeed > 0.0f)
 			{
 				pCollision.pCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x;
+				pCollision.pCommon.XSpeed = 0.0f;
 			}
 
 			//return true;
