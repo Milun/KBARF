@@ -10,12 +10,16 @@ public class PlatHero : MonoBehaviour {
 	[SerializeField] private float moveSpeed = 0.5f;
 	[SerializeField] private float jumpHeight = 2.0f;
 
+	private MiniInput input;
+
 	// Use this for initialization
 	void Awake ()
 	{
 		pCommon = GetComponent<PlatCommon> ();	
 		pc = GetComponent<PlatCollision> ();
 		pg = GetComponent<PlatGravity> ();	
+
+		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
 	}
 
 	// Update is called once per frame
@@ -29,16 +33,16 @@ public class PlatHero : MonoBehaviour {
 
 		pc.CheckCol ();
 
-		if (pCommon.input.HoldUp() && pc.IsColDown())
+		if (input.HoldUp() && pc.IsColDown())
 		{
 			pCommon.YSpeed = jumpHeight;
 		}
 
-		if (pCommon.input.HoldRight())
+		if (input.HoldRight())
 		{
 			pCommon.XSpeed = moveSpeed;
 		}
-		else if (pCommon.input.HoldLeft())
+		else if (input.HoldLeft())
 		{
 			pCommon.XSpeed = -moveSpeed;
 		}

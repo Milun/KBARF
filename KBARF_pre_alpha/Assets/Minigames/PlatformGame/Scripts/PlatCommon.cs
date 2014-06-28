@@ -4,24 +4,21 @@ using System.Collections;
 public class PlatCommon : MonoBehaviour {
 	
 	// The players position on the screen.
-	public int layer   = 1;				// The layer that this object is on and should interact with.
 	private LayerMask layerMask;
 
 	private Vector2 pos;				// The objects REAL position.
 	private Vector2 vel;				// The objects REAL velocity.
 
-	public Global2D global;
-	public MiniInput input;
+	private Global2D global;
 
 	// Use this for initialization
 	void Awake ()
 	{
 		// Establish a link to global statistics.
 		global = StatMini.GetMiniContainer(transform).GetComponent<Global2D> ();
-		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
 
 		// Set the layer mask we're using.
-		layerMask = 1 << layer;
+		layerMask = 1 << global.LAYER;
 
 		pos = new Vector2(transform.position.x, transform.position.y);
 	}
@@ -122,7 +119,7 @@ public class PlatCommon : MonoBehaviour {
 		// Snap to the fake "pixel grid".
 		transform.position = new Vector3 (Mathf.Round (pos.x/global.PIXEL_JUMP)
 		                                  *global.PIXEL_JUMP,
-		                                  Mathf.Round (pos.y/global.PIXEL_JUMP)
+		                                  Mathf.Ceil (pos.y/global.PIXEL_JUMP)
 		                                  *global.PIXEL_JUMP,
 		                                  transform.position.z);
 	}

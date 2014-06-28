@@ -5,15 +5,12 @@ public class Global2D : MonoBehaviour {
 	
 	[SerializeField] private float 			frameDelay = 0.1f;
 	[SerializeField] private float 			pixelJump = 1.0f;
+	[SerializeField] private int			layer = 0;
 
 	private float							frameTime = 0.0f;
 	private bool 							frameActive = false;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
+	// Returns true whenever a frame triggers.
 	public bool Frame()
 	{
 		return frameActive;
@@ -40,6 +37,14 @@ public class Global2D : MonoBehaviour {
 		get
 		{
 			return pixelJump;
+		}
+	}
+
+	public int LAYER
+	{
+		get
+		{
+			return layer;
 		}
 	}
 }
