@@ -42,14 +42,14 @@ public class PlatCollisionManager : MonoBehaviour {
 		if (!pOther.solid)
 		{
 			if (
-				pCollision.pCommon.YSpeed < 0.0f &&
-				(pBound.pBL.x - pCollision.pCommon.XSpeed + safe < pOther.pTR.x) &&
-				(pBound.pTR.x - pCollision.pCommon.XSpeed - safe > pOther.pBL.x) &&
-				(pBound.pBL.y + pCollision.pCommon.YSpeed - 1.0f < pOther.pTR.y) &&
+				pCollision.PCommon.YSpeed < 0.0f &&
+				(pBound.pBL.x - pCollision.PCommon.XSpeed + safe < pOther.pTR.x) &&
+				(pBound.pTR.x - pCollision.PCommon.XSpeed - safe > pOther.pBL.x) &&
+				(pBound.pBL.y + pCollision.PCommon.YSpeed - 1.0f < pOther.pTR.y) &&
 				(pBound.pBL.y + 1.0f			 				 > pOther.pTR.y)
 				)
 			{
-				pCollision.pCommon.Y = pOther.pTR.y;
+				pCollision.PCommon.Y = pOther.pTR.y;
 
 				return Vector2.up;
 			}
@@ -63,22 +63,22 @@ public class PlatCollisionManager : MonoBehaviour {
 
 			// Check for X collision.
 			if (
-				pCollision.pCommon.XSpeed != 0.0f &&
-				(pBound.pBL.x + pCollision.pCommon.XSpeed < pOther.pTR.x) &&
-				(pBound.pTR.x + pCollision.pCommon.XSpeed > pOther.pBL.x) &&
-				(pBound.pBL.y - pCollision.pCommon.YSpeed + safe < pOther.pTR.y) &&
-				(pBound.pTR.y - pCollision.pCommon.YSpeed - safe > pOther.pBL.y)
+				pCollision.PCommon.XSpeed != 0.0f &&
+				(pBound.pBL.x + pCollision.PCommon.XSpeed < pOther.pTR.x) &&
+				(pBound.pTR.x + pCollision.PCommon.XSpeed > pOther.pBL.x) &&
+				(pBound.pBL.y - pCollision.PCommon.YSpeed + safe < pOther.pTR.y) &&
+				(pBound.pTR.y - pCollision.PCommon.YSpeed - safe > pOther.pBL.y)
 				)
 			{
-				if (pCollision.pCommon.XSpeed < 0.0f)
+				if (pCollision.PCommon.XSpeed < 0.0f)
 				{
-					pCollision.pCommon.X = pOther.pTR.x;
+					pCollision.PCommon.X = pOther.pTR.x;
 
 					return Vector2.right;
 				}
-				else if (pCollision.pCommon.XSpeed > 0.0f)
+				else if (pCollision.PCommon.XSpeed > 0.0f)
 				{
-					pCollision.pCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x;
+					pCollision.PCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x;
 
 					return -Vector2.right;
 				}
@@ -86,22 +86,22 @@ public class PlatCollisionManager : MonoBehaviour {
 
 			// Check for Y collision.
 			if (
-				pCollision.pCommon.YSpeed != 0.0f &&
-				(pBound.pBL.x - pCollision.pCommon.XSpeed + safe < pOther.pTR.x) &&
-				(pBound.pTR.x - pCollision.pCommon.XSpeed - safe > pOther.pBL.x) &&
-				(pBound.pBL.y + pCollision.pCommon.YSpeed < pOther.pTR.y) &&
-				(pBound.pTR.y + pCollision.pCommon.YSpeed > pOther.pBL.y)
+				pCollision.PCommon.YSpeed != 0.0f &&
+				(pBound.pBL.x - pCollision.PCommon.XSpeed + safe < pOther.pTR.x) &&
+				(pBound.pTR.x - pCollision.PCommon.XSpeed - safe > pOther.pBL.x) &&
+				(pBound.pBL.y + pCollision.PCommon.YSpeed < pOther.pTR.y) &&
+				(pBound.pTR.y + pCollision.PCommon.YSpeed > pOther.pBL.y)
 				)
 			{
-				if (pCollision.pCommon.YSpeed < 0.0f)
+				if (pCollision.PCommon.YSpeed < 0.0f)
 				{
-					pCollision.pCommon.Y = pOther.pTR.y;
+					pCollision.PCommon.Y = pOther.pTR.y;
 
 					return Vector2.up;
 				}
-				else if (pCollision.pCommon.YSpeed > 0.0f)
+				else if (pCollision.PCommon.YSpeed > 0.0f)
 				{
-					pCollision.pCommon.Y = pOther.pBL.y - pCollision.pTR.y - pCollision.pBL.y;
+					pCollision.PCommon.Y = pOther.pBL.y - pCollision.pTR.y - pCollision.pBL.y;
 
 					return -Vector2.up;
 				}

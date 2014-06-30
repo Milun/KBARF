@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Global2D : MonoBehaviour {
+public class PlatGlobal : MonoBehaviour {
 	
 	[SerializeField] private float 			frameDelay = 0.1f;
 	[SerializeField] private float 			pixelJump = 1.0f;

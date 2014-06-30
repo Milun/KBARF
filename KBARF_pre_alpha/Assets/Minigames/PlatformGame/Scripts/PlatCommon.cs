@@ -9,16 +9,16 @@ public class PlatCommon : MonoBehaviour {
 	private Vector2 pos;				// The objects REAL position.
 	private Vector2 vel;				// The objects REAL velocity.
 
-	private Global2D global;
+	private PlatGlobal pGlobal;
 
 	// Use this for initialization
 	void Awake ()
 	{
 		// Establish a link to global statistics.
-		global = StatMini.GetMiniContainer(transform).GetComponent<Global2D> ();
+		pGlobal = StatMini.GetMiniContainer(transform).GetComponent<PlatGlobal> ();
 
 		// Set the layer mask we're using.
-		layerMask = 1 << global.LAYER;
+		layerMask = 1 << pGlobal.LAYER;
 
 		pos = new Vector2(transform.position.x, transform.position.y);
 	}
@@ -117,10 +117,10 @@ public class PlatCommon : MonoBehaviour {
 	public void SnapToGrid()
 	{
 		// Snap to the fake "pixel grid".
-		transform.position = new Vector3 (Mathf.Round (pos.x/global.PIXEL_JUMP)
-		                                  *global.PIXEL_JUMP,
-		                                  Mathf.Ceil (pos.y/global.PIXEL_JUMP)
-		                                  *global.PIXEL_JUMP,
+		transform.position = new Vector3 (Mathf.Round (pos.x/pGlobal.PIXEL_JUMP)
+		                                  *pGlobal.PIXEL_JUMP,
+		                                  Mathf.Ceil (pos.y/pGlobal.PIXEL_JUMP)
+		                                  *pGlobal.PIXEL_JUMP,
 		                                  transform.position.z);
 	}
 
@@ -130,7 +130,7 @@ public class PlatCommon : MonoBehaviour {
 		pos += vel;
 
 		// Make everything move at the exact same intervals.
-		if (!global.Frame()) return;
+		if (!pGlobal.Frame()) return;
 
 		SnapToGrid ();
 	}
