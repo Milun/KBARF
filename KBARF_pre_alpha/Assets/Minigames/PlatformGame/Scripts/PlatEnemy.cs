@@ -33,9 +33,3 @@ public class PlatEnemy : MonoBehaviour {
 		}
 	}
 }
-
-[ExecuteInEditMode]
-Debug.DrawRay(transform.position + new Vector3(offset.x, offset.y, 0.0f), Vector3.right * bounds.x, color);
-Debug.DrawRay(transform.position + new Vector3(offset.x, offset.y, 0.0f) + Vector3.up * bounds.y, Vector3.right * bounds.x, color);
-Debug.DrawRay(transform.position + new Vector3(offset.x, offset.y, 0.0f), Vector3.up * bounds.y, color);
-Debug.DrawRay(transform.position + new Vector3(offset.x, offset.y, 0.0f) + Vector3.right * bounds.x, Vector3.up * bounds.y, color);

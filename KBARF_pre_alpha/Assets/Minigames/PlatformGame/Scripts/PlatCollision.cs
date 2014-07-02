@@ -30,7 +30,7 @@ public class PlatCollision : MonoBehaviour {
 		pColManager = GameObject.Find("CollisionManager").GetComponent<PlatCollisionManager> ();
 
 		// Set up your initial bounds and send them to the manager for storage.
-		pBound = this.gameObject.AddComponent<PlatBound>();
+		pBound = new PlatBound();
 		pBound.pBL = offset + new Vector2(transform.position.x, transform.position.y);
 		pBound.pTR = offset + bounds + new Vector2(transform.position.x, transform.position.y);
 		pBound.solid = solid;
