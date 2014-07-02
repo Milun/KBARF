@@ -36,7 +36,12 @@ public class PlatCollisionManager : MonoBehaviour {
 
 	private Vector2 CompareBB(PlatBound pBound, PlatBound pOther, PlatCollision pCollision)
 	{
-		float safe = 1.0f;
+		// WARNING: Some kind of glitch introduced when changed out of pBL and pTR in PlatCollision.
+		// Fixed by increasing "safe", but still weird.
+		// OH! It was caused by fixing the math error where I subtracted offset twice...
+		// Wait... That wouldn't have done anything?
+		// Call em hitboxes...? Defensive/offensive different?
+		float safe = 2.0f;
 
 		// Check for Y collision.
 		if (!pOther.solid)
@@ -72,13 +77,13 @@ public class PlatCollisionManager : MonoBehaviour {
 			{
 				if (pCollision.PCommon.XSpeed < 0.0f)
 				{
-					pCollision.PCommon.X = pOther.pTR.x;
+					pCollision.PCommon.X = pOther.pTR.x - pCollision.Offset.x;
 
 					return Vector2.right;
 				}
 				else if (pCollision.PCommon.XSpeed > 0.0f)
 				{
-					pCollision.PCommon.X = pOther.pBL.x - pCollision.pTR.x - pCollision.pBL.x;
+					pCollision.PCommon.X = pOther.pBL.x - pCollision.Offset.x - pCollision.Bounds.x;
 
 					return -Vector2.right;
 				}
@@ -95,13 +100,13 @@ public class PlatCollisionManager : MonoBehaviour {
 			{
 				if (pCollision.PCommon.YSpeed < 0.0f)
 				{
-					pCollision.PCommon.Y = pOther.pTR.y;
+					pCollision.PCommon.Y = pOther.pTR.y - pCollision.Offset.y;
 
 					return Vector2.up;
 				}
 				else if (pCollision.PCommon.YSpeed > 0.0f)
 				{
-					pCollision.PCommon.Y = pOther.pBL.y - pCollision.pTR.y - pCollision.pBL.y;
+					pCollision.PCommon.Y = pOther.pBL.y - pCollision.Offset.y - pCollision.Bounds.y;
 
 					return -Vector2.up;
 				}

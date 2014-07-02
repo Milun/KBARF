@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class PlatCollision : MonoBehaviour {
-	
+
+	private PlatCommon 			pCommon;
+
 	[SerializeField] private Vector2 offset = Vector2.zero;	// Example: [2, 1]. Is the Bottom Left point.
 	[SerializeField] private Vector2 bounds = Vector2.zero; // Example: [8, 8]
 	[SerializeField] private bool solid = true;
@@ -13,17 +15,13 @@ public class PlatCollision : MonoBehaviour {
 		BOUNCE,
 		IGNORE
 	};
-
-	private CollisionBehavior 	colBehavior = CollisionBehavior.STOP;
-	private PlatCommon 			pCommon;
-
 	private PlatBound 			pBound;
-	private Vector2 			pBL;		// The original bounds (relative to the object)
-	private Vector2 			pTR;
 
-	private Vector2 cols = Vector2.zero;
+	[SerializeField] private CollisionBehavior 	colBehavior = CollisionBehavior.STOP;
 
 	private PlatCollisionManager pColManager;	// Reference to the object which handles collisions.
+	private Vector2 cols = Vector2.zero;
+
 
 	// Use this for initialization
 	void Awake ()
@@ -31,29 +29,34 @@ public class PlatCollision : MonoBehaviour {
 		pCommon 	= GetComponent<PlatCommon> ();
 		pColManager = GameObject.Find("CollisionManager").GetComponent<PlatCollisionManager> ();
 
-		// If this object ever moves, we'll need these.
-		pOrigin.pBL = offset;
-		pOrigin.pTR = offset + bounds;
-
 		// Set up your initial bounds and send them to the manager for storage.
 		pBound = this.gameObject.AddComponent<PlatBound>();
-		pBound.pBL = pOrigin.pBL + new Vector2(transform.position.x, transform.position.y);
-		pBound.pTR = pOrigin.pTR + new Vector2(transform.position.x, transform.position.y);
+		pBound.pBL = offset + new Vector2(transform.position.x, transform.position.y);
+		pBound.pTR = offset + bounds + new Vector2(transform.position.x, transform.position.y);
 		pBound.solid = solid;
 
 		// If the pBound is never updated again, the manager will think there's always a collision here.
 		pColManager.AddCol (pBound);
 	}
 
-	public void CheckCol()
+	public void Update()
 	{
+		// Only check collisions if the object is moving.
+		// If the object is still, such as a wall, it won't have PlatformCommon at all, so Update() won't execute.
+		if (!pCommon) return;
+
 		// Move the bound to be relative to your (real) position.
-		pBound.pBL = pOrigin.pBL + pCommon.Pos;
-		pBound.pTR = pOrigin.pTR + pCommon.Pos;
+		pBound.pBL = offset + pCommon.Pos;
+		pBound.pTR = offset + bounds + pCommon.Pos;
 
 		cols = pColManager.CheckCol (pBound, this);
 
-		if (colBehavior == CollisionBehavior.STOP)
+		// Don't do anything if this object is a "ghost".
+		if (colBehavior == CollisionBehavior.IGNORE)
+		{
+			return;
+		}
+		else if (colBehavior == CollisionBehavior.STOP)
 		{
 			if (IsColLeft() || IsColRight())
 			{
@@ -104,6 +107,22 @@ public class PlatCollision : MonoBehaviour {
 		get
 		{
 			return pCommon;
+		}
+	}
+
+	public Vector2 Offset
+	{
+		get
+		{
+			return offset;
+		}
+	}
+
+	public Vector2 Bounds
+	{
+		get
+		{
+			return bounds;
 		}
 	}
 }
