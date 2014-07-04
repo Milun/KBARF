@@ -34,6 +34,11 @@ public class PlatCollisionManager : MonoBehaviour {
 		pBounds.Add (passBB);
 	}
 
+	public void DestroyCol(PlatBound passBB)
+	{
+		pBounds.Remove (passBB);
+	}
+
 	private Vector2 CompareBB(PlatBound pBound, PlatBound pOther, PlatCollision pCollision)
 	{
 		// WARNING: Some kind of glitch introduced when changed out of pBL and pTR in PlatCollision.

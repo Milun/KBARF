@@ -15,7 +15,8 @@ public class PlatCommon : MonoBehaviour {
 	void Awake ()
 	{
 		// Establish a link to global statistics.
-		pGlobal = StatMini.GetMiniContainer(transform).GetComponent<PlatGlobal> ();
+		pGlobal = GameObject.Find ("MiniGame2").GetComponent<PlatGlobal> ();
+		//StatMini.GetMiniContainer(transform).GetComponent<PlatGlobal> ();
 
 		// Set the layer mask we're using.
 		layerMask = 1 << pGlobal.LAYER;

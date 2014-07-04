@@ -6,6 +6,7 @@ public class PlatGlobal : MonoBehaviour {
 	[SerializeField] private float 			frameDelay = 0.1f;
 	[SerializeField] private float 			pixelJump = 1.0f;
 	[SerializeField] private int			layer = 0;
+	[SerializeField] private Vector2		roomSize = Vector2.one;
 
 	private float							frameTime = 0.0f;
 	private bool 							frameActive = false;
@@ -45,6 +46,14 @@ public class PlatGlobal : MonoBehaviour {
 		get
 		{
 			return layer;
+		}
+	}
+
+	public Vector2 ROOM_SIZE
+	{
+		get
+		{
+			return roomSize;
 		}
 	}
 }

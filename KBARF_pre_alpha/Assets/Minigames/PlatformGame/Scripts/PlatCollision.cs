@@ -82,6 +82,11 @@ public class PlatCollision : MonoBehaviour {
 		}
 	}
 
+	void OnDestroy()
+	{
+		pColManager.DestroyCol (pBound);
+	}
+
 	public bool IsColLeft()
 	{
 		return (cols.x > 0.0f);
