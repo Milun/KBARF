@@ -4,19 +4,19 @@ using System.Collections;
 public class PlatRoom : MonoBehaviour {
 
 	// REMEMBER! The textures pivot MUST be the bottom-left corner!
-	public GameObject roomUp;
-	public GameObject roomRight;
-	public GameObject roomDown;
-	public GameObject roomLeft;
+	[SerializeField] private GameObject roomUp;
+	[SerializeField] private GameObject roomRight;
+	[SerializeField] private GameObject roomDown;
+	[SerializeField] private GameObject roomLeft;
 
-	public PlatRoom MoveRight()
+	public PlatRoom MoveRoom(GameObject newRoom)
 	{
-		if (roomRight == null)
+		if (newRoom == null)
 		{
 			return null;
 		}
 
-		GameObject room = (GameObject)GameObject.Instantiate (roomRight);
+		GameObject room = (GameObject)GameObject.Instantiate (newRoom);
 		room.transform.parent = this.transform.parent;
 
 		return room.GetComponent<PlatRoom>();
@@ -24,14 +24,21 @@ public class PlatRoom : MonoBehaviour {
 
 	public PlatRoom MoveLeft()
 	{
-		if (roomLeft == null)
-		{
-			return null;
-		}
-		
-		GameObject room = (GameObject)GameObject.Instantiate (roomLeft);
-		room.transform.parent = this.transform.parent;
-		
-		return room.GetComponent<PlatRoom>();
+		return MoveRoom(roomLeft);
+	}
+
+	public PlatRoom MoveRight()
+	{
+		return MoveRoom(roomRight);
+	}
+
+	public PlatRoom MoveUp()
+	{
+		return MoveRoom(roomUp);
+	}
+
+	public PlatRoom MoveDown()
+	{
+		return MoveRoom(roomDown);
 	}
 }

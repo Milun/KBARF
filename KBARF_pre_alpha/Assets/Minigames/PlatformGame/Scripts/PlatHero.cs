@@ -11,9 +11,6 @@ public class PlatHero : MonoBehaviour {
 	[SerializeField] private float moveSpeed = 0.5f;
 	[SerializeField] private float jumpHeight = 2.0f;
 
-	private float width;
-	private float height;
-
 	private MiniInput input;
 
 	[SerializeField] private GameObject passRoom;
@@ -32,15 +29,17 @@ public class PlatHero : MonoBehaviour {
 
 	void Start()
 	{
-		width 	= pc.Offset.x + pc.Bounds.x;
-		height 	= pc.Offset.y + pc.Bounds.y;
-
 		pRoom = passRoom.GetComponent<PlatRoom> ();
+	}
+
+	private void Die()
+	{
+
 	}
 
 	private void MoveRoom()
 	{
-		if (pCommon.XSpeed > 0.0f && pCommon.X + width > pGlobal.ROOM_SIZE.x)
+		if (pCommon.XSpeed > 0.0f && pCommon.X + pc.Offset.x + pc.Bounds.x > pGlobal.ROOM_SIZE.x)
 		{
 			PlatRoom room = pRoom.MoveRight();
 			
@@ -49,15 +48,15 @@ public class PlatHero : MonoBehaviour {
 				GameObject.Destroy(pRoom.gameObject);
 				pRoom = room;
 				
-				pCommon.X = 0.0f;
+				pCommon.X = pc.Offset.x;
 			}
 			else
 			{
 				pCommon.XSpeed = 0.0f;
-				pCommon.X = pGlobal.ROOM_SIZE.x - width;
+				pCommon.X = pGlobal.ROOM_SIZE.x - pc.Offset.x - pc.Bounds.x;
 			}
 		}
-		else if (pCommon.XSpeed < 0.0f && pCommon.X < 0.0f)
+		else if (pCommon.XSpeed < 0.0f && pCommon.X + pc.Offset.x < 0.0f)
 		{
 			PlatRoom room = pRoom.MoveLeft();
 
@@ -66,24 +65,52 @@ public class PlatHero : MonoBehaviour {
 				GameObject.Destroy(pRoom.gameObject);
 				pRoom = room;
 				
-				pCommon.X = pGlobal.ROOM_SIZE.x - width;
+				pCommon.X = pGlobal.ROOM_SIZE.x - pc.Offset.x - pc.Bounds.x;
 			}
 			else
 			{
 				pCommon.XSpeed = 0.0f;
-				pCommon.X = 0.0f;
+				pCommon.X = pc.Offset.x;
 			}
 		}
 
-
-
-		if (pCommon.Y + height > pGlobal.ROOM_SIZE.y)
+		
+		if (pCommon.YSpeed > 0.0f && pCommon.Y + pc.Offset.y + pc.Bounds.y > pGlobal.ROOM_SIZE.y)
 		{
-			pCommon.Y = 0.0f;
+			PlatRoom room = pRoom.MoveUp();
+			
+			if (room != null)
+			{
+				GameObject.Destroy(pRoom.gameObject);
+				pRoom = room;
+				
+				pCommon.Y = pc.Offset.y;
+			}
+			else
+			{
+				pCommon.YSpeed = 0.0f;
+				pCommon.Y = pGlobal.ROOM_SIZE.y - pc.Offset.y - pc.Bounds.y;
+			}
+
 		}
-		else if (pCommon.Y < 0.0f)
+		else if (pCommon.YSpeed < 0.0f && pCommon.Y + pc.Offset.y < 0.0f)
 		{
-			pCommon.Y = pGlobal.ROOM_SIZE.y - height;
+			PlatRoom room = pRoom.MoveDown();
+			
+			if (room != null)
+			{
+				GameObject.Destroy(pRoom.gameObject);
+				pRoom = room;
+				
+				pCommon.Y = pGlobal.ROOM_SIZE.y - pc.Offset.y - pc.Bounds.y;
+			}
+			else
+			{
+				pCommon.YSpeed = 0.0f;
+				pCommon.Y = pc.Offset.y;
+
+				Die ();
+			}
 		}
 	}
 
