@@ -79,6 +79,29 @@ public class PlatCollision : MonoBehaviour {
 			{
 				pCommon.YSpeed = -pCommon.YSpeed;
 			}
+
+
+			if (pCommon.XSpeed > 0.0f && pCommon.X + offset.x + bounds.x > pCommon.PGlobal.ROOM_SIZE.x)
+			{
+				pCommon.X = pCommon.PGlobal.ROOM_SIZE.x - offset.x - bounds.x;
+				pCommon.XSpeed = -pCommon.XSpeed;
+			}
+			else if (pCommon.XSpeed < 0.0f && pCommon.X + offset.x < 0.0f)
+			{
+				pCommon.X = offset.x;
+				pCommon.XSpeed = -pCommon.XSpeed;
+			}
+			
+			if (pCommon.YSpeed > 0.0f && pCommon.Y + offset.y + bounds.y > pCommon.PGlobal.ROOM_SIZE.y)
+			{
+				pCommon.Y = pCommon.PGlobal.ROOM_SIZE.y - offset.y - bounds.y;
+				pCommon.YSpeed = -pCommon.YSpeed;
+			}
+			else if (pCommon.YSpeed < 0.0f && pCommon.Y + offset.y < 0.0f)
+			{
+				pCommon.Y = offset.y;
+				pCommon.YSpeed = -pCommon.YSpeed;
+			}
 		}
 	}
 

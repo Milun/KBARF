@@ -9,6 +9,9 @@ public class PlatCommon : MonoBehaviour {
 	private Vector2 pos;				// The objects REAL position.
 	private Vector2 vel;				// The objects REAL velocity.
 
+	private float posOffsetX = 0.0f;	// Used in sprite flips.
+	private Vector2 scale = Vector2.one;
+
 	private PlatGlobal pGlobal;
 
 	// Use this for initialization
@@ -29,11 +32,45 @@ public class PlatCommon : MonoBehaviour {
 
 	}
 
+	public PlatGlobal PGlobal
+	{
+		get
+		{
+			return pGlobal;
+		}
+	}
+
 	public LayerMask Layer
 	{
 		get
 		{
 			return layerMask;
+		}
+	}
+
+	public float PosOffsetX
+	{
+		get
+		{
+			return posOffsetX;
+		}
+		
+		set
+		{
+			posOffsetX = value;
+		}
+	}
+
+	public Vector2 Scale
+	{
+		get
+		{
+			return scale;
+		}
+		
+		set
+		{
+			scale = value;
 		}
 	}
 
@@ -117,8 +154,10 @@ public class PlatCommon : MonoBehaviour {
 
 	public void SnapToGrid()
 	{
+		transform.localScale = scale;
+
 		// Snap to the fake "pixel grid".
-		transform.position = new Vector3 (Mathf.Round (pos.x/pGlobal.PIXEL_JUMP)
+		transform.position = new Vector3 (posOffsetX + Mathf.Round (pos.x/pGlobal.PIXEL_JUMP)
 		                                  *pGlobal.PIXEL_JUMP,
 		                                  Mathf.Ceil (pos.y/pGlobal.PIXEL_JUMP)
 		                                  *pGlobal.PIXEL_JUMP,

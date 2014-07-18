@@ -120,7 +120,6 @@ public class PlatHero : MonoBehaviour {
 		// Consider null rooms making you wrap around instead of stop?
 		MoveRoom ();
 
-
 		if (input.HoldUp() && pc.IsColDown())
 		{
 			pCommon.YSpeed = jumpHeight;
