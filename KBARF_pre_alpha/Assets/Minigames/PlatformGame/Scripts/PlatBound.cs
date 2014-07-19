@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlatBound : MonoBehaviour {
+public class PlatBound {
 
 	// REMEMBER! The textures pivot MUST be the bottom-left corner!
 	public Vector2 pBL 	= Vector2.zero;
 	public Vector2 pTR 	= Vector2.zero;
-	public bool solid = true;
+
+	public bool solid;
 
 	public bool IsEqual(PlatBound other)
 	{
