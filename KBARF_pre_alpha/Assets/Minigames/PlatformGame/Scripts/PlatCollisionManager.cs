@@ -65,7 +65,7 @@ public class PlatCollisionManager : MonoBehaviour {
 			{
 				pTake.PCommon.Y = pGive.PTR.y;
 
-				return Vector2.up;
+				return -Vector2.up;
 			}
 
 			return Vector2.zero;
@@ -88,13 +88,13 @@ public class PlatCollisionManager : MonoBehaviour {
 				{
 					pTake.PCommon.X = pGive.PTR.x - pTake.oBL.x;
 
-					return Vector2.right;
+					return -Vector2.right;
 				}
 				else if (pTake.PCommon.XSpeed > 0.0f)
 				{
 					pTake.PCommon.X = pGive.PBL.x - pTake.oTR.x;
 
-					return -Vector2.right;
+					return Vector2.right;
 				}
 			}
 
@@ -111,13 +111,13 @@ public class PlatCollisionManager : MonoBehaviour {
 				{
 					pTake.PCommon.Y = pGive.PTR.y - pTake.oBL.y;
 
-					return Vector2.up;
+					return -Vector2.up;
 				}
 				else if (pTake.PCommon.YSpeed > 0.0f)
 				{
 					pTake.PCommon.Y = pGive.PBL.y - pTake.oTR.y;
 
-					return -Vector2.up;
+					return Vector2.up;
 				}
 			}
 		}

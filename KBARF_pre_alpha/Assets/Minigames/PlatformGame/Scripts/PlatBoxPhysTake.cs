@@ -2,8 +2,6 @@
 using System.Collections;
 
 public class PlatBoxPhysTake : PlatBox {
-
-	private PlatCommon 			pCommon;
 	
 	private Vector2 cols = Vector2.zero;
 
@@ -19,15 +17,13 @@ public class PlatBoxPhysTake : PlatBox {
 	protected override void Awake ()
 	{
 		base.Awake ();
-
-		pCommon = GetComponent<PlatCommon> ();
 	}
 
 	public void Update()
 	{
 		// Only check collisions if the object is moving.
 		// If the object is still, such as a wall, it won't have PlatformCommon at all, so Update() won't execute.
-		if (!pCommon) return;
+		if (!pCommon || pCommon.Vel == Vector2.zero) return;
 
 		// Move the bound to be relative to your (real) position.
 		UpdateBox ();
@@ -49,11 +45,15 @@ public class PlatBoxPhysTake : PlatBox {
 		}
 		else if (behavior == Behavior.BOUNCE)
 		{
-			if (IsColLeft() || IsColRight())
+			if (IsColLeft())
 			{
-				pCommon.XSpeed = -pCommon.XSpeed;
+				pCommon.XSpeed = Mathf.Abs(pCommon.XSpeed);
 			}
-			
+			else if (IsColRight())
+			{
+				pCommon.XSpeed = -Mathf.Abs(pCommon.XSpeed);
+			}
+
 			if (IsColDown() || IsColUp())
 			{
 				pCommon.YSpeed = -pCommon.YSpeed;
@@ -86,29 +86,21 @@ public class PlatBoxPhysTake : PlatBox {
 
 	public bool IsColLeft()
 	{
-		return (cols.x > 0.0f);
+		return (cols.x < 0.0f);
 	}
 
 	public bool IsColRight()
 	{
-		return (cols.x < 0.0f);
+		return (cols.x > 0.0f);
 	}
 
 	public bool IsColDown()
 	{
-		return (cols.y > 0.0f);
+		return (cols.y < 0.0f);
 	}
 
 	public bool IsColUp()
 	{
 		return (cols.y < 0.0f);
-	}
-
-	public PlatCommon PCommon
-	{
-		get
-		{
-			return pCommon;
-		}
 	}
 }

@@ -1,14 +1,14 @@
 ﻿using UnityEditor;
 
-[CustomEditor(typeof(PlatBoxPhysGive))]
-public class EditorDrawPlatCollision : Editor {
+[CustomEditor(typeof(PlatBoxPhysTake))]
+public class EditorDrawPlatBoxTake : Editor {
 	
 
 	public void OnSceneGUI () {
 
-		PlatBoxPhysGive myTarget = (PlatBoxPhysGive) target;
+		PlatBoxPhysTake myTarget = (PlatBoxPhysTake) target;
 
-		Handles.color = UnityEngine.Color.green;
+		Handles.color = UnityEngine.Color.yellow;
 
 		float offsetX = 0.0f;
 
