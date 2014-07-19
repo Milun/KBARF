@@ -3,18 +3,15 @@ using System.Collections.Generic;
 
 public class PlatCollisionManager : MonoBehaviour {
 	
-	public List<PlatBound> pBounds = new List<PlatBound>();
+	public List<PlatBoxPhysGive> pBoxPhysGive = new List<PlatBoxPhysGive>();
 
-	public Vector2 CheckCol(PlatBound pBound, PlatCollision pCollision)
+	public Vector2 CheckPhysCol(PlatBoxPhysTake pBoxPhysTake)
 	{
 		Vector2 op = Vector2.zero;
 
-		foreach (PlatBound e in pBounds)
+		foreach (PlatBoxPhysGive e in pBoxPhysGive)
 		{
-			// Ignore your own collision if it's in the list.
-			if (pBound.IsEqual(e)) continue;
-
-			op += CompareBB (pBound, e, pCollision);
+			op += CompareBoxPhys (e, pBoxPhysTake);
 		}
 
 		// No collisions.
@@ -29,17 +26,24 @@ public class PlatCollisionManager : MonoBehaviour {
 		//}
 	}
 
-	public void AddCol(PlatBound passBB)
+	public void AddPhysCol(PlatBoxPhysGive pass)
 	{
-		pBounds.Add (passBB);
+		pBoxPhysGive.Add (pass);
 	}
 
-	public void DestroyCol(PlatBound passBB)
+	public void DestroyPhysCol(PlatBoxPhysGive pass)
 	{
-		pBounds.Remove (passBB);
+		pBoxPhysGive.Remove (pass);
 	}
 
-	private Vector2 CompareBB(PlatBound pBound, PlatBound pOther, PlatCollision pCollision)
+	// Compares the boxes if they are colliding. No prejudice used.
+	private Vector2 CompareBoxNorm(PlatBox pBox, PlatBox pOther)
+	{
+
+		return Vector2.zero;
+	}
+
+	private Vector2 CompareBoxPhys(PlatBoxPhysGive pGive, PlatBoxPhysTake pTake)
 	{
 		// WARNING: Some kind of glitch introduced when changed out of pBL and pTR in PlatCollision.
 		// Fixed by increasing "safe", but still weird.
@@ -49,17 +53,17 @@ public class PlatCollisionManager : MonoBehaviour {
 		float safe = 2.0f;
 
 		// Check for Y collision.
-		if (!pOther.solid)
+		if (!pGive.Solid)
 		{
 			if (
-				pCollision.PCommon.YSpeed < 0.0f &&
-				(pBound.pBL.x - pCollision.PCommon.XSpeed + safe < pOther.pTR.x) &&
-				(pBound.pTR.x - pCollision.PCommon.XSpeed - safe > pOther.pBL.x) &&
-				(pBound.pBL.y + pCollision.PCommon.YSpeed - 1.0f < pOther.pTR.y) &&
-				(pBound.pBL.y + 1.0f			 				 > pOther.pTR.y)
+				pTake.PCommon.YSpeed < 0.0f &&
+				(pTake.PBL.x - pTake.PCommon.XSpeed + safe < pGive.PTR.x) &&
+				(pTake.PTR.x - pTake.PCommon.XSpeed - safe > pGive.PBL.x) &&
+				(pTake.PBL.y + pTake.PCommon.YSpeed - 1.0f < pGive.PTR.y) &&
+				(pTake.PBL.y + 1.0f			 			   > pGive.PTR.y)
 				)
 			{
-				pCollision.PCommon.Y = pOther.pTR.y;
+				pTake.PCommon.Y = pGive.PTR.y;
 
 				return Vector2.up;
 			}
@@ -73,22 +77,22 @@ public class PlatCollisionManager : MonoBehaviour {
 
 			// Check for X collision.
 			if (
-				pCollision.PCommon.XSpeed != 0.0f &&
-				(pBound.pBL.x + pCollision.PCommon.XSpeed < pOther.pTR.x) &&
-				(pBound.pTR.x + pCollision.PCommon.XSpeed > pOther.pBL.x) &&
-				(pBound.pBL.y - pCollision.PCommon.YSpeed + safe < pOther.pTR.y) &&
-				(pBound.pTR.y - pCollision.PCommon.YSpeed - safe > pOther.pBL.y)
+				pTake.PCommon.XSpeed != 0.0f &&
+				(pTake.PBL.x + pTake.PCommon.XSpeed < pGive.PTR.x) &&
+				(pTake.PTR.x + pTake.PCommon.XSpeed > pGive.PBL.x) &&
+				(pTake.PBL.y - pTake.PCommon.YSpeed + safe < pGive.PTR.y) &&
+				(pTake.PTR.y - pTake.PCommon.YSpeed - safe > pGive.PBL.y)
 				)
 			{
-				if (pCollision.PCommon.XSpeed < 0.0f)
+				if (pTake.PCommon.XSpeed < 0.0f)
 				{
-					pCollision.PCommon.X = pOther.pTR.x - pCollision.Offset.x;
+					pTake.PCommon.X = pGive.PTR.x - pTake.oBL.x;
 
 					return Vector2.right;
 				}
-				else if (pCollision.PCommon.XSpeed > 0.0f)
+				else if (pTake.PCommon.XSpeed > 0.0f)
 				{
-					pCollision.PCommon.X = pOther.pBL.x - pCollision.Offset.x - pCollision.Bounds.x;
+					pTake.PCommon.X = pGive.PBL.x - pTake.oTR.x;
 
 					return -Vector2.right;
 				}
@@ -96,22 +100,22 @@ public class PlatCollisionManager : MonoBehaviour {
 
 			// Check for Y collision.
 			if (
-				pCollision.PCommon.YSpeed != 0.0f &&
-				(pBound.pBL.x - pCollision.PCommon.XSpeed + safe < pOther.pTR.x) &&
-				(pBound.pTR.x - pCollision.PCommon.XSpeed - safe > pOther.pBL.x) &&
-				(pBound.pBL.y + pCollision.PCommon.YSpeed < pOther.pTR.y) &&
-				(pBound.pTR.y + pCollision.PCommon.YSpeed > pOther.pBL.y)
+				pTake.PCommon.YSpeed != 0.0f &&
+				(pTake.PBL.x - pTake.PCommon.XSpeed + safe < pGive.PTR.x) &&
+				(pTake.PTR.x - pTake.PCommon.XSpeed - safe > pGive.PBL.x) &&
+				(pTake.PBL.y + pTake.PCommon.YSpeed < pGive.PTR.y) &&
+				(pTake.PTR.y + pTake.PCommon.YSpeed > pGive.PBL.y)
 				)
 			{
-				if (pCollision.PCommon.YSpeed < 0.0f)
+				if (pTake.PCommon.YSpeed < 0.0f)
 				{
-					pCollision.PCommon.Y = pOther.pTR.y - pCollision.Offset.y;
+					pTake.PCommon.Y = pGive.PTR.y - pTake.oBL.y;
 
 					return Vector2.up;
 				}
-				else if (pCollision.PCommon.YSpeed > 0.0f)
+				else if (pTake.PCommon.YSpeed > 0.0f)
 				{
-					pCollision.PCommon.Y = pOther.pBL.y - pCollision.Offset.y - pCollision.Bounds.y;
+					pTake.PCommon.Y = pGive.PBL.y - pTake.oTR.y;
 
 					return -Vector2.up;
 				}

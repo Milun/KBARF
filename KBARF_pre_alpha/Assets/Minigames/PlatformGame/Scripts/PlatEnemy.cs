@@ -4,14 +4,12 @@ using System.Collections;
 public class PlatEnemy : MonoBehaviour {
 
 	private PlatCommon 		pCommon;
-	private PlatCollision 	pCollision;
 
 	[SerializeField] private float 		animSpeed = 0.1f;
 
 	void Awake ()
 	{
 		pCommon 	= GetComponent<PlatCommon> ();	
-		pCollision 	= GetComponent<PlatCollision> ();	
 	}
 
 	// Use this for initialization

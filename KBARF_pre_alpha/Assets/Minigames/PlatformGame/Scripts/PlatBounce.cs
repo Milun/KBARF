@@ -4,12 +4,12 @@ using System.Collections;
 public class PlatBounce : MonoBehaviour {
 
 	private PlatCommon 		pCommon;
-	private PlatCollision 	pCollisions;
+	//private PlatCollision 	pCollisions;
 
 	void Awake ()
 	{
 		pCommon = GetComponent<PlatCommon> ();
-		pCollisions = GetComponent<PlatCollision> ();
+		//pCollisions = GetComponent<PlatCollision> ();
 	}
 
 
@@ -17,14 +17,14 @@ public class PlatBounce : MonoBehaviour {
 	{
 		if (pCommon.YSpeed != 0.0f)
 		{
-			if (pCollisions.IsColDown() || pCollisions.IsColUp())
-				pCommon.YSpeed = -pCommon.YSpeed;
+			//if (pCollisions.IsColDown() || pCollisions.IsColUp())
+				//pCommon.YSpeed = -pCommon.YSpeed;
 		}
 
 		if (pCommon.XSpeed != 0.0f)
 		{
-			if (pCollisions.IsColLeft() || pCollisions.IsColRight())
-				pCommon.XSpeed = -pCommon.XSpeed;
+			//if (pCollisions.IsColLeft() || pCollisions.IsColRight())
+				//pCommon.XSpeed = -pCommon.XSpeed;
 		}
 	}
 }
