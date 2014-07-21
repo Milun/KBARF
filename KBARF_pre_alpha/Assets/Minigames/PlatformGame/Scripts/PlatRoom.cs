@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("HierarchicalPrefabSample/HierarchicalPrefabSampleSpawner")]
 public class PlatRoom : MonoBehaviour {
 
 	// REMEMBER! The textures pivot MUST be the bottom-left corner!
@@ -16,7 +17,8 @@ public class PlatRoom : MonoBehaviour {
 			return null;
 		}
 
-		GameObject room = (GameObject)GameObject.Instantiate (newRoom);
+		GameObject room = (GameObject)HierarchicalPrefabUtility.Instantiate (newRoom);
+		
 		room.transform.parent = this.transform.parent;
 
 		return room.GetComponent<PlatRoom>();
