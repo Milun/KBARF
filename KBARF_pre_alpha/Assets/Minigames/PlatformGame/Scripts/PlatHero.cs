@@ -5,6 +5,7 @@ public class PlatHero : MonoBehaviour {
 
 	private PlatCommon pCommon;
 	private PlatBoxPhysTake pTake;
+	private PlatBoxCombTake pCombTake;
 	private PlatGravity pg;
 	private PlatGlobal pGlobal;
 
@@ -21,6 +22,8 @@ public class PlatHero : MonoBehaviour {
 	{
 		pCommon = GetComponent<PlatCommon> ();	
 		pTake = GetComponent<PlatBoxPhysTake> ();
+		pCombTake = GetComponent<PlatBoxCombTake> ();
+
 		pg = GetComponent<PlatGravity> ();
 		pGlobal = StatMini.GetMiniContainer(transform).GetComponent<PlatGlobal> ();
 
@@ -34,7 +37,8 @@ public class PlatHero : MonoBehaviour {
 
 	private void Die()
 	{
-
+		pCommon.Pos = new Vector2 (128.0f, 128.0f);
+		pCommon.YSpeed = 0.0f;
 	}
 
 	private void MoveRoom()
@@ -119,6 +123,11 @@ public class PlatHero : MonoBehaviour {
 	{
 		// Consider null rooms making you wrap around instead of stop?
 		MoveRoom ();
+
+		if (pCombTake.CheckCol())
+		{
+			Die ();
+		}
 
 		if (input.HoldUp() && pTake.IsColDown())
 		{

@@ -19,6 +19,12 @@ public class PlatBox : MonoBehaviour {
 		UpdateBox ();
 
 		pCommon = GetComponent<PlatCommon> ();
+
+		if (pBL.x > pTR.x ||
+		    pBL.y > pTR.y)
+		{
+			print ("ERROR! HITBOX POINTS INVERTED!");
+		}
 	}
 
 	public bool IsEqual(PlatBox other)

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class PlatCollisionManager : MonoBehaviour {
 	
 	public List<PlatBoxPhysGive> pBoxPhysGive = new List<PlatBoxPhysGive>();
+	public List<PlatBoxCombGive> pBoxCombGive = new List<PlatBoxCombGive>();
 
 	public Vector2 CheckPhysCol(PlatBoxPhysTake pBoxPhysTake)
 	{
@@ -16,6 +17,20 @@ public class PlatCollisionManager : MonoBehaviour {
 
 		// No collisions.
 		return op;
+	}
+
+	public bool CheckCombCol(PlatBoxCombTake pBoxCombTake)
+	{	
+		foreach (PlatBoxCombGive e in pBoxCombGive)
+		{
+			if (CompareBoxComb (e, pBoxCombTake))
+			{
+				return true;
+			}
+		}
+		
+		// No collisions.
+		return false;
 	}
 
 	void Update()
@@ -31,16 +46,30 @@ public class PlatCollisionManager : MonoBehaviour {
 		pBoxPhysGive.Add (pass);
 	}
 
+	public void AddCombCol(PlatBoxCombGive pass)
+	{
+		pBoxCombGive.Add (pass);
+	}
+
 	public void DestroyPhysCol(PlatBoxPhysGive pass)
 	{
 		pBoxPhysGive.Remove (pass);
 	}
 
-	// Compares the boxes if they are colliding. No prejudice used.
-	private Vector2 CompareBoxNorm(PlatBox pBox, PlatBox pOther)
+	public void DestroyCombCol(PlatBoxCombGive pass)
 	{
+		pBoxCombGive.Remove (pass);
+	}
 
-		return Vector2.zero;
+	// Compares the boxes if they are colliding. No prejudice used.
+	private bool CompareBoxComb(PlatBoxCombGive pGive, PlatBoxCombTake pTake)
+	{
+		if (pGive.PBL.x > pTake.PTR.x) return false;
+		if (pGive.PTR.x < pTake.PBL.x) return false;
+		if (pGive.PBL.y > pTake.PTR.y) return false;
+		if (pGive.PTR.y < pTake.PBL.y) return false;
+
+		return true;
 	}
 
 	private Vector2 CompareBoxPhys(PlatBoxPhysGive pGive, PlatBoxPhysTake pTake)
