@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlatGravity : MonoBehaviour {
 
-	private PlatCommon pCommon;
+	private TwoCommon pCommon;
 	private PlatBoxPhysTake pBoxPhysTake;
 
 	[SerializeField] private float gravity = 0.1f;
@@ -14,7 +14,7 @@ public class PlatGravity : MonoBehaviour {
 
 	void Awake ()
 	{
-		pCommon = GetComponent<PlatCommon> ();
+		pCommon = GetComponent<TwoCommon> ();
 		pBoxPhysTake = GetComponent<PlatBoxPhysTake> ();
 	}
 

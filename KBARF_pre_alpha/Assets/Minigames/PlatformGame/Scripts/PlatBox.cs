@@ -10,7 +10,7 @@ public class PlatBox : MonoBehaviour {
 	private Vector2 pTR = Vector2.zero; 	// Example: [8, 8]
 
 	protected PlatCollisionManager pColManager;	// Reference to the object which handles collisions.
-	protected PlatCommon 		   pCommon;
+	protected TwoCommon 		   pCommon;
 
 	// Use this for initialization
 	protected virtual void Awake ()
@@ -18,7 +18,7 @@ public class PlatBox : MonoBehaviour {
 		pColManager = GameObject.Find("CollisionManager").GetComponent<PlatCollisionManager> ();
 		UpdateBox ();
 
-		pCommon = GetComponent<PlatCommon> ();
+		pCommon = GetComponent<TwoCommon> ();
 
 		if (pBL.x > pTR.x ||
 		    pBL.y > pTR.y)
@@ -62,7 +62,7 @@ public class PlatBox : MonoBehaviour {
 		}
 	}
 
-	public PlatCommon PCommon
+	public TwoCommon PCommon
 	{
 		get
 		{

@@ -3,13 +3,13 @@ using System.Collections;
 
 public class PlatEnemy : MonoBehaviour {
 
-	private PlatCommon 		pCommon;
+	private TwoCommon 		pCommon;
 
 	[SerializeField] private float 		animSpeed = 0.1f;
 
 	void Awake ()
 	{
-		pCommon 	= GetComponent<PlatCommon> ();	
+		pCommon 	= GetComponent<TwoCommon> ();	
 	}
 
 	// Use this for initialization

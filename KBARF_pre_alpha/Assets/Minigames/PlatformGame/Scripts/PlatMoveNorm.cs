@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent( typeof(PlatCommon))]
+[RequireComponent( typeof(TwoCommon))]
 public class PlatMoveNorm : MonoBehaviour {
 
-	private PlatCommon pCommon;
+	private TwoCommon pCommon;
 
 	[SerializeField] private Vector2 startMove = Vector2.zero;
 
 	void Awake ()
 	{
-		pCommon = GetComponent<PlatCommon> ();
+		pCommon = GetComponent<TwoCommon> ();
 		pCommon.Vel = startMove;
 	}
 

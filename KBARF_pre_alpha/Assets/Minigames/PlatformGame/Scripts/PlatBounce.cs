@@ -3,12 +3,12 @@ using System.Collections;
 
 public class PlatBounce : MonoBehaviour {
 
-	private PlatCommon 		pCommon;
+	private TwoCommon 		pCommon;
 	//private PlatCollision 	pCollisions;
 
 	void Awake ()
 	{
-		pCommon = GetComponent<PlatCommon> ();
+		pCommon = GetComponent<TwoCommon> ();
 		//pCollisions = GetComponent<PlatCollision> ();
 	}
 

@@ -25,8 +25,8 @@ public class PlatBoxCombGive : PlatBox {
 	{
 		// Only check collisions if the object is moving.
 		// If the object is still, such as a wall, it won't have PlatformCommon at all, so Update() won't execute.
-		if (GetComponent<PlatCommon>() == null ||
-		    GetComponent<PlatCommon>().Vel == Vector2.zero) return;
+		if (GetComponent<TwoCommon>() == null ||
+		    GetComponent<TwoCommon>().Vel == Vector2.zero) return;
 
 		// Move the bound to be relative to your (real) position.
 		UpdateBox ();

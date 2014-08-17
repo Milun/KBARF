@@ -3,11 +3,11 @@ using System.Collections;
 
 public class PlatHero : MonoBehaviour {
 
-	private PlatCommon pCommon;
+	private TwoCommon pCommon;
 	private PlatBoxPhysTake pTake;
 	private PlatBoxCombTake pCombTake;
 	private PlatGravity pg;
-	private PlatGlobal pGlobal;
+	private TwoGlobal pGlobal;
 
 	[SerializeField] private float moveSpeed = 0.5f;
 	[SerializeField] private float jumpHeight = 2.0f;
@@ -20,12 +20,12 @@ public class PlatHero : MonoBehaviour {
 	// Use this for initialization
 	void Awake ()
 	{
-		pCommon = GetComponent<PlatCommon> ();	
+		pCommon = GetComponent<TwoCommon> ();	
 		pTake = GetComponent<PlatBoxPhysTake> ();
 		pCombTake = GetComponent<PlatBoxCombTake> ();
 
 		pg = GetComponent<PlatGravity> ();
-		pGlobal = StatMini.GetMiniContainer(transform).GetComponent<PlatGlobal> ();
+		pGlobal = StatMini.GetMiniContainer(transform).GetComponent<TwoGlobal> ();
 
 		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
 	}
