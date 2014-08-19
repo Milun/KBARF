@@ -11,6 +11,8 @@ public class PetHero : MonoBehaviour {
 	private TwoCommon tCommon;
 	private Animator anim;
 
+	public UnityEngine.Sprite test;
+
 	[SerializeField] private float animSpeed = 0.1f;
 
 	private float hunger 	= 100.0f;
@@ -24,6 +26,8 @@ public class PetHero : MonoBehaviour {
 	void Awake () {
 		tCommon = GetComponent<TwoCommon> ();
 		anim = GetComponent<Animator> ();
+
+		gameObject.GetComponent<SpriteRenderer> ().sprite = test;
 	}
 
 	public float MoveSpeed
