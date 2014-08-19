@@ -19,7 +19,7 @@ public class PetBackground : MonoBehaviour {
 		if (tCommon.X < -8.0f)
 		{
 			tCommon.X = 64.0f;
-			tCommon.Y = Random.Range(10, 25);
+			tCommon.Y = Random.Range(4, 20);
 		}
 
 	}

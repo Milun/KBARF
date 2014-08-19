@@ -22,6 +22,8 @@ public class PetHero : MonoBehaviour {
 
 	private float moveSpeed = 0.0f;
 
+	public bool stop = false;
+
 	// Use this for initialization
 	void Awake () {
 		tCommon = GetComponent<TwoCommon> ();
@@ -53,7 +55,7 @@ public class PetHero : MonoBehaviour {
 
 	private void Walk() {
 
-		if (stamina < 10.0f)
+		if (stamina < 15.0f)
 		{
 			anim.SetBool ("Walk", false);
 			stamina += Time.deltaTime;
@@ -77,8 +79,19 @@ public class PetHero : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
-		Walk ();
+		if (!stop)
+		{
+			Walk ();
+		}
+		else
+		{
+			if (joy < 100.0f)
+			{
+				joy += Time.deltaTime * 10.0f;
+			}
+			anim.SetBool ("Walk", false);
+			anim.SetBool ("Special", true);
+		}
 
 		if (anim.GetCurrentAnimatorStateInfo(0).IsName("anim_petWalk"))
 		{
@@ -92,5 +105,13 @@ public class PetHero : MonoBehaviour {
 		Anim ();
 		Age ();
 
+	}
+
+	public bool Joy
+	{
+		get
+		{
+			return (joy >= 100.0f);
+		}
 	}
 }
