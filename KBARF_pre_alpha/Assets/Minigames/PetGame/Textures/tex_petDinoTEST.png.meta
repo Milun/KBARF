@@ -41,7 +41,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: tex_petDinoTEST_0
+    - name: idle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -50,7 +50,7 @@ TextureImporter:
         height: 16
       alignment: 6
       pivot: {x: 0, y: 0}
-    - name: tex_petDinoTEST_1
+    - name: idle_1
       rect:
         serializedVersion: 2
         x: 16
@@ -59,7 +59,7 @@ TextureImporter:
         height: 16
       alignment: 6
       pivot: {x: 0, y: 0}
-    - name: tex_petDinoTEST_2
+    - name: idle_2
       rect:
         serializedVersion: 2
         x: 32
@@ -68,7 +68,7 @@ TextureImporter:
         height: 16
       alignment: 6
       pivot: {x: 0, y: 0}
-    - name: tex_petDinoTEST_3
+    - name: idle_3
       rect:
         serializedVersion: 2
         x: 48
@@ -77,7 +77,7 @@ TextureImporter:
         height: 16
       alignment: 6
       pivot: {x: 0, y: 0}
-    - name: tex_petDinoTEST_4
+    - name: walk_0
       rect:
         serializedVersion: 2
         x: 0
@@ -86,7 +86,7 @@ TextureImporter:
         height: 16
       alignment: 6
       pivot: {x: 0, y: 0}
-    - name: tex_petDinoTEST_5
+    - name: walk_1
       rect:
         serializedVersion: 2
         x: 16
@@ -95,7 +95,7 @@ TextureImporter:
         height: 16
       alignment: 6
       pivot: {x: 0, y: 0}
-    - name: tex_petDinoTEST_6
+    - name: walk_2
       rect:
         serializedVersion: 2
         x: 32
@@ -104,7 +104,7 @@ TextureImporter:
         height: 16
       alignment: 6
       pivot: {x: 0, y: 0}
-    - name: tex_petDinoTEST_7
+    - name: walk_3
       rect:
         serializedVersion: 2
         x: 48

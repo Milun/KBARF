@@ -6,42 +6,32 @@ public class PetShadow : MonoBehaviour {
 	public GameObject preShadow;
 
 	private TwoCommon tCommon;
-	//private TwoFlip tFlip;
+	private TwoFlip	  tFlip;
+	private TwoFlip	  tFlipOther;
+	private SpriteRenderer sRenderer;
 
 	void Awake () {
-		preShadow = (GameObject)HierarchicalPrefabUtility.Instantiate (preShadow);
+		GameObject 	temp = 	(GameObject)HierarchicalPrefabUtility.Instantiate (preShadow);
+		sRenderer = temp.GetComponent<SpriteRenderer> ();
+
 		tCommon = GetComponent<TwoCommon> ();
-		//tFlip = GetComponent<TwoFlip> ();
+
+		tFlip 		= GetComponent<TwoFlip> ();
+		tFlipOther 	= preShadow.GetComponent<TwoFlip> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 		preShadow.GetComponent<SpriteRenderer> ().sprite = this.GetComponent<SpriteRenderer> ().sprite;
-		
-		//if (tCommon && tCommon.Frame)
+
+		preShadow.transform.position = transform.position + new Vector3 (0.4f, 0.6f, -3.0f);
+
+		if (tFlip)
 		{
-			preShadow.transform.position = this.transform.position + new Vector3 (0.2f, 0.3f, -3.0f);
+			tFlipOther.Flip = tFlip.Flip;
 		}
 
-		/*if (tFlip)
-		{
-			if (tFlip.Flip < 0)
-			{
-				transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
-			}
-			else
-			{
-				transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-			}
-		}*/
+		preShadow.renderer.enabled = this.renderer.enabled;
 	}
-
-	/*public GameObject Shadow
-	{
-		get
-		{
-			return Shadow;
-		}
-	}*/
 }

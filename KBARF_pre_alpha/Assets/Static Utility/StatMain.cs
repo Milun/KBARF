@@ -17,4 +17,9 @@ public static class StatMain {
 
 		return container.animation;
 	}
+
+	public static void MoveToVal(float val, float speed, float max)
+	{
+	
+	}
 }

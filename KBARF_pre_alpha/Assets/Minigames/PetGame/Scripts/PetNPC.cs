@@ -25,7 +25,6 @@ public class PetNPC : MonoBehaviour {
 		if (transform.position.x <= 53.0f)
 		{
 			GameObject.Find("pre_petHero").GetComponent<PetHero>().stop = true;
-			print ("DSFSDFSD");
 		}
 	}
 }

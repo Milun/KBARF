@@ -1,90 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TwoCommon : MonoBehaviour {
+public class TwoCommon : TwoCommonBasic {
 	
 	// The players position on the screen.
-	private LayerMask layerMask;
-
-	private Vector2 pos;				// The objects REAL position.
 	private Vector2 vel;				// The objects REAL velocity.
 
-	private float posOffsetX = 0.0f;	// Used in sprite flips.
-	private Vector2 scale = Vector2.one;
-
-	private TwoGlobal pGlobal;
-
 	// Use this for initialization
-	void Awake ()
+	public override void Awake ()
 	{
-		// Establish a link to global statistics.
-		pGlobal = GameObject.Find ("MiniGame2").GetComponent<TwoGlobal> ();
-		//StatMini.GetMiniContainer(transform).GetComponent<PlatGlobal> ();
-
-		// Set the layer mask we're using.
-		layerMask = 1 << pGlobal.LAYER;
-
-		pos = new Vector2(transform.position.x, transform.position.y);
-	}
-
-	void Start()
-	{
-
-	}
-
-	public TwoGlobal PGlobal
-	{
-		get
-		{
-			return pGlobal;
-		}
-	}
-
-	public LayerMask Layer
-	{
-		get
-		{
-			return layerMask;
-		}
-	}
-
-	public float PosOffsetX
-	{
-		get
-		{
-			return posOffsetX;
-		}
-		
-		set
-		{
-			posOffsetX = value;
-		}
-	}
-
-	public Vector2 Scale
-	{
-		get
-		{
-			return scale;
-		}
-		
-		set
-		{
-			scale = value;
-		}
-	}
-
-	public Vector2 Pos
-	{
-		get
-		{
-			return pos;
-		}
-
-		set
-		{
-			pos = value;
-		}
+		base.Awake ();
 	}
 
 	public Vector2 Vel
@@ -97,32 +22,6 @@ public class TwoCommon : MonoBehaviour {
 		set
 		{
 			vel = value;
-		}
-	}
-
-	public float X
-	{
-		get
-		{
-			return pos.x;
-		}
-		
-		set
-		{
-			pos = new Vector2(value, pos.y);
-		}
-	}
-
-	public float Y
-	{
-		get
-		{
-			return pos.y;
-		}
-		
-		set
-		{
-			pos = new Vector2(pos.x, value);
 		}
 	}
 
@@ -149,14 +48,6 @@ public class TwoCommon : MonoBehaviour {
 		set
 		{
 			vel = new Vector2(vel.x, value);
-		}
-	}
-
-	public bool Frame
-	{
-		get
-		{
-			return pGlobal.Frame();
 		}
 	}
 

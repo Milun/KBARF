@@ -11,7 +11,9 @@ public class PetHero : MonoBehaviour {
 	private TwoCommon tCommon;
 	private Animator anim;
 
-	public UnityEngine.Sprite test;
+	public UnityEngine.Texture test;
+	public UnityEngine.Texture test2;
+	public TextAsset imageTextAsset;
 
 	[SerializeField] private float animSpeed = 0.1f;
 
@@ -24,12 +26,47 @@ public class PetHero : MonoBehaviour {
 
 	public bool stop = false;
 
+	/*var frames : Texture2D[];
+	
+	var framesPerSecond = 10.0;
+	
+	function Update () {
+		var index : int = Time.time * framesPerSecond;
+		index = index % frames.Length;
+		renderer.material.mainTexture = frames[index];
+	}*/
+
+
 	// Use this for initialization
 	void Awake () {
 		tCommon = GetComponent<TwoCommon> ();
 		anim = GetComponent<Animator> ();
 
-		gameObject.GetComponent<SpriteRenderer> ().sprite = test;
+		//gameObject.GetComponent<SpriteRenderer> ().sprite = test;
+
+		//imageTextAsset = Resources.Load("tex_petDinoTEST.png") as TextAsset;
+
+		//Texture2D tex = new Texture2D(64, 32);
+		//tex.LoadImage(imageTextAsset.bytes);
+		//renderer.material.mainTexture = (Texture2D)Resources.Load("tex_petDinoTEST.png");
+
+		//anim.get
+
+		//test2.name = test.name;
+		this.GetComponent<SpriteRenderer>().material.SetTexture("_MainTex", test);
+
+		/*string skin;
+		SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+
+		print ("LOOK: " + renderers.Length);
+
+		for (int i = 0; i < renderers.Length; i++) {
+
+			MaterialPropertyBlock block = new MaterialPropertyBlock();
+			block.AddTexture("_MainTex", test);
+			renderers[i].SetPropertyBlock(block);
+		}*/
+
 	}
 
 	public float MoveSpeed
@@ -55,7 +92,7 @@ public class PetHero : MonoBehaviour {
 
 	private void Walk() {
 
-		if (stamina < 15.0f)
+		if (stamina < 1.0f)
 		{
 			anim.SetBool ("Walk", false);
 			stamina += Time.deltaTime;
@@ -105,6 +142,21 @@ public class PetHero : MonoBehaviour {
 		Anim ();
 		Age ();
 
+	}
+
+	void LateUpdate()
+	{
+		//make this ReadOnlyCollectionBase happen when the Sprite (name) changes
+
+		string skin;
+		SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
+
+		for (int i = 0; i < renderers.Length; i++) {
+
+			MaterialPropertyBlock block = new MaterialPropertyBlock();
+			block.AddTexture("_MainTex", test);
+			renderers[i].SetPropertyBlock(block);
+		}
 	}
 
 	public bool Joy
