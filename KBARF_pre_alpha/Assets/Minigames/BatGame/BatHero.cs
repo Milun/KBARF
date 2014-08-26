@@ -41,6 +41,10 @@ public class BatHero : MonoBehaviour {
 				{
 					transform.position = new Vector3(47.0f, 24.0f, 0.0f);
 				}
+				else
+				{
+					transform.position = new Vector3(47.0f, 24.0f, 0.0f);
+				}
 			}
 		}
 	

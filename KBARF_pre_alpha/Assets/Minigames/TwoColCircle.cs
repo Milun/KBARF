@@ -59,6 +59,11 @@ public class TwoColCircle : TwoCol {
 		return other.CheckColCircle(this);
 	}
 
+	public override bool CheckColLine(TwoColLine other)
+	{
+		return other.CheckColCircle(this);
+	}
+
 	// Use this for initialization
 	void Start () {
 	

@@ -28,5 +28,13 @@ public class EditorDrawCol : Editor {
 			Handles.DrawLine(new UnityEngine.Vector3(temp.TR.x, temp.TR.y, 0.0f), new UnityEngine.Vector3(temp.BL.x, temp.TR.y, 0.0f) );
 			Handles.DrawLine(new UnityEngine.Vector3(temp.TR.x, temp.TR.y, 0.0f), new UnityEngine.Vector3(temp.TR.x, temp.BL.y, 0.0f) );
 		}
+		if (myTarget.GetType() == typeof(TwoColLine))
+		{
+			Handles.color = UnityEngine.Color.green;
+			
+			TwoColLine temp = (TwoColLine)myTarget;
+			
+			Handles.DrawLine(new UnityEngine.Vector3(temp.P1Draw.x, temp.P1Draw.y, 0.0f), new UnityEngine.Vector3(temp.P2Draw.x, temp.P2Draw.y, 0.0f) );
+		}
 	}
 }

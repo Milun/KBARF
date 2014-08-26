@@ -8,7 +8,7 @@ public class TwoCol : MonoBehaviour {
 	protected Vector2 tR = new Vector2(1.0f, 1.0f);
 
 	// Use this for initialization
-	void Awake ()
+	public virtual void Awake ()
 	{
 		// Ryan says not to put "find" in awake. He may have a point. Fine fine Ill put it in start. fukin noob mate.
 		colManager = GameObject.Find ("CollisionManager").GetComponent<TwoColManager> ();
@@ -60,6 +60,11 @@ public class TwoCol : MonoBehaviour {
 		return false;
 	}
 
+	public virtual bool CheckColLine(TwoColLine other)
+	{
+		return false;
+	}
+
 	public bool CheckCol(TwoCol other)
 	{
 		if (other.GetType() == typeof(TwoColCircle))
@@ -70,6 +75,11 @@ public class TwoCol : MonoBehaviour {
 		if (other.GetType() == typeof(TwoColSquare))
 		{
 			return this.CheckColSquare((TwoColSquare)other);
+		}
+		else
+		if (other.GetType() == typeof(TwoColLine))
+		{
+			return this.CheckColLine((TwoColLine)other);
 		}
 
 		return false;
