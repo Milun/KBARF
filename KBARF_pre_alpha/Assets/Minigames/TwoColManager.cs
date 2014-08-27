@@ -5,8 +5,15 @@ public class TwoColManager : MonoBehaviour {
 	
 	[SerializeField] private List<TwoCol> twoCol = new List<TwoCol>();
 
-	public TwoCol CheckCol(TwoCol other)
+	public struct Col {
+		public TwoCol 	col;
+		public Vector2 	move;
+	};
+
+	public List<Col> CheckCol(TwoCol other)
 	{
+		List<Col> output = new List<Col>();
+
 		foreach (TwoCol e in twoCol)
 		{
 			if (e == other)
@@ -14,14 +21,19 @@ public class TwoColManager : MonoBehaviour {
 				continue;
 			}
 
-			if (other.CheckCol(e))
+			Col col = new Col();
+			Vector2 vec = other.CheckCol(e);
+			if (vec != Vector2.zero)
 			{
-				return e;
+				col.col = e;
+				col.move = vec;
+
+				output.Add ( col );
 			}
 		}
 
 		// No collisions.
-		return null;
+		return output;
 	}
 
 	public void AddCol(TwoCol pass)

@@ -40,26 +40,28 @@ public class TwoColCircle : TwoCol {
 		}
 	}
 
-	public override bool CheckColCircle(TwoColCircle other)
+	public override Vector2 CheckColCircle(TwoColCircle other)
 	{
-		if (!CheckColBounds (other)) return false;
+		if (!CheckColBounds (other)) return Vector2.zero;
 
 		Vector2 dist = this.Center - other.Center;
 
-		if (dist.magnitude < this.rad + other.Rad)
+		float distMax = this.rad + other.Rad;
+
+		if (dist.magnitude < distMax)
 		{
-			return true;
+			return dist - dist.normalized*distMax;
 		}
 
-		return false;
+		return Vector2.zero;
 	}
 
-	public override bool CheckColSquare(TwoColSquare other)
+	public override Vector2 CheckColSquare(TwoColSquare other)
 	{
 		return other.CheckColCircle(this);
 	}
 
-	public override bool CheckColLine(TwoColLine other)
+	public override Vector2 CheckColLine(TwoColLine other)
 	{
 		return other.CheckColCircle(this);
 	}

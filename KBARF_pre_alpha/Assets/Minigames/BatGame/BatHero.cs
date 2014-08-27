@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class BatHero : MonoBehaviour {
 
@@ -25,25 +25,31 @@ public class BatHero : MonoBehaviour {
 
 		if (col)
 		{
-			TwoCol other = col.ColManager.CheckCol (col);
+			List<TwoColManager.Col> other = col.ColManager.CheckCol (col);
 
-			if (other)
+			if (other.Count > 0)
 			{
-				BatMoth colMoth = other.GetComponent<BatMoth>();
-				BatEnemy colEnemy = other.GetComponent<BatEnemy>();
+				foreach (TwoColManager.Col e in other)
+				{
 
-				if (colMoth)
-				{
-					colMoth.Die();
-				}
-				else
-				if (colEnemy)
-				{
-					transform.position = new Vector3(47.0f, 24.0f, 0.0f);
-				}
-				else
-				{
-					transform.position = new Vector3(47.0f, 24.0f, 0.0f);
+					BatMoth colMoth = e.col.GetComponent<BatMoth>();
+					BatEnemy colEnemy = e.col.GetComponent<BatEnemy>();
+
+					if (colMoth)
+					{
+						colMoth.Die();
+					}
+					else
+					if (colEnemy)
+					{
+						transform.position = new Vector3(47.0f, 24.0f, 0.0f);
+					}
+					else
+					{
+						transform.position += (Vector3)e.move;
+						//if (ySpeed > 0.0f) ySpeed = -0.01f;
+					}
+
 				}
 			}
 		}

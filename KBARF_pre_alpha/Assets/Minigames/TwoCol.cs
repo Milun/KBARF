@@ -50,22 +50,22 @@ public class TwoCol : MonoBehaviour {
 		return true;
 	}
 
-	public virtual bool CheckColCircle(TwoColCircle other)
+	public virtual Vector2 CheckColCircle(TwoColCircle other)
 	{
-		return false;
+		return Vector2.zero;
 	}
 
-	public virtual bool CheckColSquare(TwoColSquare other)
+	public virtual Vector2 CheckColSquare(TwoColSquare other)
 	{
-		return false;
+		return Vector2.zero;
 	}
 
-	public virtual bool CheckColLine(TwoColLine other)
+	public virtual Vector2 CheckColLine(TwoColLine other)
 	{
-		return false;
+		return Vector2.zero;
 	}
 
-	public bool CheckCol(TwoCol other)
+	public Vector2 CheckCol(TwoCol other)
 	{
 		if (other.GetType() == typeof(TwoColCircle))
 		{
@@ -82,7 +82,7 @@ public class TwoCol : MonoBehaviour {
 			return this.CheckColLine((TwoColLine)other);
 		}
 
-		return false;
+		return Vector2.zero;
 	}
 
 	// Update is called once per frame

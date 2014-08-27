@@ -71,12 +71,9 @@ public class TwoColLine : TwoCol {
 		}
 	}
 
-	public override bool CheckColCircle(TwoColCircle other)
+	public override Vector2 CheckColCircle(TwoColCircle other)
 	{
-		if (!CheckColBounds (other)) return false;
-
-		if ((P1 - other.Center).magnitude < other.Rad) return true;
-		if ((P2 - other.Center).magnitude < other.Rad) return true;
+		if (!CheckColBounds (other)) return Vector2.zero;
 
 		Vector2 lineVector = P2 - P1;
 		lineVector.Normalize ();
@@ -89,19 +86,22 @@ public class TwoColLine : TwoCol {
 
 		Vector2 dist = (P1 + projection*lineVector) - other.Center;
 
-		if (dist.magnitude < other.Rad) return true;
+		if (projection > 0.0f && projection < (P2 - P1).magnitude && dist.magnitude < other.Rad) return dist - dist.normalized*other.Rad;
 
-		return false;
+		if ((P1 - other.Center).magnitude < other.Rad) return (P1-other.Center) - (P1-other.Center).normalized*other.Rad;
+		if ((P2 - other.Center).magnitude < other.Rad) return (P2-other.Center) - (P2-other.Center).normalized*other.Rad;
+
+		return Vector2.zero;
 	}
 
-	public override bool CheckColSquare(TwoColSquare other)
+	public override Vector2 CheckColSquare(TwoColSquare other)
 	{
-		return false;
+		return Vector2.zero;
 	}
 
-	public override bool CheckColLine(TwoColLine other)
+	public override Vector2 CheckColLine(TwoColLine other)
 	{
-		return false;
+		return Vector2.zero;
 	}
 
 
