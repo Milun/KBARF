@@ -42,7 +42,7 @@ public class BatHero : MonoBehaviour {
 					else
 					if (colEnemy)
 					{
-						transform.position = new Vector3(47.0f, 24.0f, 0.0f);
+						transform.position = new Vector3(100.0f, 150.0f, 0.0f);
 					}
 					else
 					{

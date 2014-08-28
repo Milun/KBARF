@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TwoColLine : TwoCol {
 
+	[SerializeField] private bool scaleable = false;
 	[SerializeField] private Vector2 p1 	= new Vector2(-1.0f, -1.0f);
 	[SerializeField] private Vector2 p2 	= new Vector2(1.0f, 1.0f);
 
@@ -11,6 +12,13 @@ public class TwoColLine : TwoCol {
 	// Use this for initialization
 	public override void Awake () {
 		myTransform = transform;
+
+		if (scaleable)
+		{
+			Vector3 multiply = this.transform.localScale;
+			p1 = new Vector2(p1.x * multiply.x, p1.y * multiply.y);
+			p2 = new Vector2(p2.x * multiply.x, p2.y * multiply.y);
+		}
 
 		base.Awake ();
 	}
