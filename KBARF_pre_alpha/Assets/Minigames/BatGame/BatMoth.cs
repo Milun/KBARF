@@ -6,6 +6,8 @@ public class BatMoth : MonoBehaviour {
 	private TwoColLine[] col;
 	private float rot = 90.0f;
 
+	private int deadEndTurn = 0;
+
 	// Use this for initialization
 	void Awake ()
 	{
@@ -60,11 +62,21 @@ public class BatMoth : MonoBehaviour {
 				midMove += e.move;
 			}
 
+			if (midMove == Vector2.zero)
+			{
+				deadEndTurn = 0;
+			}
+
 			if (leftMove != Vector2.zero || rightMove != Vector2.zero /*|| midMove != Vector2.zero*/)
 			{
 				if (midMove != Vector2.zero)
 				{
-					rot += midMove.magnitude * 2.5f;
+					if (deadEndTurn == 0)
+					{
+						deadEndTurn = Random.Range(-1, 1);
+					}
+
+					rot += midMove.magnitude * 2.5f * (float)deadEndTurn;
 				}
 				else
 				{
