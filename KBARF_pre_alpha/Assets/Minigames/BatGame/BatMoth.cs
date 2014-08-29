@@ -5,6 +5,7 @@ public class BatMoth : MonoBehaviour {
 
 	private TwoColLine[] col;
 	private float rot = 90.0f;
+	private float rotWander = 0.0f;
 
 	private int deadEndTurn = 0;
 
@@ -50,12 +51,10 @@ public class BatMoth : MonoBehaviour {
 			foreach (TwoColManager.Col e in col[0].ColManager.CheckCol (col[0]))
 			{
 				rightMove += e.move;
-				print ("RIGHT!");
 			}
 			foreach (TwoColManager.Col e in col[1].ColManager.CheckCol (col[1]))
 			{
 				leftMove += e.move;
-				print ("LEFT!");
 			}
 			foreach (TwoColManager.Col e in col[2].ColManager.CheckCol (col[2]))
 			{
@@ -67,29 +66,20 @@ public class BatMoth : MonoBehaviour {
 				deadEndTurn = 0;
 			}
 
-			if (leftMove != Vector2.zero || rightMove != Vector2.zero /*|| midMove != Vector2.zero*/)
+			if (deadEndTurn == 0)
 			{
-				if (midMove != Vector2.zero)
-				{
-					if (deadEndTurn == 0)
-					{
-						deadEndTurn = Random.Range(-1, 1);
-					}
-
-					rot += midMove.magnitude * 2.5f * (float)deadEndTurn;
-				}
-				else
-				{
-					//if (leftMove.magnitude > rightMove.magnitude)
-					{
-						rot -= leftMove.magnitude * 0.5f;
-					}
-					//else
-					{
-						rot += rightMove.magnitude * 0.5f;
-					}
-				}
+				deadEndTurn = Random.Range(0, 2);
+				deadEndTurn = -1 + deadEndTurn*2;
 			}
+
+			rot += midMove.magnitude * 2.0f * (float)deadEndTurn;
+			rot -= leftMove.magnitude * 0.2f;
+			rot += rightMove.magnitude * 0.2f;
+
+			rotWander += Random.Range(-0.1f, 0.1f);
+			Mathf.Clamp(rotWander, -0.25f, 0.25f);
+
+			rot += rotWander;
 		}
 
 		this.transform.position += new Vector3( Mathf.Cos (Mathf.Deg2Rad*(rot)) * Time.deltaTime * 16.0f,

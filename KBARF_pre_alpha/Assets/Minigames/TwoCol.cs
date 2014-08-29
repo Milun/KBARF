@@ -3,11 +3,19 @@ using System.Collections;
 
 public class TwoCol : MonoBehaviour {
 
+	public enum ColType {
+		PHYSICS_GIVE,
+		PHYSICS_TAKE,
+		OFFENSE_TAKE,
+		DEFENCE_GIVE,
+		OTHER
+	};
+
 	TwoColManager colManager;
 	protected Vector2 bL = new Vector2(-1.0f, -1.0f);
 	protected Vector2 tR = new Vector2(1.0f, 1.0f);
 
-	[SerializeField] public bool checkCollisions = true;
+	[SerializeField] private ColType type;
 
 	// Use this for initialization
 	public virtual void Awake ()
@@ -15,9 +23,17 @@ public class TwoCol : MonoBehaviour {
 		// Ryan says not to put "find" in awake. He may have a point. Fine fine Ill put it in start. fukin noob mate.
 		colManager = GameObject.Find ("CollisionManager").GetComponent<TwoColManager> ();
 
-		if (!checkCollisions) return;
+		if (type != ColType.PHYSICS_GIVE && type != ColType.DEFENCE_GIVE) return;
 
 		colManager.AddCol (this);
+	}
+
+	public ColType Type 
+	{
+		get
+		{
+			return type;
+		}
 	}
 
 	public virtual Vector2 BL

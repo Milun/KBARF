@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class BatHero : MonoBehaviour {
 
-	private TwoColCircle col;
+	private TwoColCircle[] col;
 
 	[SerializeField] private float xSpeedMax = 1.0f;
 	[SerializeField] private float xSpeedAccel = 0.1f;
@@ -17,39 +17,46 @@ public class BatHero : MonoBehaviour {
 	// Use this for initialization
 	void Awake ()
 	{
-		col = GetComponent<TwoColCircle> ();
+		col = GetComponents<TwoColCircle> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if (col)
+		if (col.Length > 0)
 		{
-			List<TwoColManager.Col> other = col.ColManager.CheckCol (col);
+			TwoColCircle colPhys = col[0];
+			TwoColCircle colOff = col[1];
+
+			List<TwoColManager.Col> other = colPhys.ColManager.CheckCol (colPhys);
 
 			if (other.Count > 0)
 			{
 				foreach (TwoColManager.Col e in other)
 				{
+					transform.position += (Vector3)e.move;
+				}
+			}
 
+			List<TwoColManager.Col> other2 = colOff.ColManager.CheckCol (colOff);
+
+			if (other2.Count > 0)
+			{
+				foreach (TwoColManager.Col e in other2)
+				{
+					
 					BatMoth colMoth = e.col.GetComponent<BatMoth>();
 					BatEnemy colEnemy = e.col.GetComponent<BatEnemy>();
-
+					
 					if (colMoth)
 					{
 						colMoth.Die();
 					}
 					else
-					if (colEnemy)
+						if (colEnemy)
 					{
 						transform.position = new Vector3(100.0f, 150.0f, 0.0f);
 					}
-					else
-					{
-						transform.position += (Vector3)e.move;
-						//if (ySpeed > 0.0f) ySpeed = -0.01f;
-					}
-
 				}
 			}
 		}

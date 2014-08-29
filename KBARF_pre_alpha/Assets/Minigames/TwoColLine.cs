@@ -150,8 +150,6 @@ public class TwoColLine : TwoCol {
 
 			Vector2 output = new Vector2((B2*C1 - B1*C2)/det, (A1*C2 - A2*C1)/det);
 
-			print ("DUD");
-
 			// This check doesn't work... or does it?!
 			if (minX1 <= output.x+0.001f && maxX1 >= output.x-0.001f &&
 			    minY1 <= output.y+0.001f && maxY1 >= output.y-0.001f)

@@ -16,7 +16,10 @@ public class TwoColManager : MonoBehaviour {
 
 		foreach (TwoCol e in twoCol)
 		{
-			if (e == other)
+			if (e == other ||
+			    (other.Type == TwoCol.ColType.PHYSICS_TAKE && e.Type != TwoCol.ColType.PHYSICS_GIVE) ||
+			    (other.Type == TwoCol.ColType.OFFENSE_TAKE && e.Type != TwoCol.ColType.DEFENCE_GIVE)
+			    )
 			{
 				continue;
 			}

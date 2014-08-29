@@ -32,13 +32,25 @@ public class EditorDrawCol : Editor {
 		{
 			TwoColLine temp = (TwoColLine)myTarget;
 
-			if (temp.checkCollisions)
+			if (temp.Type == TwoCol.ColType.DEFENCE_GIVE)
+			{
+				Handles.color = UnityEngine.Color.blue;
+			}
+			else if (temp.Type == TwoCol.ColType.OFFENSE_TAKE)
+			{
+				Handles.color = UnityEngine.Color.red;
+			}
+			else if (temp.Type == TwoCol.ColType.PHYSICS_GIVE)
 			{
 				Handles.color = UnityEngine.Color.green;
 			}
+			else if (temp.Type == TwoCol.ColType.PHYSICS_TAKE)
+			{
+				Handles.color = UnityEngine.Color.yellow;
+			}
 			else
 			{
-				Handles.color = UnityEngine.Color.blue;
+				Handles.color = UnityEngine.Color.grey;
 			}
 
 			Handles.DrawLine(new UnityEngine.Vector3(temp.P1Draw.x, temp.P1Draw.y, 0.0f), new UnityEngine.Vector3(temp.P2Draw.x, temp.P2Draw.y, 0.0f) );
