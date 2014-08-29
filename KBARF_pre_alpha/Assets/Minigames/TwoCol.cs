@@ -7,11 +7,15 @@ public class TwoCol : MonoBehaviour {
 	protected Vector2 bL = new Vector2(-1.0f, -1.0f);
 	protected Vector2 tR = new Vector2(1.0f, 1.0f);
 
+	[SerializeField] public bool checkCollisions = true;
+
 	// Use this for initialization
 	public virtual void Awake ()
 	{
 		// Ryan says not to put "find" in awake. He may have a point. Fine fine Ill put it in start. fukin noob mate.
 		colManager = GameObject.Find ("CollisionManager").GetComponent<TwoColManager> ();
+
+		if (!checkCollisions) return;
 
 		colManager.AddCol (this);
 	}
@@ -87,6 +91,7 @@ public class TwoCol : MonoBehaviour {
 
 	// Update is called once per frame
 	void OnDestroy () {
+		if (!colManager) return;
 		colManager.RemoveCol (this);
 	}
 }

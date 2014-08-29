@@ -11,7 +11,11 @@ public class EditModeSnap : MonoBehaviour {
 
 	void Update() {
 
+		if (Time.timeSinceLevelLoad > 0.0f) return;
+
 		#if (UNITY_EDITOR)
+		//
+
 		float snapInverseX = 1/snapValueX;
 		float snapInverseY = 1/snapValueY;
 		

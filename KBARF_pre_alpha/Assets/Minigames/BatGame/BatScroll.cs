@@ -10,6 +10,6 @@ public class BatScroll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.transform.position += Vector3.left * 0.15f;
+		//this.transform.position += Vector3.left * 0.15f;
 	}
 }

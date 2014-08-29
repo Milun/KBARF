@@ -30,10 +30,17 @@ public class EditorDrawCol : Editor {
 		}
 		if (myTarget.GetType() == typeof(TwoColLine))
 		{
-			Handles.color = UnityEngine.Color.green;
-			
 			TwoColLine temp = (TwoColLine)myTarget;
-			
+
+			if (temp.checkCollisions)
+			{
+				Handles.color = UnityEngine.Color.green;
+			}
+			else
+			{
+				Handles.color = UnityEngine.Color.blue;
+			}
+
 			Handles.DrawLine(new UnityEngine.Vector3(temp.P1Draw.x, temp.P1Draw.y, 0.0f), new UnityEngine.Vector3(temp.P2Draw.x, temp.P2Draw.y, 0.0f) );
 		}
 	}

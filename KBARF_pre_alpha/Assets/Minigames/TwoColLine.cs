@@ -45,6 +45,11 @@ public class TwoColLine : TwoCol {
 		{
 			return p1 + (Vector2)myTransform.position;
 		}
+
+		set
+		{
+			p1 = value;
+		}
 	}
 
 	public Vector2 P2
@@ -52,6 +57,11 @@ public class TwoColLine : TwoCol {
 		get
 		{
 			return p2 + (Vector2)myTransform.position;
+		}
+
+		set
+		{
+			p2 = value;
 		}
 	}
 
@@ -109,6 +119,47 @@ public class TwoColLine : TwoCol {
 
 	public override Vector2 CheckColLine(TwoColLine other)
 	{
+		if (!CheckColBounds (other)) return Vector2.zero;
+
+		float A1 = P2.y - P1.y;
+		float B1 = P1.x - P2.x;
+		float C1 = A1*P1.x + B1*P1.y;
+
+		float A2 = other.P2.y - other.P1.y;
+		float B2 = other.P1.x - other.P2.x;
+		float C2 = A2*other.P1.x + B2*other.P1.y;
+
+		float det = A1 * B2 - A2 * B1;
+
+		if (det == 0)
+		{
+			print ("?");
+			return Vector2.zero;
+		}
+		else
+		{
+			float minX1 = Mathf.Min(P1.x, P2.x);
+			//float minX2 = Mathf.Min(other.P1.x, other.P2.y);
+			float maxX1 = Mathf.Max(P1.x, P2.x);
+			//float maxX2 = Mathf.Max(other.P1.x, other.P2.y);
+
+			float minY1 = Mathf.Min(P1.y, P2.y);
+			//float minY2 = Mathf.Min(other.P1.y, other.P2.y);
+			float maxY1 = Mathf.Max(P1.y, P2.y);
+			//float maxY2 = Mathf.Max(other.P1.y, other.P2.y);
+
+			Vector2 output = new Vector2((B2*C1 - B1*C2)/det, (A1*C2 - A2*C1)/det);
+
+			print ("DUD");
+
+			// This check doesn't work... or does it?!
+			if (minX1 <= output.x+0.001f && maxX1 >= output.x-0.001f &&
+			    minY1 <= output.y+0.001f && maxY1 >= output.y-0.001f)
+			{
+				return output - P2;
+			}
+		}
+
 		return Vector2.zero;
 	}
 
