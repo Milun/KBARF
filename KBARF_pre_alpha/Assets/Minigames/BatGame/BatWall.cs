@@ -7,14 +7,13 @@ public class BatWall : MonoBehaviour {
 	[SerializeField] private Vector2 p1 = Vector2.zero;
 	[SerializeField] private Vector2 p2 = Vector2.zero;
 	[SerializeField] private Material mat;
-	[SerializeField] private Texture2D[] tex;
 
-	private float width = 2.0f;
+	private float width = 30.0f;
 
 	VectorLine vl;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 
 		Destroy (this.GetComponent<SpriteRenderer> ());
 
@@ -28,8 +27,10 @@ public class BatWall : MonoBehaviour {
 
 		vl.name = "BatWall";
 		vl.lineWidth = width;
-		VectorLine.SetEndCap ("BatWall", EndCap.Mirror, mat, tex);
+		vl.material = mat;
+		vl.endCap = "Cap";
 
+		this.transform.localScale = Vector3.one;
 	}
 	
 	// Update is called once per frame
