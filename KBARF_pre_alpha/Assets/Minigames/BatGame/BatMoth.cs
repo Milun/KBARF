@@ -23,6 +23,12 @@ public class BatMoth : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		//boop.
+		// Note to self: Rethink the way the hitboxes were handles by the bat (maybe make the MOTHS the ones that collide with it.
+		// Seems more efficient.
+		//
+		// Also, instead of the random the moths currently have, maybe limit the rotation between two angles (so that the moths always go from one end of the screen to the other).
+
 		//rot += 1.0f;
 
 		/*if (rot >= 256.0f)
