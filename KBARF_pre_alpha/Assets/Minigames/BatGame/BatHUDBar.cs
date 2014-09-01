@@ -2,9 +2,9 @@
 using System.Collections;
 using Vectrosity;
 
-public class BatHUD : MonoBehaviour {
+public class BatHUDBar : MonoBehaviour {
 
-	[SerializeField] private Vector3 	barPos;
+	private Vector3 	barPos;
 	[SerializeField] private float	 	width = 100.0f;
 	[SerializeField] private Material	mat;
 
@@ -13,7 +13,8 @@ public class BatHUD : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		barEnergy = new VectorLine[9];
+		barPos = transform.position;
+		barEnergy = new VectorLine[2];
 
 		for (int i = 0; i < barEnergy.Length; i++)
 		{
