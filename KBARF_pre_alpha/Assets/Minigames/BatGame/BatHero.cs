@@ -12,6 +12,10 @@ public class BatHero : MonoBehaviour {
 	[SerializeField] private float ySpeedMax = 1.5f;
 	[SerializeField] private float flapHeight = 1.0f;
 
+	[SerializeField] private BatHUDBar energyBar;
+
+	private float energy = 100.0f;
+
 	private float xSpeed, ySpeed = 0.0f;
 
 	// Use this for initialization
@@ -51,6 +55,9 @@ public class BatHero : MonoBehaviour {
 					if (colMoth)
 					{
 						colMoth.Die();
+						energy += 5.0f;
+						if (energy > 100.0f) energy = 100.0f;
+						energyBar.SetValue(energy/100.0f);
 					}
 					else
 						if (colEnemy)
@@ -88,9 +95,14 @@ public class BatHero : MonoBehaviour {
 			ySpeed -= gravity;
 		}
 
-		if (Input.GetKeyDown("up"))
+		if (energy > 0.0f && Input.GetKeyDown("up"))
 		{
 			ySpeed += flapHeight;
+
+			energy -= 5.0f;
+			if (energy < 0.0f) energy = 0.0f;
+
+			energyBar.SetValue(energy/100.0f);
 		}
 
 		ySpeed = Mathf.Clamp(ySpeed, -ySpeedMax, ySpeedMax);
