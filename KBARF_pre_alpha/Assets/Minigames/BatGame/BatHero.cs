@@ -7,14 +7,21 @@ public class BatHero : MonoBehaviour {
 
 	[SerializeField] private float xSpeedMax = 1.0f;
 	[SerializeField] private float xSpeedAccel = 0.1f;
+	[SerializeField] private float xSpeedAccelChange = 0.5f;
+
 	[SerializeField] private float xFriction = 0.98f;
+	[SerializeField] private float xFrictionChange = 0.3f;
+
 	[SerializeField] private float gravity = 0.1f;
 	[SerializeField] private float ySpeedMax = 1.5f;
+	[SerializeField] private float ySpeedGlide = 1.0f;
 	[SerializeField] private float flapHeight = 1.0f;
 
 	[SerializeField] private BatHUDBar energyBar;
+	[SerializeField] private BatHUDBar weightBar;
 
-	private float energy = 100.0f;
+	private float energy = 1.0f;
+	private float weight = 1.0f;
 
 	private float xSpeed, ySpeed = 0.0f;
 
@@ -55,9 +62,14 @@ public class BatHero : MonoBehaviour {
 					if (colMoth)
 					{
 						colMoth.Die();
-						energy += 5.0f;
-						if (energy > 100.0f) energy = 100.0f;
-						energyBar.SetValue(energy/100.0f);
+						energy += 0.05f;
+						if (energy > 1.0f) energy = 1.0f;
+
+						weight += 0.05f;
+						if (weight > 1.0f) weight = 1.0f;
+
+						energyBar.SetValue(energy);
+						weightBar.SetValue(weight);
 					}
 					else
 						if (colEnemy)
@@ -70,17 +82,17 @@ public class BatHero : MonoBehaviour {
 	
 		if (Input.GetKey("left"))
 		{
-			xSpeed -= xSpeedAccel;
+			xSpeed -= xSpeedAccel - xSpeedAccel*xSpeedAccelChange*weight;
 		}
 		else if (Input.GetKey("right"))
 		{
-			xSpeed += xSpeedAccel;
+			xSpeed += xSpeedAccel - xSpeedAccel*xSpeedAccelChange*weight;
 		}
 		else
 		{
 			if (Mathf.Abs(xSpeed) > 0.05f)
 			{
-				xSpeed *= xFriction;
+				xSpeed *= xFriction + (1.0f-xFriction)*xFrictionChange*weight;
 			}
 			else
 			{
@@ -99,10 +111,28 @@ public class BatHero : MonoBehaviour {
 		{
 			ySpeed += flapHeight;
 
-			energy -= 5.0f;
+			energy -= 0.05f;
 			if (energy < 0.0f) energy = 0.0f;
 
-			energyBar.SetValue(energy/100.0f);
+			weight -= 0.025f;
+			if (weight < 0.0f) weight = 0.0f;
+
+			energyBar.SetValue(energy);
+			weightBar.SetValue(weight);
+		}
+
+		if (Input.GetKey("up"))
+		{
+			if (ySpeed < -ySpeedGlide)
+			{
+				ySpeed = -ySpeedGlide;//(ySpeed + ySpeedGlide)*0.5f;
+			}
+		}
+
+		if (Time.frameCount % 50 == 0)
+		{
+			weight -= 0.01f;
+			weightBar.SetValue(weight);
 		}
 
 		ySpeed = Mathf.Clamp(ySpeed, -ySpeedMax, ySpeedMax);

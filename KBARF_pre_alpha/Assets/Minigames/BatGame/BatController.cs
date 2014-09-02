@@ -15,6 +15,23 @@ public class BatController : MonoBehaviour {
 		VectorLine.SetEndCap ("Cap", EndCap.Mirror, mat, tex);
 	}
 
+	void Start() {
+		VectorLine vl = new VectorLine("help", new Vector3[60], lineMat, lineWidth, LineType.Discrete, Joins.Weld);
+
+
+		//CreateLine (new Vector3 (0.0f, 0.0f, 0.0f), new Vector3 (400.0f, 400.0f, 0.0f));
+
+		vl.MakeText ("123456", new Vector3(10.0f, 310.0f, 0.0f), 15.0f);
+
+		vl.endCap = "Cap";
+
+		//vl.joins = Joins.Weld;
+
+		vl.Draw ();
+
+		//
+	}
+
 	public VectorLine CreateLine(Vector3 p1, Vector3 p2)
 	{
 		VectorLine vl = VectorLine.SetLine3D (Color.white, p1, p2);

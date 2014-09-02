@@ -29,7 +29,12 @@ public class BatWall : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+	{
+		Vector3[] v = new Vector3[2];
+		v [0] = this.transform.position + (Vector3)p1;
+		v [1] = this.transform.position + (Vector3)p2;
+
+		vl.Resize (v);
 	}
 }
