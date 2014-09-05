@@ -68,6 +68,7 @@ public class BatSpike : MonoBehaviour {
 				{
 					hero.Die();
 					die = true;
+					if (ac) AudioSource.PlayClipAtPoint(ac, transform.position);
 					return;
 				}
 			}
@@ -87,8 +88,6 @@ public class BatSpike : MonoBehaviour {
 			VectorLine.Destroy(ref vl[0]);
 			VectorLine.Destroy(ref vl[1]);
 			Destroy (this.gameObject);
-
-			if (ac) AudioSource.PlayClipAtPoint(ac, transform.position);
 
 			return;
 		}
