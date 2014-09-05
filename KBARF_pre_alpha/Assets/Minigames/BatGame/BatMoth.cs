@@ -4,6 +4,7 @@ using System.Collections;
 public class BatMoth : MonoBehaviour {
 
 	private TwoColLine[] col;
+	private TwoColCircle colCirc;
 	private float rot = 90.0f;
 	private float rotWander = 0.0f;
 
@@ -13,6 +14,7 @@ public class BatMoth : MonoBehaviour {
 	void Awake ()
 	{
 		col = GetComponents<TwoColLine> ();
+		colCirc = GetComponent<TwoColCircle> ();
 	}
 
 	public void Die()
@@ -23,6 +25,18 @@ public class BatMoth : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		TwoCol colC = colCirc.ColManager.IsCol (colCirc, TwoCol.ColType.COMBAT_DEF);
+		if (colC)
+		{
+			BatHero hero = colC.GetComponent<BatHero>();
+			if (hero)
+			{
+				hero.EatMoth();
+				Die ();
+				return;
+			}
+		}
+
 		//boop.
 		// Note to self: Rethink the way the hitboxes were handles by the bat (maybe make the MOTHS the ones that collide with it.
 		// Seems more efficient.

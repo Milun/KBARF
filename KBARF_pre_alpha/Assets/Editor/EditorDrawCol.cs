@@ -32,19 +32,19 @@ public class EditorDrawCol : Editor {
 		{
 			TwoColLine temp = (TwoColLine)myTarget;
 
-			if (temp.Type == TwoCol.ColType.DEFENCE_GIVE)
+			if (temp.HasType(TwoCol.ColType.COMBAT_DEF))
 			{
 				Handles.color = UnityEngine.Color.blue;
 			}
-			else if (temp.Type == TwoCol.ColType.OFFENSE_TAKE)
+			else if (temp.HasType(TwoCol.ColType.COMBAT_OFF))
 			{
 				Handles.color = UnityEngine.Color.red;
 			}
-			else if (temp.Type == TwoCol.ColType.PHYSICS_GIVE)
+			else if (temp.HasType(TwoCol.ColType.PHYSICS_DEF))
 			{
 				Handles.color = UnityEngine.Color.green;
 			}
-			else if (temp.Type == TwoCol.ColType.PHYSICS_TAKE)
+			else if (temp.HasType(TwoCol.ColType.PHYSICS_OFF))
 			{
 				Handles.color = UnityEngine.Color.yellow;
 			}

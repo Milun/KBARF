@@ -10,12 +10,16 @@ public class BatController : MonoBehaviour {
 	[SerializeField] private float lineWidth = 30.0f;
 	[SerializeField] private Material lineMat;
 
+	private GameObject hero;
+
 	// Use this for initialization
 	void Awake () {
 		VectorLine.SetEndCap ("Cap", EndCap.Mirror, mat, tex);
 	}
 
 	void Start() {
+		hero = GameObject.Find ("pre_bat");
+
 		VectorLine vl = new VectorLine("help", new Vector3[60], lineMat, lineWidth, LineType.Discrete, Joins.Weld);
 
 
@@ -43,8 +47,20 @@ public class BatController : MonoBehaviour {
 		return vl;
 	}
 
+	public void ResizeLine(VectorLine vl, Vector3 p1, Vector2 p2)
+	{
+		Vector3[] v = new Vector3[2];
+		v [0] = p1;
+		v [1] = p2;
+		vl.Resize (v);
+	}
+
+	public void Mute()
+	{
+		GetComponent<AudioSource>().mute = true;
+	}
+
 	// Update is called once per frame
 	void Update () {
-	
 	}
 }

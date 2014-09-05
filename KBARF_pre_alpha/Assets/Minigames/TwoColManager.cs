@@ -16,10 +16,7 @@ public class TwoColManager : MonoBehaviour {
 
 		foreach (TwoCol e in twoCol)
 		{
-			if (e == other ||
-			    (other.Type == TwoCol.ColType.PHYSICS_TAKE && e.Type != TwoCol.ColType.PHYSICS_GIVE) ||
-			    (other.Type == TwoCol.ColType.OFFENSE_TAKE && e.Type != TwoCol.ColType.DEFENCE_GIVE)
-			    )
+			if (e == other || !e.CanCollide(other))
 			{
 				continue;
 			}
@@ -37,6 +34,43 @@ public class TwoColManager : MonoBehaviour {
 
 		// No collisions.
 		return output;
+	}
+
+	public Vector2 CheckColMove(TwoCol other)
+	{
+		Vector2 output = Vector2.zero;
+		
+		foreach (TwoCol e in twoCol)
+		{
+			if (e == other || !e.CanCollide(other))
+			{
+				continue;
+			}
+
+			output += other.CheckCol(e);
+		}
+		
+		// No collisions.
+		return output;
+	}
+
+	public TwoCol IsCol(TwoCol other, TwoCol.ColType type)
+	{
+		foreach (TwoCol e in twoCol)
+		{
+			if (e == other || !e.HasType(type) || !e.CanCollide(other))
+			{
+				continue;
+			}
+
+			if (other.CheckCol(e) != Vector2.zero)
+			{
+				return e;
+			}
+		}
+		
+		// No collisions.
+		return null;
 	}
 
 	public void AddCol(TwoCol pass)

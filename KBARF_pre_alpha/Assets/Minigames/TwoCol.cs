@@ -4,18 +4,23 @@ using System.Collections;
 public class TwoCol : MonoBehaviour {
 
 	public enum ColType {
-		PHYSICS_GIVE,
-		PHYSICS_TAKE,
-		OFFENSE_TAKE,
-		DEFENCE_GIVE,
-		OTHER
+		PHYSICS_DEF,
+		PHYSICS_OFF,
+		COMBAT_DEF,
+		COMBAT_OFF,
+		T1_DEF,
+		T1_OFF,
+		T2_DEF,
+		T2_OFF,
+		T3_DEF,
+		T3_OFF
 	};
 
 	TwoColManager colManager;
 	protected Vector2 bL = new Vector2(-1.0f, -1.0f);
 	protected Vector2 tR = new Vector2(1.0f, 1.0f);
 
-	[SerializeField] private ColType type;
+	[SerializeField] private ColType[] types;
 
 	// Use this for initialization
 	public virtual void Awake ()
@@ -23,17 +28,50 @@ public class TwoCol : MonoBehaviour {
 		// Ryan says not to put "find" in awake. He may have a point. Fine fine Ill put it in start. fukin noob mate.
 		colManager = GameObject.Find ("CollisionManager").GetComponent<TwoColManager> ();
 
-		if (type != ColType.PHYSICS_GIVE && type != ColType.DEFENCE_GIVE) return;
-
-		colManager.AddCol (this);
+		foreach (ColType e in types)
+		{
+			if (e == ColType.PHYSICS_DEF ||
+			    e == ColType.COMBAT_DEF ||
+			    e == ColType.T1_DEF ||
+			    e == ColType.T2_DEF ||
+			    e == ColType.T3_DEF)
+			{
+				colManager.AddCol (this);
+				return;
+			}
+		}
 	}
 
-	public ColType Type 
+	public ColType[] Types
 	{
 		get
 		{
-			return type;
+			return types;
 		}
+	}
+
+	public bool HasType(ColType ct)
+	{
+		foreach (ColType e in types)
+		{
+			if (e == ct)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Note: There is a more efficient way of doing this.
+	public bool CanCollide(TwoCol other)
+	{
+		if (this.HasType(ColType.COMBAT_DEF) && other.HasType(ColType.COMBAT_OFF)) return true;
+		if (this.HasType(ColType.PHYSICS_DEF) && other.HasType(ColType.PHYSICS_OFF)) return true;
+		if (this.HasType(ColType.T1_DEF) && other.HasType(ColType.T1_OFF)) return true;
+		if (this.HasType(ColType.T2_DEF) && other.HasType(ColType.T2_OFF)) return true;
+		if (this.HasType(ColType.T3_DEF) && other.HasType(ColType.T3_OFF)) return true;
+
+		return false;
 	}
 
 	public virtual Vector2 BL

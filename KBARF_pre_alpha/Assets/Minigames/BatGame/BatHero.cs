@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class BatHero : MonoBehaviour {
 
-	private TwoColCircle[] col;
+	private TwoColCircle col;
+	private BatController controller;
 
 	[SerializeField] private float xSpeedMax = 1.0f;
 	[SerializeField] private float xSpeedAccel = 0.1f;
@@ -28,16 +29,39 @@ public class BatHero : MonoBehaviour {
 	// Use this for initialization
 	void Awake ()
 	{
-		col = GetComponents<TwoColCircle> ();
+		col = GetComponent<TwoColCircle> ();
 	}
-	
+
+	void Start()
+	{
+		controller = GameObject.Find("cam_main").GetComponent<BatController>();
+	}
+
+	public void Die()
+	{
+		controller.Mute();
+		Destroy (this.gameObject);
+	}
+
+	public void EatMoth()
+	{
+		energy += 0.05f;
+		if (energy > 1.0f) energy = 1.0f;
+		
+		weight += 0.05f;
+		if (weight > 1.0f) weight = 1.0f;
+		
+		energyBar.SetValue(energy);
+		weightBar.SetValue(weight);
+	}
+
 	// Update is called once per frame
 	void Update () {
 
-		if (col.Length > 0)
+		if (col)
 		{
-			TwoColCircle colPhys = col[0];
-			TwoColCircle colOff = col[1];
+			TwoColCircle colPhys = col;
+			TwoColCircle colOff = col;
 
 			List<TwoColManager.Col> other = colPhys.ColManager.CheckCol (colPhys);
 
@@ -61,15 +85,7 @@ public class BatHero : MonoBehaviour {
 					
 					if (colMoth)
 					{
-						colMoth.Die();
-						energy += 0.05f;
-						if (energy > 1.0f) energy = 1.0f;
 
-						weight += 0.05f;
-						if (weight > 1.0f) weight = 1.0f;
-
-						energyBar.SetValue(energy);
-						weightBar.SetValue(weight);
 					}
 					else
 						if (colEnemy)

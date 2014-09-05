@@ -8,20 +8,30 @@ public class BatSpike : MonoBehaviour {
 	private Vector2 p2 = Vector2.zero;
 	private Vector2 p = Vector2.zero;
 
+	private Vector2 p1Mask = Vector2.zero;
+	private Vector2 p2Mask = Vector2.zero;
+
 	private BatController controller;
 	private Transform myTransform;
-
+	
 	private TwoColLine[] col;
 	private TwoColSquare colSquare;
 	VectorLine[] vl;
 
+	private bool die = false;
+
+	[SerializeField] private float speedAdd = 3.0f;
+	[SerializeField] private AudioClip ac;
 	private float speed = 0.0f;
+	private bool  freefall = false;
+
 
 	// Use this for initialization
 	void Awake () {
 		vl = new VectorLine[2];
 		col = GetComponents<TwoColLine> ();
 		colSquare = GetComponent<TwoColSquare> ();
+
 	}
 
 	void Start () {
@@ -33,96 +43,114 @@ public class BatSpike : MonoBehaviour {
 		Vector3 multiply = this.transform.localScale;
 		myTransform = this.transform;
 
-		p = new Vector2 (0.0f, 0.0f);
-		p1 = new Vector2 ( multiply.x * -0.5f, multiply.y);
-		p2 = new Vector2 ( multiply.x *  0.5f, multiply.y);
+		p = new Vector2 (0.0f, -multiply.y);
+		p1 = new Vector2 ( multiply.x * -0.5f, 0.0f);
+		p2 = new Vector2 ( multiply.x *  0.5f, 0.0f);
 		
-		vl[0] = controller.CreateLine(myTransform.position + (Vector3)(p), myTransform.position + (Vector3)(p1));
-		vl[1] = controller.CreateLine(myTransform.position + (Vector3)(p), myTransform.position + (Vector3)(p2));
-		
+		vl[0] = controller.CreateLine(Vector2.zero, Vector2.zero);
+		vl[1] = controller.CreateLine(Vector2.zero, Vector2.zero);
+
 		this.transform.localScale = Vector3.one;
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
-		List<TwoColManager.Col> other = col [0].ColManager.CheckCol (col [0]);
-		Vector2 mask = Vector2.zero;
-		foreach (TwoColManager.Col e in other)
-		{
-			if (e.move.magnitude > mask.magnitude)
-			{
-				mask = e.move;
-			}
-		}
-
-		float magnitude = p1.magnitude - mask.magnitude;
-		if (magnitude < 0.0f)
-		{
-			mask = p1;
-		}
-
-		if ((p1+mask).magnitude > p1.magnitude)
-		{
-			mask = Vector2.zero;
-		}
-
-
-		Vector3[] v1 = new Vector3[2];
-		v1 [0] = myTransform.position + (Vector3)p;
-		v1 [1] = myTransform.position + (Vector3)(p1+mask);
-
-		vl [0].Resize (v1);
-
-
-
-
-		other = col [1].ColManager.CheckCol (col [1]);
+	private void UpdateMask(TwoColLine colLine, Vector2 point, ref Vector2 mask)
+	{
+		List<TwoColManager.Col> other = colLine.ColManager.CheckCol (colLine);
 		mask = Vector2.zero;
+
 		foreach (TwoColManager.Col e in other)
 		{
-			if (e.move.magnitude > mask.magnitude)
+			if (e.col.HasType(TwoCol.ColType.COMBAT_DEF))
+			{
+			BatHero hero = e.col.GetComponent<BatHero>();
+				if (hero)
+				{
+					hero.Die();
+					die = true;
+					return;
+				}
+			}
+
+			if (e.col.HasType(TwoCol.ColType.PHYSICS_DEF) && e.move.magnitude > mask.magnitude)
 			{
 				mask = e.move;
 			}
 		}
-		
-		magnitude = p2.magnitude - mask.magnitude;
-		if (magnitude < 0.0f)
+	}
+
+	// Update is called once per frame
+	void LateUpdate () {
+
+		if (die)
 		{
-			mask = p2;
+			VectorLine.Destroy(ref vl[0]);
+			VectorLine.Destroy(ref vl[1]);
+			Destroy (this.gameObject);
+
+			if (ac) AudioSource.PlayClipAtPoint(ac, transform.position);
+
+			return;
 		}
-		
-		if ((p2+mask).magnitude > p2.magnitude)
-		{
-			mask = Vector2.zero;
-		}
 
-		Vector3[] v2 = new Vector3[2];
-		v2 [0] = myTransform.position + (Vector3)p;
-		v2 [1] = myTransform.position + (Vector3)(p2+mask);
+		UpdateMask(col[0], p1, ref p1Mask);
+		UpdateMask(col[1], p2, ref p2Mask);
 
-		vl [1].Resize (v2);
-
-
+		// When it's idle
 		if (speed == 0.0f)
 		{
-			List<TwoColManager.Col> otherSquare = colSquare.ColManager.CheckCol (colSquare);
-			print (otherSquare.Count);
-			foreach (TwoColManager.Col e in otherSquare)
+			if (p1Mask == Vector2.zero && p2Mask == Vector2.zero)
 			{
-				if (e.move != Vector2.zero && e.col.GetComponent<BatHero>())
+				print ("ERROR! A spike is not properly embedded into a wall!"); 
+			}
+
+			// Start falling.
+			if (speedAdd != 0.0f)
+			{
+				if (colSquare.ColManager.IsCol (colSquare, TwoCol.ColType.T1_DEF))
 				{
-					speed += Time.deltaTime;
-					break;
+					speed += Time.deltaTime*speedAdd;
+					return;
 				}
 			}
 		}
 		else
+		// When it's falling
 		{
+			UpdateMask(col[0], p1, ref p1Mask);
+			UpdateMask(col[1], p2, ref p2Mask);
+
+			// Check if the spike is completely unmasked.
+			if (!freefall &&
+			    p1Mask == Vector2.zero &&
+			    p2Mask == Vector2.zero)
+			{
+				freefall = true;
+			}
+			// If so, then the next time it hits the ground, destroy it!
+			else if (freefall &&
+			         (
+						p1Mask != Vector2.zero ||
+						p2Mask != Vector2.zero
+					 )
+			        )
+			{
+				die = true;
+				return;
+			}
+
+
 			myTransform.position += Vector3.down*speed;
-			speed += Time.deltaTime;
+			speed += Time.deltaTime*speedAdd;
 		}
+
+		// REDRAW!
+		controller.ResizeLine (vl [0],
+		                       myTransform.position + (Vector3)p,
+		                       myTransform.position + (Vector3)(p1 + p1Mask));
+		
+		controller.ResizeLine (vl [1],
+		                       myTransform.position + (Vector3)p,
+		                       myTransform.position + (Vector3)(p2 + p2Mask));
 	}
 }
