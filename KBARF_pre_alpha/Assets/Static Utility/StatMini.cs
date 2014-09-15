@@ -5,6 +5,7 @@ public static class StatMini {
 
 	#region STATIC VARIABLES
 	public static bool DEBUG = true;
+	public static float PIXEL_SIZE = 0.1f;
 	#endregion
 
 	// Get the container of the Minigame.

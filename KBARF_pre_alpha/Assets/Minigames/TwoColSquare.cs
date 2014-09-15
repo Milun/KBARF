@@ -5,6 +5,15 @@ public class TwoColSquare : TwoCol {
 
 	[SerializeField] private Vector2 bottomLeft 	= Vector2.zero;
 	[SerializeField] private Vector2 topRight 		= Vector2.zero;
+	private Vector2 center			= Vector2.zero;
+
+	public Vector2 Center
+	{
+		get
+		{
+			return center + (Vector2)transform.position;
+		}
+	}
 
 	public override Vector2 BL
 	{
@@ -14,7 +23,33 @@ public class TwoColSquare : TwoCol {
 			return bL;
 		}
 	}
-	
+
+	public Vector2 localBL
+	{
+		get
+		{
+			return bottomLeft;
+		}
+
+		set
+		{
+			bottomLeft = value;
+		}
+	}
+
+	public Vector2 localTR
+	{
+		get
+		{
+			return topRight;
+		}
+		
+		set
+		{
+			topRight = value;
+		}
+	}
+
 	public override Vector2 TR
 	{
 		get
@@ -28,34 +63,111 @@ public class TwoColSquare : TwoCol {
 	{
 		if (CheckColBounds(other))
 		{
-			if (other.BL.x > this.BL.x && other.TR.x < this.TR.x)
+			if (other.Center.x > this.BL.x && other.Center.x < this.TR.x)
 			{
-				if (other.Center.y > this.TR.y) return new Vector2(0.0f, other.Center.y - other.TR.y);
-				if (other.Center.y < this.BL.y) return new Vector2(0.0f, other.Center.y - other.BL.y);
+				if (other.Center.y > this.Center.y) return new Vector2(0.0f, other.Center.y - other.Rad - this.TR.y);
+				if (other.Center.y < this.Center.y) return new Vector2(0.0f, other.Center.y + other.Rad - this.BL.y);
 			}
-			if (other.BL.y > this.BL.y && other.TR.y < this.TR.y)
+			if (other.Center.y > this.BL.y && other.Center.y < this.TR.y)
 			{
-				if (other.Center.x > this.TR.x) return new Vector2(other.Center.x - other.TR.x, 0.0f);
-				if (other.Center.x < this.BL.x) return new Vector2(other.Center.x - other.BL.x, 0.0f);
+				if (other.Center.x > this.Center.x) return new Vector2(other.Center.x - other.Rad - this.TR.x, 0.0f);
+				if (other.Center.x < this.Center.x) return new Vector2(other.Center.x + other.Rad - this.BL.x, 0.0f);
 			}
 
-			if ((new Vector2 (BL.x, TR.y) - other.Center).magnitude < other.Rad) return Vector2.zero;//
-			if ((BL - other.Center).magnitude 						< other.Rad) return Vector2.zero;//
-			if ((TR - other.Center).magnitude 						< other.Rad) return Vector2.zero;//
-			if ((new Vector2 (TR.x, BL.y) - other.Center).magnitude < other.Rad) return Vector2.zero;//
+			Vector2 dist;
+			dist = new Vector2 (BL.x, TR.y) - other.Center;
+			if (dist.magnitude < other.Rad) return dist.normalized*(other.Rad-dist.magnitude);
+
+			dist = BL - other.Center;
+			if (dist.magnitude < other.Rad) return dist.normalized*(other.Rad-dist.magnitude);
+
+			dist = TR - other.Center;
+			if (dist.magnitude < other.Rad) return dist.normalized*(other.Rad-dist.magnitude);
+
+			dist = new Vector2 (TR.x, BL.y) - other.Center;
+			if (dist.magnitude < other.Rad) return dist.normalized*(other.Rad-dist.magnitude);
 		}
 
 		return Vector2.zero;
 	}
 
-	public override Vector2 CheckColSquare(TwoColSquare other)
+	public Vector2 CheckColSquarePhys(TwoColSquare other, ref TwoCommon tCommon)
 	{
-		return Vector2.zero;//other.CheckColBounds(other);
+		if (!CheckColBounds(other)) return Vector2.zero;
+
+		float safe = 2.0f;
+
+		// Check for X collision.
+		if (
+			(BL.x + tCommon.Vel.x < other.TR.x) &&
+			(TR.x + tCommon.Vel.x > other.BL.x) &&
+			(BL.y - tCommon.Vel.y + safe < other.TR.y) &&
+			(TR.y - tCommon.Vel.y - safe > other.BL.y)
+			)
+		{
+			if (Center.x < other.Center.x)
+			{
+				tCommon.X = other.BL.x - topRight.x;
+				return -Vector2.right;
+			}
+			else
+			{
+				tCommon.X = other.TR.x - bottomLeft.x;
+				return Vector2.right;
+			}
+		}
+
+		// Check for Y collision.
+		if (
+			(BL.x - tCommon.Vel.x + safe < other.TR.x) &&
+			(TR.x - tCommon.Vel.x - safe > other.BL.x) &&
+			(BL.y + tCommon.Vel.y < other.TR.y) &&
+			(TR.y + tCommon.Vel.y > other.BL.y)
+			)
+		{
+			if (Center.y < other.Center.y)
+			{
+				tCommon.Y = other.BL.y - topRight.y;
+				return -Vector2.up;
+			}
+			else
+			{
+				tCommon.Y = other.TR.y + bottomLeft.y;
+				return Vector2.up;
+			}
+		}
+
+
+
+		return Vector2.zero;
+	}
+
+	public override Vector2 CheckColLine(TwoColLine other)
+	{	
+		if (!CheckColBounds (other)) return Vector2.zero;
+		
+		Vector2 output = Vector2.zero;
+		
+		//output = CheckColLineParam (other.Center, vTR);
+		//if (output != Vector2.zero) return new Vector2(0.0f, output.y);
+		
+		//output = CheckColLineParam (other.Center, vTL);
+		//if (output != Vector2.zero) return new Vector2(0.0f, output.y);
+		
+		//output = CheckColLineParam (other.Center, vBL);
+		//if (output != Vector2.zero) return new Vector2(0.0f, output.y);
+		
+		output = other.CheckColLineParam (TR + Vector2.up*(-4.0f), TR);
+		if (output != Vector2.zero) return new Vector2(0.0f, output.y);
+		
+		return Vector2.zero;
 	}
 
 	// Use this for initialization
-	void Start () {
-	
+	public override void Awake () {
+		base.Awake ();
+
+		center = new Vector2 (topRight.x - bottomLeft.x, topRight.y - bottomLeft.y);
 	}
 
 	// Update is called once per frame

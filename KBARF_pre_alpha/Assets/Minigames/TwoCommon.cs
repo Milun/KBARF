@@ -64,7 +64,7 @@ public class TwoCommon : TwoCommonBasic {
 	}
 
 	// Update is called once per frame
-	void Update ()
+	void LateUpdate ()
 	{
 		pos += vel;
 

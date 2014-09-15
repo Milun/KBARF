@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(TwoColPhysics))]
 public class PlatGravity : MonoBehaviour {
 
-	private TwoCommon pCommon;
-	private PlatBoxPhysTake pBoxPhysTake;
+	private TwoCommon 		pCommon;
+	private TwoColPhysics 	tColPhys;
 
 	[SerializeField] private float gravity = 0.1f;
 	[SerializeField] private float ySpeedMax = 1.0f;
@@ -15,19 +16,18 @@ public class PlatGravity : MonoBehaviour {
 	void Awake ()
 	{
 		pCommon = GetComponent<TwoCommon> ();
-		pBoxPhysTake = GetComponent<PlatBoxPhysTake> ();
+		tColPhys = GetComponent<TwoColPhysics> ();
 	}
 
-	private void Update()
+	void LateUpdate()
 	{
-		// If there is a collision below, stop.
-		/*if (pc.ColBot (-anchorLength))
+		if (tColPhys.Move.y > 0.0f )
 		{
 			pCommon.YSpeed = 0.0f;
 			onGround = true;
-		
+			
 			return;
-		}*/
+		}
 
 		// Otherwise, fall with gravity.
 		pCommon.YSpeed -= gravity;

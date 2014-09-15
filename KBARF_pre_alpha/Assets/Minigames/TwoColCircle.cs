@@ -58,7 +58,7 @@ public class TwoColCircle : TwoCol {
 
 	public override Vector2 CheckColSquare(TwoColSquare other)
 	{
-		return other.CheckColCircle(this);
+		return -other.CheckColCircle(this);
 	}
 
 	public override Vector2 CheckColLine(TwoColLine other)

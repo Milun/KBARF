@@ -114,42 +114,53 @@ public class TwoColLine : TwoCol {
 
 	public override Vector2 CheckColSquare(TwoColSquare other)
 	{
+		if (!CheckColBounds (other)) return Vector2.zero;
+		
+		Vector2 lineVector = P2 - P1;
+		lineVector.Normalize ();
+		
+		Vector2 toCenter = other.Center - P1;
+		
+		float Rad = 6.0f;
+		
+		float projection = Vector2.Dot (toCenter, lineVector);
+		
+		Vector2 dist = (P1 + projection*lineVector) - other.Center;
+		
+		if (projection > 0.0f && projection < (P2 - P1).magnitude && dist.magnitude < Rad) return dist - dist.normalized*Rad;
+		
+		if ((P1 - other.Center).magnitude < Rad) return (P1-other.Center) - (P1-other.Center).normalized*Rad;
+		if ((P2 - other.Center).magnitude < Rad) return (P2-other.Center) - (P2-other.Center).normalized*Rad;
+
 		return Vector2.zero;
 	}
 
-	public override Vector2 CheckColLine(TwoColLine other)
-	{
-		if (!CheckColBounds (other)) return Vector2.zero;
-
+	public Vector2 CheckColLineParam(Vector2 oP1, Vector2 oP2)
+	{	
 		float A1 = P2.y - P1.y;
 		float B1 = P1.x - P2.x;
 		float C1 = A1*P1.x + B1*P1.y;
-
-		float A2 = other.P2.y - other.P1.y;
-		float B2 = other.P1.x - other.P2.x;
-		float C2 = A2*other.P1.x + B2*other.P1.y;
-
+		
+		float A2 = oP2.y - oP1.y;
+		float B2 = oP1.x - oP2.x;
+		float C2 = A2*oP1.x + B2*oP1.y;
+		
 		float det = A1 * B2 - A2 * B1;
-
+		
 		if (det == 0)
 		{
-			print ("?");
 			return Vector2.zero;
 		}
 		else
 		{
 			float minX1 = Mathf.Min(P1.x, P2.x);
-			//float minX2 = Mathf.Min(other.P1.x, other.P2.y);
 			float maxX1 = Mathf.Max(P1.x, P2.x);
-			//float maxX2 = Mathf.Max(other.P1.x, other.P2.y);
-
+			
 			float minY1 = Mathf.Min(P1.y, P2.y);
-			//float minY2 = Mathf.Min(other.P1.y, other.P2.y);
 			float maxY1 = Mathf.Max(P1.y, P2.y);
-			//float maxY2 = Mathf.Max(other.P1.y, other.P2.y);
-
+			
 			Vector2 output = new Vector2((B2*C1 - B1*C2)/det, (A1*C2 - A2*C1)/det);
-
+			
 			// This check doesn't work... or does it?!
 			if (minX1 <= output.x+0.001f && maxX1 >= output.x-0.001f &&
 			    minY1 <= output.y+0.001f && maxY1 >= output.y-0.001f)
@@ -159,6 +170,13 @@ public class TwoColLine : TwoCol {
 		}
 
 		return Vector2.zero;
+	}
+
+	public override Vector2 CheckColLine(TwoColLine other)
+	{
+		if (!CheckColBounds (other)) return Vector2.zero;
+
+		return CheckColLineParam (other.P1, other.P2);
 	}
 
 

@@ -4,8 +4,7 @@ using System.Collections;
 public class PlatHero : MonoBehaviour {
 
 	private TwoCommon pCommon;
-	private PlatBoxPhysTake pTake;
-	private PlatBoxCombTake pCombTake;
+	private TwoColSquare tCol;
 	private PlatGravity pg;
 	private TwoGlobal pGlobal;
 
@@ -21,8 +20,7 @@ public class PlatHero : MonoBehaviour {
 	void Awake ()
 	{
 		pCommon = GetComponent<TwoCommon> ();	
-		pTake = GetComponent<PlatBoxPhysTake> ();
-		pCombTake = GetComponent<PlatBoxCombTake> ();
+		tCol = GetComponent<TwoColSquare> ();
 
 		pg = GetComponent<PlatGravity> ();
 		pGlobal = StatMini.GetMiniContainer(transform).GetComponent<TwoGlobal> ();
@@ -43,7 +41,7 @@ public class PlatHero : MonoBehaviour {
 
 	private void MoveRoom()
 	{
-		if (pCommon.XSpeed > 0.0f && pCommon.X + pTake.oTR.x > pGlobal.ROOM_SIZE.x)
+		if (pCommon.XSpeed > 0.0f && pCommon.X + tCol.localTR.x > pGlobal.ROOM_SIZE.x)
 		{
 			PlatRoom room = pRoom.MoveRight();
 			
@@ -52,15 +50,15 @@ public class PlatHero : MonoBehaviour {
 				GameObject.Destroy(pRoom.gameObject);
 				pRoom = room;
 				
-				pCommon.X = pTake.oBL.x;
+				pCommon.X = tCol.localBL.x;
 			}
 			else
 			{
 				pCommon.XSpeed = 0.0f;
-				pCommon.X = pGlobal.ROOM_SIZE.x - pTake.oTR.x;
+				pCommon.X = pGlobal.ROOM_SIZE.x - tCol.localTR.x;
 			}
 		}
-		else if (pCommon.XSpeed < 0.0f && pCommon.X + pTake.oBL.x < 0.0f)
+		else if (pCommon.XSpeed < 0.0f && pCommon.X + tCol.localBL.x < 0.0f)
 		{
 			PlatRoom room = pRoom.MoveLeft();
 
@@ -69,18 +67,19 @@ public class PlatHero : MonoBehaviour {
 				GameObject.Destroy(pRoom.gameObject);
 				pRoom = room;
 				
-				pCommon.X = pGlobal.ROOM_SIZE.x - pTake.oTR.x;
+				pCommon.X = pGlobal.ROOM_SIZE.x - tCol.localTR.x;
 			}
 			else
 			{
 				pCommon.XSpeed = 0.0f;
-				pCommon.X = pTake.oBL.x;
+				pCommon.X = tCol.localBL.x;
 			}
 		}
 
 		
-		if (pCommon.YSpeed > 0.0f && pCommon.Y + pTake.oTR.y > pGlobal.ROOM_SIZE.y)
+		if (pCommon.YSpeed > 0.0f && pCommon.Y + tCol.localTR.y > pGlobal.ROOM_SIZE.y)
 		{
+
 			PlatRoom room = pRoom.MoveUp();
 			
 			if (room != null)
@@ -88,16 +87,16 @@ public class PlatHero : MonoBehaviour {
 				GameObject.Destroy(pRoom.gameObject);
 				pRoom = room;
 				
-				pCommon.Y = pTake.oBL.y;
+				pCommon.Y = tCol.localBL.y;
 			}
 			else
 			{
 				pCommon.YSpeed = 0.0f;
-				pCommon.Y = pGlobal.ROOM_SIZE.y - pTake.oTR.y;
+				pCommon.Y = pGlobal.ROOM_SIZE.y - tCol.localTR.y;
 			}
 
 		}
-		else if (pCommon.YSpeed < 0.0f && pCommon.Y + pTake.oBL.y < 0.0f)
+		else if (pCommon.YSpeed < 0.0f && pCommon.Y + tCol.localBL.y < 0.0f)
 		{
 			PlatRoom room = pRoom.MoveDown();
 			
@@ -106,12 +105,12 @@ public class PlatHero : MonoBehaviour {
 				GameObject.Destroy(pRoom.gameObject);
 				pRoom = room;
 				
-				pCommon.Y = pGlobal.ROOM_SIZE.y - pTake.oTR.y;
+				pCommon.Y = pGlobal.ROOM_SIZE.y - tCol.localTR.y;
 			}
 			else
 			{
 				pCommon.YSpeed = 0.0f;
-				pCommon.Y = pTake.oBL.y;
+				pCommon.Y = tCol.localBL.y;
 
 				Die ();
 			}
@@ -121,24 +120,23 @@ public class PlatHero : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		// Consider null rooms making you wrap around instead of stop?
 		MoveRoom ();
 
-		if (pCombTake.CheckCol())
+		if (tCol.ColManager.IsCol(tCol, TwoCol.ColType.COMBAT_OFF))
 		{
 			Die ();
 		}
 
-		if (input.HoldUp() && pTake.IsColDown())
+		if (Input.GetKey("up") && pg.OnGround)
 		{
 			pCommon.YSpeed = jumpHeight;
 		}
 
-		if (input.HoldRight())
+		if (Input.GetKey("right"))
 		{
 			pCommon.XSpeed = moveSpeed;
 		}
-		else if (input.HoldLeft())
+		else if (Input.GetKey("left"))
 		{
 			pCommon.XSpeed = -moveSpeed;
 		}

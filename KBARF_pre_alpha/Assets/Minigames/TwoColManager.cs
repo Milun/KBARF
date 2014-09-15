@@ -36,7 +36,8 @@ public class TwoColManager : MonoBehaviour {
 		return output;
 	}
 
-	public Vector2 CheckColMove(TwoCol other)
+	// This is specific to squares.
+	public Vector2 CheckColPhys(TwoColSquare other, ref TwoCommon tCommon)
 	{
 		Vector2 output = Vector2.zero;
 		
@@ -47,9 +48,41 @@ public class TwoColManager : MonoBehaviour {
 				continue;
 			}
 
-			output += other.CheckCol(e);
+			Vector2 vec = Vector2.zero;
+			if (e.GetType() == typeof(TwoColSquare))
+			{
+				vec = other.CheckColSquarePhys((TwoColSquare)e, ref tCommon);
+			}
+			else
+			{
+				vec = other.CheckCol (e);
+				tCommon.Pos += vec;
+			}
+
+			if (vec != Vector2.zero)
+			{
+				output += vec;
+			}
 		}
 		
+		// No collisions.
+		return output;
+	}
+
+	public Vector2 CheckColMove(TwoCol other, TwoCol.ColType type)
+	{
+		Vector2 output = Vector2.zero;
+	
+		foreach (TwoCol e in twoCol)
+		{
+			if (e == other || !e.HasType(type) || !e.CanCollide(other))
+			{
+				continue;
+			}
+
+			output += other.CheckCol(e);
+		}
+
 		// No collisions.
 		return output;
 	}

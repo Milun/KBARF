@@ -4,7 +4,6 @@ using System.Collections;
 public class PlatBounce : MonoBehaviour {
 
 	private TwoCommon 		pCommon;
-	//private PlatCollision 	pCollisions;
 
 	void Awake ()
 	{
