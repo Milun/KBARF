@@ -10,8 +10,10 @@ public class PlatPhysRamp : MonoBehaviour {
 	private TwoColPhysics	tColPhys;
 	private PlatGravity		pGrav;
 
-	private bool onRamp = false;
-	private bool ignore = false;
+	private bool onRamp 	= false;
+	private bool ignoreCol 	= false;
+
+	private float anchorLength = 7.0f;
 
 	private Vector2 anchor = Vector2.zero;
 
@@ -27,19 +29,21 @@ public class PlatPhysRamp : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (tCommon.YSpeed > 0.0f || ignore || (pGrav && pGrav.OnGround))
+		// If you're moving upwards, or if implicitly told to ignore the ramp.
+		if (tCommon.YSpeed > 0.0f || ignoreCol)
 		{
-			ignore = false;
+			ignoreCol = false;
 			onRamp = false;
 			return;
 		}
 
-		Vector2 stairCol = tColLine.ColManager.CheckColMove (tColLine, TwoCol.ColType.T3_DEF);
+		Vector2 col = tColLine.ColManager.CheckColMove (tColLine, TwoCol.ColType.T3_DEF);
 
-		if (stairCol != Vector2.zero)
+		if (col != Vector2.zero)
 		{
-			float y = stairCol.y + anchor.y;
-			anchor = Vector2.up * -3.0f;
+			float y = col.y + anchor.y;
+
+			anchor = Vector2.up * -anchorLength;
 
 			tCommon.Y += y;
 			tCommon.YSpeed = 0.0f;
@@ -47,6 +51,10 @@ public class PlatPhysRamp : MonoBehaviour {
 			onRamp = true;
 
 			if (tColPhys) tColPhys.DontUpdate();
+		}
+		else if (pGrav && pGrav.OnGround)
+		{
+			anchor = Vector2.up * -anchorLength;
 		}
 		else
 		{
@@ -58,9 +66,9 @@ public class PlatPhysRamp : MonoBehaviour {
 		tColLine.P2 = anchor;
 	}
 
-	public void Ignore()
+	public void IgnoreCol()
 	{
-		ignore = true;
+		ignoreCol = true;
 	}
 
 	public bool OnRamp

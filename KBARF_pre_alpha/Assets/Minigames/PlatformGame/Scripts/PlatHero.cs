@@ -138,7 +138,7 @@ public class PlatHero : MonoBehaviour {
 
 		if (Input.GetKey("down") && (pRamp))
 		{
-			pRamp.Ignore();
+			pRamp.IgnoreCol();
 		}
 
 		if (Input.GetKey("right"))
