@@ -9,6 +9,7 @@ public class PlatGravity : MonoBehaviour {
 
 	[SerializeField] private float gravity = 0.1f;
 	[SerializeField] private float ySpeedMax = 1.0f;
+
 	private bool onGround = false;
 
 	private float anchorLength = 1.0f;
@@ -19,15 +20,17 @@ public class PlatGravity : MonoBehaviour {
 		tColPhys = GetComponent<TwoColPhysics> ();
 	}
 
-	void LateUpdate()
+	void Update()
 	{
-		if (tColPhys.Move.y > 0.0f )
+		if (tColPhys.Move.y > 0.0f && pCommon.YSpeed <= 0.0f )
 		{
-			pCommon.YSpeed = 0.0f;
+			pCommon.YSpeed = -1.0f;
 			onGround = true;
 			
 			return;
 		}
+
+		print ("noGravity");
 
 		// Otherwise, fall with gravity.
 		pCommon.YSpeed -= gravity;

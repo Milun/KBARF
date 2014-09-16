@@ -53,6 +53,14 @@ public class TwoColManager : MonoBehaviour {
 			{
 				vec = other.CheckColSquarePhys((TwoColSquare)e, ref tCommon);
 			}
+			else if (e.GetType() == typeof(TwoColLine))
+			{
+				if (tCommon.YSpeed <= 0.0f)
+				{
+					vec = other.CheckCol (e);
+					tCommon.Pos += vec;
+				}
+			}
 			else
 			{
 				vec = other.CheckCol (e);

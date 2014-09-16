@@ -42,7 +42,7 @@ public class TwoCol : MonoBehaviour {
 		}
 	}
 
-	public ColType[] Types
+	public ColType[] GetTypes
 	{
 		get
 		{

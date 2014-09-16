@@ -7,9 +7,9 @@ public class TwoColPhysics : MonoBehaviour {
 	// Note: Allows only for a single collider to be physics.
 	private TwoCommon tCommon;
 	private TwoColSquare tColSquare;
-	private TwoColLine[]   tColLine;
 
-	private Vector2	  move = Vector2.zero;
+	private Vector2	move = Vector2.zero;
+	private bool	noUpdate = false;
 
 	private enum ReactType {
 		STOP,
@@ -21,19 +21,9 @@ public class TwoColPhysics : MonoBehaviour {
 
 	void Awake ()
 	{
-		TwoColSquare[] list = GetComponents<TwoColSquare> ();
-
-		foreach (TwoColSquare e in list)
-		{
-			if (e.HasType(TwoCol.ColType.PHYSICS_OFF))
-			{
-				tColSquare = e;
-				break;
-			}
-		}
+		tColSquare = GetComponent<TwoColSquare> ();
 
 		tCommon = GetComponent<TwoCommon> ();
-		tColLine = GetComponents<TwoColLine> ();
 	}
 
 	public Vector2 Move
@@ -44,19 +34,25 @@ public class TwoColPhysics : MonoBehaviour {
 		}
 	}
 
+	public void DontUpdate()
+	{
+		noUpdate = true;
+	}
+
 	void Update()
 	{
+		if (noUpdate || reactType == ReactType.IGNORE)
+		{
+			noUpdate = false;
+			return;
+		}
+
 		// Check all physics collisions (the ones most likely to make you move).
 		move = tColSquare.ColManager.CheckColPhys (tColSquare, ref tCommon);
 
-		foreach(TwoColLine e in tColLine)
+		if (move != Vector2.zero)
 		{
-			tCommon.Pos += e.ColManager.CheckColMove (e, TwoCol.ColType.T3_DEF);
-			move += e.ColManager.CheckColMove (e, TwoCol.ColType.T3_DEF);
-		}
 
-		if (move != Vector2.zero && reactType != ReactType.IGNORE)
-		{
 			if (tCommon)
 			{
 				if (

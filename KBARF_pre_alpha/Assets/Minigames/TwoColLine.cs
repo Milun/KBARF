@@ -39,6 +39,22 @@ public class TwoColLine : TwoCol {
 		}
 	}
 
+	public Vector2 localP1
+	{
+		get
+		{
+			return p1;
+		}
+	}
+
+	public Vector2 localP2
+	{
+		get
+		{
+			return p2;
+		}
+	}
+
 	public Vector2 P1
 	{
 		get

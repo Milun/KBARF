@@ -32,6 +32,8 @@ public class EditorDrawCol : Editor {
 		{
 			TwoColLine temp = (TwoColLine)myTarget;
 
+			if (temp.GetTypes.Length == 0) return;
+
 			if (temp.HasType(TwoCol.ColType.COMBAT_DEF))
 			{
 				Handles.color = UnityEngine.Color.blue;
@@ -47,6 +49,10 @@ public class EditorDrawCol : Editor {
 			else if (temp.HasType(TwoCol.ColType.PHYSICS_OFF))
 			{
 				Handles.color = UnityEngine.Color.yellow;
+			}
+			else if (temp.HasType(TwoCol.ColType.T3_DEF))
+			{
+				Handles.color = UnityEngine.Color.cyan;
 			}
 			else
 			{

@@ -5,7 +5,8 @@ public class PlatHero : MonoBehaviour {
 
 	private TwoCommon pCommon;
 	private TwoColSquare tCol;
-	private PlatGravity pg;
+	private PlatGravity 	pGravity;
+	private PlatPhysRamp 	pRamp;
 	private TwoGlobal pGlobal;
 
 	[SerializeField] private float moveSpeed = 0.5f;
@@ -22,7 +23,9 @@ public class PlatHero : MonoBehaviour {
 		pCommon = GetComponent<TwoCommon> ();	
 		tCol = GetComponent<TwoColSquare> ();
 
-		pg = GetComponent<PlatGravity> ();
+		pGravity = GetComponent<PlatGravity> ();
+		pRamp = GetComponent<PlatPhysRamp> ();
+
 		pGlobal = StatMini.GetMiniContainer(transform).GetComponent<TwoGlobal> ();
 
 		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
@@ -127,9 +130,15 @@ public class PlatHero : MonoBehaviour {
 			Die ();
 		}
 
-		if (Input.GetKey("up") && pg.OnGround)
+		if (Input.GetKey("up") && (pGravity.OnGround || pRamp.OnRamp))
 		{
+			print ("not working");
 			pCommon.YSpeed = jumpHeight;
+		}
+
+		if (Input.GetKey("down") && (pRamp))
+		{
+			pRamp.Ignore();
 		}
 
 		if (Input.GetKey("right"))
