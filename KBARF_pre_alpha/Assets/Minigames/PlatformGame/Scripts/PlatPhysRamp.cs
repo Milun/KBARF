@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(TwoColLine))]
 [RequireComponent(typeof(TwoCommon))]
@@ -37,19 +37,39 @@ public class PlatPhysRamp : MonoBehaviour {
 			return;
 		}
 
-		Vector2 col = tColLine.ColManager.CheckColMove (tColLine, TwoCol.ColType.T3_DEF);
+		List<TwoColManager.Col> other = tColLine.ColManager.CheckCol (tColLine);
+		Vector2 col = Vector2.zero;
 
+		foreach (TwoColManager.Col e in other)
+		{
+			// If there is a collision
+			if (e.move != Vector2.zero)
+			{
+				// And it's a collision with a line.
+				if (e.col.GetType() == typeof(TwoColLine))
+				{
+					// If we're in the air, or if we're ABOVE the line, go on it.
+					if (!pGrav || !pGrav.OnGround ||
+					    (pGrav.OnGround && ((TwoColLine)e.col).P2.y < tCommon.Y)
+					   )
+					{
+						if (col.magnitude < e.move.magnitude) col = e.move;
+					}
+				}
+			}
+		}
+
+		// Apply the transforms.
 		if (col != Vector2.zero)
 		{
 			float y = col.y + anchor.y;
-
 			anchor = Vector2.up * -anchorLength;
-
+			
 			tCommon.Y += y;
 			tCommon.YSpeed = 0.0f;
-
+			
 			onRamp = true;
-
+			
 			if (tColPhys) tColPhys.DontUpdate();
 		}
 		else if (pGrav && pGrav.OnGround)
@@ -59,7 +79,7 @@ public class PlatPhysRamp : MonoBehaviour {
 		else
 		{
 			onRamp = false;
-
+			
 			anchor = Vector2.up * -1.0f;
 		}
 
