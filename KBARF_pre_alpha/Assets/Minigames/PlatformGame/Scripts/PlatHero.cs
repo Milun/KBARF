@@ -141,13 +141,6 @@ public class PlatHero : MonoBehaviour {
 			Die ();
 		}
 
-		if (Input.GetKey("up") && (OnGround() || attacking > 0.0f) )
-		{
-			jump = true;
-			attacking = 0.0f;
-			pCommon.YSpeed = jumpForce;
-		}
-
 		// Perform the attack
 		if (attacking > 0.0f)
 		{
@@ -155,46 +148,55 @@ public class PlatHero : MonoBehaviour {
 			if (OnGround()) attacking -= Time.deltaTime;
 
 			transform.localScale = new Vector3(1.5f, 0.75f, 1.0f);
-
-			return;
 		}
 		else
 		{
 			transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-		}
-
-		if (Input.GetKey("down") && (pRamp))
-		{
-			pRamp.IgnoreCol();
-		}
 		
-		// Make all horizontal speed stop if certain conditions are met.
-		if ( pGravity.MaxSpeed || (!OnGround() && !jump) )
-		{
-			lastXSpeed = 0.0f;
-		}
-		
-		// Grounded behavior + Horizontal movement.
-		if (OnGround())
-		{
-			if (pCommon.YSpeed <= 0.0f) jump = false;
 
-			if (!jump)
+			if (Input.GetKey("down") && (pRamp))
 			{
-
-				if (Input.GetKey("right"))		lastXSpeed = moveSpeed;
-				else if (Input.GetKey("left"))	lastXSpeed = -moveSpeed;
-				else 							lastXSpeed = 0.0f;
-				
-				if (Input.GetKeyDown("space") && OnGround())
-				{
-					attacking = attackDuration;
-					lastXSpeed *= attackSpeedMulti;
-				}
-
+				pRamp.IgnoreCol();
 			}
+			
+			// Make all horizontal speed stop if certain conditions are met.
+			if ( pGravity.MaxSpeed || (!OnGround() && !jump) )
+			{
+				lastXSpeed = 0.0f;
+			}
+			
+			// Grounded behavior + Horizontal movement.
+			if (OnGround())
+			{
+				if (pCommon.YSpeed <= 0.0f) jump = false;
+
+				if (!jump)
+				{
+
+					if (Input.GetKey("right"))		lastXSpeed = moveSpeed;
+					else if (Input.GetKey("left"))	lastXSpeed = -moveSpeed;
+					else 							lastXSpeed = 0.0f;
+					
+					if (Input.GetKeyDown("space") && OnGround())
+					{
+						attacking = attackDuration;
+						lastXSpeed *= attackSpeedMulti;
+					}
+
+				}
+			}
+
+			pCommon.XSpeed = lastXSpeed;
+
 		}
 
-		pCommon.XSpeed = lastXSpeed;
+		if (Input.GetKey("up") && (OnGround() || attacking > 0.0f) )
+		{
+			jump = true;
+			attacking = 0.0f;
+			pCommon.YSpeed = jumpForce;
+		}
+
+
 	}
 }
