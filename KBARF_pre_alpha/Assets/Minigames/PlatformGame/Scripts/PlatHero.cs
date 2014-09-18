@@ -10,7 +10,13 @@ public class PlatHero : MonoBehaviour {
 	private TwoGlobal pGlobal;
 
 	[SerializeField] private float moveSpeed = 0.5f;
-	[SerializeField] private float jumpHeight = 2.0f;
+	[SerializeField] private float attackSpeedMulti = 1.2f;
+	[SerializeField] private float attackDuration = 1.0f;
+	[SerializeField] private float jumpForce = 2.0f;
+
+	private bool jump = false;
+	private float attacking = 0.0f;
+	private float lastXSpeed = 0.0f;
 
 	private MiniInput input;
 
@@ -120,6 +126,11 @@ public class PlatHero : MonoBehaviour {
 		}
 	}
 
+	private bool OnGround()
+	{
+		return (pGravity.OnGround || pRamp.OnRamp);
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -130,28 +141,60 @@ public class PlatHero : MonoBehaviour {
 			Die ();
 		}
 
-		if (Input.GetKey("up") && (pGravity.OnGround || pRamp.OnRamp))
+		if (Input.GetKey("up") && (OnGround() || attacking > 0.0f) )
 		{
-			print ("not working");
-			pCommon.YSpeed = jumpHeight;
+			jump = true;
+			attacking = 0.0f;
+			pCommon.YSpeed = jumpForce;
+		}
+
+		// Perform the attack
+		if (attacking > 0.0f)
+		{
+			// Your attack time only counts down when you're grounded.
+			if (OnGround()) attacking -= Time.deltaTime;
+
+			transform.localScale = new Vector3(1.5f, 0.75f, 1.0f);
+
+			return;
+		}
+		else
+		{
+			transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 		}
 
 		if (Input.GetKey("down") && (pRamp))
 		{
 			pRamp.IgnoreCol();
 		}
+		
+		// Make all horizontal speed stop if certain conditions are met.
+		if ( pGravity.MaxSpeed || (!OnGround() && !jump) )
+		{
+			lastXSpeed = 0.0f;
+		}
+		
+		// Grounded behavior + Horizontal movement.
+		if (OnGround())
+		{
+			if (pCommon.YSpeed <= 0.0f) jump = false;
 
-		if (Input.GetKey("right"))
-		{
-			pCommon.XSpeed = moveSpeed;
+			if (!jump)
+			{
+
+				if (Input.GetKey("right"))		lastXSpeed = moveSpeed;
+				else if (Input.GetKey("left"))	lastXSpeed = -moveSpeed;
+				else 							lastXSpeed = 0.0f;
+				
+				if (Input.GetKeyDown("space") && OnGround())
+				{
+					attacking = attackDuration;
+					lastXSpeed *= attackSpeedMulti;
+				}
+
+			}
 		}
-		else if (Input.GetKey("left"))
-		{
-			pCommon.XSpeed = -moveSpeed;
-		}
-		else
-		{
-			pCommon.XSpeed = 0.0f;
-		}
+
+		pCommon.XSpeed = lastXSpeed;
 	}
 }

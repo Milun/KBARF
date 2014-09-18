@@ -40,11 +40,18 @@ public class PlatGravity : MonoBehaviour {
 		}
 	}
 
+	public bool MaxSpeed
+	{
+		get
+		{
+			return (pCommon.YSpeed <= -ySpeedMax);
+		}
+	}
+
 	public bool OnGround
 	{
 		get
 		{
-			print ( (onGround > 0) );
 			return (onGround > 0);
 		}
 	}

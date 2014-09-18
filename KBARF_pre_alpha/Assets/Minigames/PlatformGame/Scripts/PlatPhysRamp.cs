@@ -34,8 +34,11 @@ public class PlatPhysRamp : MonoBehaviour {
 		{
 			ignoreCol = false;
 			onRamp = false;
+			anchor = Vector2.up * -1.0f;
 			return;
 		}
+
+		tColLine.P2 = anchor;
 
 		List<TwoColManager.Col> other = tColLine.ColManager.CheckCol (tColLine);
 		Vector2 col = Vector2.zero;
@@ -50,7 +53,7 @@ public class PlatPhysRamp : MonoBehaviour {
 				{
 					// If we're in the air, or if we're ABOVE the line, go on it.
 					if (!pGrav || !pGrav.OnGround ||
-					    (pGrav.OnGround && ((TwoColLine)e.col).P2.y < tCommon.Y)
+					    (pGrav.OnGround && ((TwoColLine)e.col).P2.y < tCommon.Y + 1.0f)
 					   )
 					{
 						if (col.magnitude < e.move.magnitude) col = e.move;
@@ -82,8 +85,6 @@ public class PlatPhysRamp : MonoBehaviour {
 			
 			anchor = Vector2.up * -1.0f;
 		}
-
-		tColLine.P2 = anchor;
 	}
 
 	public void IgnoreCol()
