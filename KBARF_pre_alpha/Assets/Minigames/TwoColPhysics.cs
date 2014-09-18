@@ -11,14 +11,6 @@ public class TwoColPhysics : MonoBehaviour {
 	private Vector2	move = Vector2.zero;
 	private bool	noUpdate = false;
 
-	private enum ReactType {
-		STOP,
-		BOUNCE,
-		IGNORE
-	};
-
-	[SerializeField] private ReactType reactType = ReactType.STOP;
-
 	void Awake ()
 	{
 		tColSquare = GetComponent<TwoColSquare> ();
@@ -41,7 +33,7 @@ public class TwoColPhysics : MonoBehaviour {
 
 	void Update()
 	{
-		if (noUpdate || reactType == ReactType.IGNORE)
+		if (noUpdate)
 		{
 			noUpdate = false;
 			return;
@@ -62,8 +54,7 @@ public class TwoColPhysics : MonoBehaviour {
 					)
 				   )
 				{
-					if 		(reactType == ReactType.BOUNCE) tCommon.XSpeed = -tCommon.XSpeed;
-					else if (reactType == ReactType.STOP) 	tCommon.XSpeed = 0.0f;
+					tCommon.XSpeed = 0.0f;
 				}
 
 				if (
@@ -73,8 +64,7 @@ public class TwoColPhysics : MonoBehaviour {
 					)
 				   )
 				{
-					if 		(reactType == ReactType.BOUNCE) tCommon.YSpeed = -tCommon.YSpeed;
-					else if (reactType == ReactType.STOP) 	tCommon.YSpeed = 0.0f;
+					tCommon.YSpeed = 0.0f;
 				}
 			}
 		}

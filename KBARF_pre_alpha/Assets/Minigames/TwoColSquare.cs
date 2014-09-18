@@ -142,6 +142,23 @@ public class TwoColSquare : TwoCol {
 		return Vector2.zero;
 	}
 
+	public override Vector2 CheckColSquare(TwoColSquare other)
+	{
+		if (!CheckColBounds(other)) return Vector2.zero;
+		
+		float left 		= Mathf.Abs(other.BL.x - TR.x);
+		float right 	= Mathf.Abs(other.TR.x - BL.x);
+		float down 		= Mathf.Abs(other.BL.y - TR.y);
+		float up 		= Mathf.Abs(other.TR.y - BL.y);
+
+		if (left <= right && left <= up && left <= down) 	return new Vector2(-left, 0.0f);
+		if (right <= left && right <= up && right <= down) 	return new Vector2(right, 0.0f);
+		if (up <= right && up <= left && up <= down) 		return new Vector2(0.0f, up);
+		if (down <= right && down <= left && down <= up) 	return new Vector2(0.0f, -down);
+
+		return Vector2.zero;
+	}
+
 	public override Vector2 CheckColLine(TwoColLine other)
 	{	
 		if (!CheckColBounds (other)) return Vector2.zero;
