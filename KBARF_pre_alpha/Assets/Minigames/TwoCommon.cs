@@ -56,7 +56,7 @@ public class TwoCommon : TwoCommonBasic {
 		//transform.localScale = scale;
 
 		// Snap to the fake "pixel grid".
-		transform.position = new Vector3 (posOffsetX + Mathf.Round (pos.x/pGlobal.PIXEL_JUMP)
+		transform.position = new Vector3 (Mathf.Round (pos.x/pGlobal.PIXEL_JUMP)
 		                                  *pGlobal.PIXEL_JUMP,
 		                                  Mathf.Ceil (pos.y/pGlobal.PIXEL_JUMP)
 		                                  *pGlobal.PIXEL_JUMP,

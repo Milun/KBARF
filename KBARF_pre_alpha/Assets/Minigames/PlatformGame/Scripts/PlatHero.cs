@@ -42,7 +42,7 @@ public class PlatHero : MonoBehaviour {
 		pRoom = passRoom.GetComponent<PlatRoom> ();
 	}
 
-	private void Die()
+	public void Die()
 	{
 		pCommon.Pos = new Vector2 (128.0f, 128.0f);
 		pCommon.YSpeed = 0.0f;

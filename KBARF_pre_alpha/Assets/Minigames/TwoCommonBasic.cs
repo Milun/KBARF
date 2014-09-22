@@ -7,8 +7,7 @@ public class TwoCommonBasic : MonoBehaviour {
 	private LayerMask layerMask;
 
 	protected Vector2 pos;				// The objects REAL position.
-
-	protected float posOffsetX = 0.0f;	// Used in sprite flips.
+	
 	protected Vector2 scale = Vector2.one;
 
 	protected TwoGlobal pGlobal;
@@ -39,19 +38,6 @@ public class TwoCommonBasic : MonoBehaviour {
 		get
 		{
 			return layerMask;
-		}
-	}
-
-	public float PosOffsetX
-	{
-		get
-		{
-			return posOffsetX;
-		}
-		
-		set
-		{
-			posOffsetX = value;
 		}
 	}
 

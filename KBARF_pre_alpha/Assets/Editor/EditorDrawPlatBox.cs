@@ -15,13 +15,10 @@ public class EditorDrawPlatBox : Editor {
 
 		float offsetX = 0.0f;
 
-		if (myTarget.GetComponent<TwoCommon>())
-			offsetX = myTarget.GetComponent<TwoCommon> ().PosOffsetX;
-
-		UnityEngine.Vector3 p0 = new UnityEngine.Vector3 (myTarget.oBL.x - offsetX + 0.1f, myTarget.oBL.y + 0.1f);
-		UnityEngine.Vector3 p1 = new UnityEngine.Vector3 (myTarget.oBL.x - offsetX + 0.1f, myTarget.oTR.y - 0.1f);
-		UnityEngine.Vector3 p2 = new UnityEngine.Vector3 (myTarget.oTR.x - offsetX - 0.1f, myTarget.oBL.y + 0.1f);
-		UnityEngine.Vector3 p3 = new UnityEngine.Vector3 (myTarget.oTR.x - offsetX - 0.1f, myTarget.oTR.y - 0.1f);
+		UnityEngine.Vector3 p0 = new UnityEngine.Vector3 (myTarget.oBL.x + 0.1f, myTarget.oBL.y + 0.1f);
+		UnityEngine.Vector3 p1 = new UnityEngine.Vector3 (myTarget.oBL.x + 0.1f, myTarget.oTR.y - 0.1f);
+		UnityEngine.Vector3 p2 = new UnityEngine.Vector3 (myTarget.oTR.x - 0.1f, myTarget.oBL.y + 0.1f);
+		UnityEngine.Vector3 p3 = new UnityEngine.Vector3 (myTarget.oTR.x - 0.1f, myTarget.oTR.y - 0.1f);
 
 		Handles.DrawLine(
 			myTarget.transform.position + p0,

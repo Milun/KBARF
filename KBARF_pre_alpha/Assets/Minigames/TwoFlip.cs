@@ -9,7 +9,6 @@ public class TwoFlip : MonoBehaviour {
 
 	private int flip = 1;
 
-	[SerializeField] private Vector2 	spriteSize = Vector2.zero;
 	[SerializeField] private bool		flipX	   = false;
 	[SerializeField] private bool		flipXStart = false;
 
@@ -56,12 +55,10 @@ public class TwoFlip : MonoBehaviour {
 		if (flip < 0)
 		{
 			pCommonBasic.Scale = new Vector3(-1.0f, 1.0f, 0.0f);
-			pCommonBasic.PosOffsetX = spriteSize.x;
 		}
 		else
 		{
 			pCommonBasic.Scale = new Vector3(1.0f, 1.0f, 0.0f);
-			pCommonBasic.PosOffsetX = 0.0f;
 		}
 	}
 

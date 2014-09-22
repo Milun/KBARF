@@ -4,12 +4,14 @@ using System.Collections;
 public class PlatEnemy : MonoBehaviour {
 
 	private TwoCommon 		pCommon;
+	private TwoCol			tCol;
 
 	[SerializeField] private float 		animSpeed = 0.1f;
 
 	void Awake ()
 	{
-		pCommon 	= GetComponent<TwoCommon> ();	
+		pCommon 	= GetComponent<TwoCommon> ();
+		tCol 		= GetComponent<TwoCol> ();
 	}
 
 	// Use this for initialization
@@ -28,6 +30,20 @@ public class PlatEnemy : MonoBehaviour {
 		else
 		{
 			GetComponent<Animator>().speed = animSpeed = 0.1f;
+		}
+	}
+
+	void Update()
+	{
+		if (tCol)
+		{
+			TwoCol col = tCol.ColManager.IsCol(tCol, TwoCol.ColType.COMBAT_DEF);
+			
+			if (col)
+			{
+				
+				col.GetComponent<PlatHero>().Die();
+			}
 		}
 	}
 }
