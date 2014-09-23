@@ -22,11 +22,16 @@ public class TwoColCircle : TwoCol {
 		}
 	}
 
+	public override void Flip()
+	{
+		center.x = -center.x;
+	}
+
 	public override Vector2 BL
 	{
 		get
 		{
-			bL = new Vector2(this.transform.position.x - rad, this.transform.position.y - rad);
+			bL = new Vector2(center.x + this.transform.position.x - rad, center.y + this.transform.position.y - rad);
 			return bL;
 		}
 	}
@@ -35,7 +40,7 @@ public class TwoColCircle : TwoCol {
 	{
 		get
 		{
-			tR = new Vector2(this.transform.position.x + rad, this.transform.position.y + rad);
+			tR = new Vector2(center.x + this.transform.position.x + rad, center.y + this.transform.position.y + rad);
 			return tR;
 		}
 	}

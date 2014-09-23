@@ -15,6 +15,15 @@ public class TwoColSquare : TwoCol {
 		}
 	}
 
+	public override void Flip()
+	{
+		float topRightTempX = topRight.x;
+		topRight.x = -bottomLeft.x;
+		bottomLeft.x = -topRightTempX;
+
+		center = new Vector2 (topRight.x - bottomLeft.x, topRight.y - bottomLeft.y);
+	}
+
 	public override Vector2 BL
 	{
 		get
@@ -63,6 +72,8 @@ public class TwoColSquare : TwoCol {
 	{
 		if (CheckColBounds(other))
 		{
+			print("homestar");
+
 			if (other.Center.x > this.BL.x && other.Center.x < this.TR.x)
 			{
 				if (other.Center.y > this.Center.y) return new Vector2(0.0f, other.Center.y - other.Rad - this.TR.y);
@@ -73,6 +84,8 @@ public class TwoColSquare : TwoCol {
 				if (other.Center.x > this.Center.x) return new Vector2(other.Center.x - other.Rad - this.TR.x, 0.0f);
 				if (other.Center.x < this.Center.x) return new Vector2(other.Center.x + other.Rad - this.BL.x, 0.0f);
 			}
+
+
 
 			Vector2 dist;
 			dist = new Vector2 (BL.x, TR.y) - other.Center;

@@ -1,22 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent( typeof(PlatGravity) )]
+[RequireComponent( typeof(TwoColPhysics) )]
 public class PlatEnemyHop : MonoBehaviour {
 
 	private TwoCommon 		pCommon;
+	private TwoColPhysics 	tColPhys;
+	private PlatGravity		pGrav;
 
 	[SerializeField] private float 		jumpHeight = 2.0f;
-	[SerializeField] private float 		fallSpeed = 0.05f;
 
 	void Awake ()
 	{
 		pCommon 	= GetComponent<TwoCommon> ();
-		//GetComponent<Animator>().
+		tColPhys 	= GetComponent<TwoColPhysics> ();
+		pGrav		= GetComponent<PlatGravity> ();
 	}
 
 	void Update()
 	{
-		pCommon.YSpeed -= fallSpeed;
-		if (pCommon.YSpeed < -2.0f) pCommon.YSpeed = -2.0f;
+		print (pGrav.OnGround);
+
+		if (pGrav.OnGround) pCommon.YSpeed = jumpHeight;
+		if (tColPhys.Move.x != 0.0f) pCommon.XSpeed = -pCommon.XSpeed;
 	}
 }

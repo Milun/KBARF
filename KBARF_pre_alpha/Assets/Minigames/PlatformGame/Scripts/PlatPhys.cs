@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PlatPhys: MonoBehaviour {
 
-	TwoCol tCol;
-	TwoCommon tCommon;
+	private TwoCol tCol;
+	private TwoCommon tCommon;
 
 	private enum ReactType {
 		STOP,
@@ -16,7 +16,17 @@ public class PlatPhys: MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		tCol = GetComponent<TwoCol> ();
+
+		TwoCol[] temp = GetComponents<TwoCol> ();
+		foreach (TwoCol e in temp)
+		{
+			if (e.HasType(TwoCol.ColType.PHYSICS_OFF))
+			{
+				tCol = e;
+				break;
+			}
+		}
+
 		tCommon = GetComponent<TwoCommon> ();
 	}
 	
@@ -24,7 +34,6 @@ public class PlatPhys: MonoBehaviour {
 	void Update () {
 
 		Vector2 move = tCol.ColManager.CheckColMove (tCol, TwoCol.ColType.PHYSICS_DEF);
-		print (move.y);
 
 		if (move != Vector2.zero)
 		{

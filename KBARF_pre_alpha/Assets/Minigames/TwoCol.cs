@@ -74,6 +74,11 @@ public class TwoCol : MonoBehaviour {
 		return false;
 	}
 
+	public virtual void Flip()
+	{
+		return;
+	}
+
 	public virtual Vector2 BL
 	{
 		get

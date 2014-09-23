@@ -7,9 +7,12 @@ public class TwoColPhysics : MonoBehaviour {
 	// Note: Allows only for a single collider to be physics.
 	private TwoCommon tCommon;
 	private TwoColSquare tColSquare;
-
+	
 	private Vector2	move = Vector2.zero;
 	private bool	noUpdate = false;
+
+	[SerializeField] bool noStopX = false;
+	[SerializeField] bool noStopY = false;
 
 	void Awake ()
 	{
@@ -47,7 +50,7 @@ public class TwoColPhysics : MonoBehaviour {
 
 			if (tCommon)
 			{
-				if (
+				if (!noStopX &&
 					(
 						(move.x < 0.0f && tCommon.XSpeed > 0.0f) ||
 						(move.x > 0.0f && tCommon.XSpeed < 0.0f)
@@ -57,7 +60,7 @@ public class TwoColPhysics : MonoBehaviour {
 					tCommon.XSpeed = 0.0f;
 				}
 
-				if (
+				if (!noStopY &&
 					(
 						(move.y < 0.0f && tCommon.YSpeed > 0.0f) ||
 						(move.y > 0.0f && tCommon.YSpeed < 0.0f)

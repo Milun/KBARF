@@ -7,46 +7,40 @@ public class TwoFlip : MonoBehaviour {
 	private TwoCommonBasic 		pCommonBasic;
 	private TwoCommon 			pCommon;
 
+	private TwoCol[]			tCols;
+
 	private int flip = 1;
 
-	[SerializeField] private bool		flipX	   = false;
-	[SerializeField] private bool		flipXStart = false;
+	[SerializeField] private bool		flipXManual = false;
 
 	void Awake ()
 	{
 		pCommonBasic 	= GetComponent<TwoCommonBasic> ();
 		pCommon 		= GetComponent<TwoCommon> ();
+		tCols			= GetComponents<TwoCol>();
 
-		if (flipXStart)
+		if (flipXManual)
 		{
 			flip = -1;
+			UpdateScale ();
 		}
-		else
-		{
-			flip = 1;
-		}
-
-		UpdateScale ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		if (flipX)
+		if (!flipXManual && pCommon && pCommon.GetType() == typeof(TwoCommon) && pCommon.XSpeed != 0.0f)
 		{
-			if (pCommon && pCommon.GetType() == typeof(TwoCommon) && pCommon.XSpeed != 0.0f)
+			if (pCommon.XSpeed < 0.0f && flip != -1)
 			{
-				if (pCommon.XSpeed < 0.0f)
-				{
-					flip = -1;
-				}
-				else if (pCommon.XSpeed > 0.0f)
-				{
-					flip = 1;
-				}
+				flip = -1;
+				UpdateScale();
 			}
-
-			UpdateScale();
+			else if (pCommon.XSpeed > 0.0f && flip != 1)
+			{
+				flip = 1;
+				UpdateScale();
+			}
 		}
 	}
 
@@ -59,6 +53,14 @@ public class TwoFlip : MonoBehaviour {
 		else
 		{
 			pCommonBasic.Scale = new Vector3(1.0f, 1.0f, 0.0f);
+		}
+
+		if (tCols.Length > 0)
+		{
+			foreach (TwoCol e in tCols)
+			{
+				e.Flip();
+			}
 		}
 	}
 

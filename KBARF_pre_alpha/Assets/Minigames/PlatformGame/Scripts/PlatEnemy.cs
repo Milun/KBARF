@@ -4,14 +4,14 @@ using System.Collections;
 public class PlatEnemy : MonoBehaviour {
 
 	private TwoCommon 		pCommon;
-	private TwoCol			tCol;
+	private TwoCol[]		tCols;
 
 	[SerializeField] private float 		animSpeed = 0.1f;
 
 	void Awake ()
 	{
 		pCommon 	= GetComponent<TwoCommon> ();
-		tCol 		= GetComponent<TwoCol> ();
+		tCols 		= GetComponents<TwoCol> ();
 	}
 
 	// Use this for initialization
@@ -35,14 +35,17 @@ public class PlatEnemy : MonoBehaviour {
 
 	void Update()
 	{
-		if (tCol)
+		if (tCols.Length > 0)
 		{
-			TwoCol col = tCol.ColManager.IsCol(tCol, TwoCol.ColType.COMBAT_DEF);
-			
-			if (col)
+			foreach (TwoCol e in tCols)
 			{
+				TwoCol col = e.ColManager.IsCol(e, TwoCol.ColType.COMBAT_DEF);
 				
-				col.GetComponent<PlatHero>().Die();
+				if (col)
+				{
+					
+					col.GetComponent<PlatHero>().Die();
+				}
 			}
 		}
 	}
