@@ -44,7 +44,7 @@ public class PlatHero : MonoBehaviour {
 
 	public void Die()
 	{
-		pCommon.Pos = new Vector2 (128.0f, 128.0f);
+		pCommon.Pos = new Vector2 (16.0f, 112.0f);
 		pCommon.YSpeed = 0.0f;
 	}
 

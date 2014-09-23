@@ -25,7 +25,15 @@ public class TwoFlip : MonoBehaviour {
 			UpdateScale ();
 		}
 	}
-	
+
+	public bool FlipXManual
+	{
+		get
+		{
+			return flipXManual;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 

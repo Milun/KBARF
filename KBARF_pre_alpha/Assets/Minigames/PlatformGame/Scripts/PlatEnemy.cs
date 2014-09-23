@@ -29,7 +29,7 @@ public class PlatEnemy : MonoBehaviour {
 		}
 		else
 		{
-			GetComponent<Animator>().speed = animSpeed = 0.1f;
+			GetComponent<Animator>().speed = animSpeed;
 		}
 	}
 

@@ -18,7 +18,7 @@ public class TwoColCircle : TwoCol {
 	{
 		get
 		{
-			return center + (Vector2)transform.position;
+			return center + Position;
 		}
 	}
 
@@ -31,7 +31,7 @@ public class TwoColCircle : TwoCol {
 	{
 		get
 		{
-			bL = new Vector2(center.x + this.transform.position.x - rad, center.y + this.transform.position.y - rad);
+			bL = new Vector2(center.x + Position.x - rad, center.y + Position.y - rad);
 			return bL;
 		}
 	}
@@ -40,7 +40,7 @@ public class TwoColCircle : TwoCol {
 	{
 		get
 		{
-			tR = new Vector2(center.x + this.transform.position.x + rad, center.y + this.transform.position.y + rad);
+			tR = new Vector2(center.x + Position.x + rad, center.y + Position.y + rad);
 			return tR;
 		}
 	}

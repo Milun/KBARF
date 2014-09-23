@@ -20,13 +20,29 @@ public class TwoCol : MonoBehaviour {
 	protected Vector2 bL = new Vector2(-1.0f, -1.0f);
 	protected Vector2 tR = new Vector2(1.0f, 1.0f);
 
+	private Transform myTransform;
+	private TwoCommon tCommon;
+
 	[SerializeField] private ColType[] types;
+
+	protected Vector2 Position
+	{
+		get
+		{
+			if (tCommon) 		return tCommon.Pos;
+			if (myTransform)	return (Vector2)myTransform.position;
+			return transform.position;
+		}
+	}
 
 	// Use this for initialization
 	public virtual void Awake ()
 	{
+		myTransform = this.transform;
+
 		// Ryan says not to put "find" in awake. He may have a point. Fine fine Ill put it in start. fukin noob mate.
 		colManager = GameObject.Find ("CollisionManager").GetComponent<TwoColManager> ();
+		tCommon = GetComponent<TwoCommon> ();
 
 		foreach (ColType e in types)
 		{

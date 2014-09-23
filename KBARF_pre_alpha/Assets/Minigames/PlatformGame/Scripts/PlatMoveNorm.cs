@@ -15,7 +15,11 @@ public class PlatMoveNorm : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
-
+	public Vector2 StartMove
+	{
+		get
+		{
+			return startMove;
+		}
 	}
 }

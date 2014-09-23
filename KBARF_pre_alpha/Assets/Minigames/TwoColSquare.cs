@@ -11,7 +11,7 @@ public class TwoColSquare : TwoCol {
 	{
 		get
 		{
-			return center + (Vector2)transform.position;
+			return center + Position;
 		}
 	}
 
@@ -28,7 +28,7 @@ public class TwoColSquare : TwoCol {
 	{
 		get
 		{
-			bL = new Vector2(this.transform.position.x + bottomLeft.x, this.transform.position.y + bottomLeft.y);
+			bL = new Vector2(Position.x + bottomLeft.x, Position.y + bottomLeft.y);
 			return bL;
 		}
 	}
@@ -63,7 +63,7 @@ public class TwoColSquare : TwoCol {
 	{
 		get
 		{
-			tR = new Vector2(this.transform.position.x + topRight.x, this.transform.position.y + topRight.y);
+			tR = new Vector2(Position.x + topRight.x, Position.y + topRight.y);
 			return tR;
 		}
 	}

@@ -11,6 +11,14 @@ public class TwoGlobal : MonoBehaviour {
 	private float							frameTime = 0.0f;
 	private bool 							frameActive = false;
 
+	void Awake()
+	{
+		if (frameDelay == 0.0f)
+		{
+			frameActive = true;
+		}
+	}
+
 	// Returns true whenever a frame triggers.
 	public bool Frame()
 	{
@@ -20,6 +28,11 @@ public class TwoGlobal : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (frameDelay == 0.0f)
+		{
+			return;
+		}
+
 		if (frameTime < 0.0f)
 		{
 			frameActive = true;

@@ -7,11 +7,8 @@ public class TwoColLine : TwoCol {
 	[SerializeField] private Vector2 p1 	= new Vector2(-1.0f, -1.0f);
 	[SerializeField] private Vector2 p2 	= new Vector2(1.0f, 1.0f);
 
-	private Transform myTransform;
-
 	// Use this for initialization
 	public override void Awake () {
-		myTransform = transform;
 
 		if (scaleable)
 		{
@@ -27,7 +24,7 @@ public class TwoColLine : TwoCol {
 	{
 		get
 		{
-			return p1 + (Vector2)transform.position;
+			return p1 + Position;
 		}
 	}
 	
@@ -35,7 +32,7 @@ public class TwoColLine : TwoCol {
 	{
 		get
 		{
-			return p2 + (Vector2)transform.position;
+			return p2 + Position;
 		}
 	}
 
@@ -59,7 +56,7 @@ public class TwoColLine : TwoCol {
 	{
 		get
 		{
-			return p1 + (Vector2)myTransform.position;
+			return p1 + Position;
 		}
 
 		set
@@ -72,7 +69,7 @@ public class TwoColLine : TwoCol {
 	{
 		get
 		{
-			return p2 + (Vector2)myTransform.position;
+			return p2 + Position;
 		}
 
 		set

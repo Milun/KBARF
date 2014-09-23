@@ -4,6 +4,6 @@ using System.Collections;
 public static class StatPlat {
 
 	#region STATIC VARIABLES
-	public static float TERMINAL_Y = -6.0f;
+	public static int GRID_SIZE = 8;
 	#endregion
 }

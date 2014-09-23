@@ -20,9 +20,13 @@ public class PlatEnemyHop : MonoBehaviour {
 
 	void Update()
 	{
-		print (pGrav.OnGround);
+		if (pGrav.OnGround) 
+		{
+			pCommon.YSpeed = jumpHeight;
+		}
 
-		if (pGrav.OnGround) pCommon.YSpeed = jumpHeight;
-		if (tColPhys.Move.x != 0.0f) pCommon.XSpeed = -pCommon.XSpeed;
+		if ((tColPhys.Move.x < 0.0f && pCommon.XSpeed > 0.0f) ||
+		    (tColPhys.Move.x > 0.0f && pCommon.XSpeed < 0.0f))
+			pCommon.XSpeed = -pCommon.XSpeed;
 	}
 }
