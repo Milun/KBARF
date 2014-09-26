@@ -37,7 +37,7 @@ public class TwoColManager : MonoBehaviour {
 	}
 
 	// This is specific to squares.
-	public Vector2 CheckColPhys(TwoColSquare other, ref TwoCommon tCommon)
+	public Vector2 CheckColPhys(TwoColSquarePlat other, ref TwoCommon tCommon)
 	{
 		Vector2 output = Vector2.zero;
 		
@@ -49,9 +49,9 @@ public class TwoColManager : MonoBehaviour {
 			}
 
 			Vector2 vec = Vector2.zero;
-			if (e.GetType() == typeof(TwoColSquare))
+			if (e.GetType() == typeof(TwoColSquarePlat))
 			{
-				vec = other.CheckColSquarePhys((TwoColSquare)e, ref tCommon);
+				vec = other.CheckColSquarePhys((TwoColSquarePlat)e, ref tCommon);
 			}
 			else if (e.GetType() == typeof(TwoColLine))
 			{

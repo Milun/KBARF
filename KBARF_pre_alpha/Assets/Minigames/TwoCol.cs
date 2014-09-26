@@ -156,6 +156,11 @@ public class TwoCol : MonoBehaviour {
 			return this.CheckColSquare((TwoColSquare)other);
 		}
 		else
+			if (other.GetType() == typeof(TwoColSquarePlat))
+		{
+			return this.CheckColSquare((TwoColSquarePlat)other);
+		}
+		else
 		if (other.GetType() == typeof(TwoColLine))
 		{
 			return this.CheckColLine((TwoColLine)other);

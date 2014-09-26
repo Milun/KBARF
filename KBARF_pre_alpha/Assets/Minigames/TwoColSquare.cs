@@ -104,57 +104,6 @@ public class TwoColSquare : TwoCol {
 		return Vector2.zero;
 	}
 
-	public Vector2 CheckColSquarePhys(TwoColSquare other, ref TwoCommon tCommon)
-	{
-		if (!CheckColBounds(other)) return Vector2.zero;
-
-		float safe = 2.0f;
-
-		// Check for X collision.
-		if (
-			(BL.x + tCommon.Vel.x < other.TR.x) &&
-			(TR.x + tCommon.Vel.x > other.BL.x) &&
-			(BL.y - tCommon.Vel.y + safe < other.TR.y) &&
-			(TR.y - tCommon.Vel.y - safe > other.BL.y)
-			)
-		{
-			if (Center.x < other.Center.x)
-			{
-				tCommon.X = other.BL.x - topRight.x;
-				return -Vector2.right;
-			}
-			else
-			{
-				tCommon.X = other.TR.x - bottomLeft.x;
-				return Vector2.right;
-			}
-		}
-
-		// Check for Y collision.
-		if (
-			(BL.x - tCommon.Vel.x + safe < other.TR.x) &&
-			(TR.x - tCommon.Vel.x - safe > other.BL.x) &&
-			(BL.y + tCommon.Vel.y < other.TR.y) &&
-			(TR.y + tCommon.Vel.y > other.BL.y)
-			)
-		{
-			if (Center.y < other.Center.y)
-			{
-				tCommon.Y = other.BL.y - topRight.y;
-				return -Vector2.up;
-			}
-			else
-			{
-				tCommon.Y = other.TR.y + bottomLeft.y;
-				return Vector2.up;
-			}
-		}
-
-
-
-		return Vector2.zero;
-	}
-
 	public override Vector2 CheckColSquare(TwoColSquare other)
 	{
 		if (!CheckColBounds(other)) return Vector2.zero;

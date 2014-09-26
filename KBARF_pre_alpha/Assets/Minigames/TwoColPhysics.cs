@@ -6,7 +6,7 @@ public class TwoColPhysics : MonoBehaviour {
 
 	// Note: Allows only for a single collider to be physics.
 	private TwoCommon tCommon;
-	private TwoColSquare tColSquare;
+	private TwoColSquarePlat tColSquare;
 	
 	private Vector2	move = Vector2.zero;
 	private bool	noUpdate = false;
@@ -16,7 +16,7 @@ public class TwoColPhysics : MonoBehaviour {
 
 	void Awake ()
 	{
-		tColSquare = GetComponent<TwoColSquare> ();
+		tColSquare = GetComponent<TwoColSquarePlat> ();
 
 		tCommon = GetComponent<TwoCommon> ();
 	}

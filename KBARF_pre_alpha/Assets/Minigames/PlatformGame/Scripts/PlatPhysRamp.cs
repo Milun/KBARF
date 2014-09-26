@@ -12,6 +12,7 @@ public class PlatPhysRamp : MonoBehaviour {
 
 	private bool onRamp 	= false;
 	private bool ignoreCol 	= false;
+	private bool forceRamp  = false;
 
 	private float anchorLength = 7.0f;
 
@@ -52,8 +53,11 @@ public class PlatPhysRamp : MonoBehaviour {
 				if (e.col.GetType() == typeof(TwoColLine))
 				{
 					// If we're in the air, or if we're ABOVE the line, go on it.
-					if (!pGrav || !pGrav.OnGround ||
-					    (pGrav.OnGround && ((TwoColLine)e.col).P2.y < tCommon.Y + 1.0f)
+					if (forceRamp || !pGrav || !pGrav.OnGround ||
+						    (
+								((TwoColLine)e.col).P2.y <= tCommon.Y &&
+								((TwoColLine)e.col).P1.y <= tCommon.Y
+							)
 					   )
 					{
 						if (col.magnitude < e.move.magnitude) col = e.move;
@@ -85,11 +89,18 @@ public class PlatPhysRamp : MonoBehaviour {
 			
 			anchor = Vector2.up * -1.0f;
 		}
+
+		forceRamp = false;
 	}
 
 	public void IgnoreCol()
 	{
 		ignoreCol = true;
+	}
+
+	public void ForceRamp()
+	{
+		forceRamp = true;
 	}
 
 	public bool OnRamp

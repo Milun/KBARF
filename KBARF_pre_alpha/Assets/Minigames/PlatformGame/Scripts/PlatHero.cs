@@ -148,6 +148,9 @@ public class PlatHero : MonoBehaviour {
 			if (OnGround()) attacking -= Time.deltaTime;
 
 			transform.localScale = new Vector3(1.5f, 0.75f, 1.0f);
+
+			// Go up ramps automatically while attacking.
+			pRamp.ForceRamp();
 		}
 		else
 		{
@@ -186,6 +189,9 @@ public class PlatHero : MonoBehaviour {
 				}
 			}
 
+			// Make it so you don't move after bumping into a wall.
+			if (pCommon.YSpeed < 0.0f && pCommon.XSpeed == 0.0f) lastXSpeed = 0.0f;
+
 			pCommon.XSpeed = lastXSpeed;
 
 		}
@@ -196,7 +202,5 @@ public class PlatHero : MonoBehaviour {
 			attacking = 0.0f;
 			pCommon.YSpeed = jumpForce;
 		}
-
-
 	}
 }
