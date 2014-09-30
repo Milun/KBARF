@@ -51,6 +51,7 @@ public class TwoCommonBasic : MonoBehaviour {
 		set
 		{
 			scale = value;
+			transform.localScale = scale;
 		}
 	}
 
@@ -107,6 +108,6 @@ public class TwoCommonBasic : MonoBehaviour {
 		// Make everything move at the exact same intervals.
 		if (!Frame) return;
 
-		transform.localScale = scale;
+		//transform.localScale = scale;
 	}
 }

@@ -30,7 +30,7 @@ public class EditModeSnap : MonoBehaviour {
 
 		xs = (Mathf.Round(transform.localScale.x / SnapValueScale)) * SnapValueScale;
 		ys = (Mathf.Round(transform.localScale.y / SnapValueScale)) * SnapValueScale;
-		zs = 1.0f;
+		zs = transform.localScale.z;
 
 		transform.position = new Vector3(x, y, z);
 		transform.localScale = new Vector3(xs, ys, zs);

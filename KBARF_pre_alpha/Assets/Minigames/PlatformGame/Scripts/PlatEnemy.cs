@@ -18,18 +18,23 @@ public class PlatEnemy : MonoBehaviour {
 	void Start () {
 
 		// Set the speed based on the movement speed.
-		if (pCommon)
-		{
-			// Invert speed vs animation.
-			float speed = pCommon.Vel.magnitude;
-			if (speed != 0.0f)
-				speed = 0.05f/speed;
+		Animator myAnimator = GetComponent<Animator> ();
 
-			GetComponent<Animator>().speed = speed;
-		}
-		else
+		if (myAnimator)
 		{
-			GetComponent<Animator>().speed = animSpeed;
+			if (pCommon)
+			{
+				// Invert speed vs animation.
+				float speed = pCommon.Vel.magnitude;
+				if (speed != 0.0f)
+					speed = 0.05f/speed;
+
+				myAnimator.speed = speed;
+			}
+			else
+			{
+				myAnimator.speed = animSpeed;
+			}
 		}
 	}
 
