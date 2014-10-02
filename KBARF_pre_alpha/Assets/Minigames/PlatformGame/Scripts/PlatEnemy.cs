@@ -6,7 +6,7 @@ public class PlatEnemy : MonoBehaviour {
 	private TwoCommon 		pCommon;
 	private TwoCol[]		tCols;
 
-	[SerializeField] private float 		animSpeed = 0.1f;
+	[SerializeField] private float 		animSpeed = 1.0f;
 
 	void Awake ()
 	{
@@ -25,7 +25,7 @@ public class PlatEnemy : MonoBehaviour {
 			if (pCommon)
 			{
 				// Invert speed vs animation.
-				float speed = Mathf.Sqrt(pCommon.Vel.magnitude) * 1.1f;
+				float speed = Mathf.Sqrt(pCommon.Vel.magnitude) * 1.1f * animSpeed;
 				/*if (speed != 0.0f)
 					speed = 0.05f/speed;*/
 
