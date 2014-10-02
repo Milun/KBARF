@@ -25,9 +25,9 @@ public class PlatEnemy : MonoBehaviour {
 			if (pCommon)
 			{
 				// Invert speed vs animation.
-				float speed = pCommon.Vel.magnitude;
-				if (speed != 0.0f)
-					speed = 0.05f/speed;
+				float speed = Mathf.Sqrt(pCommon.Vel.magnitude) * 1.1f;
+				/*if (speed != 0.0f)
+					speed = 0.05f/speed;*/
 
 				myAnimator.speed = speed;
 			}
