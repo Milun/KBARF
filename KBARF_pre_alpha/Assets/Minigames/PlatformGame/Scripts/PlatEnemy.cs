@@ -4,7 +4,7 @@ using System.Collections;
 public class PlatEnemy : MonoBehaviour {
 
 	private TwoCommon 		pCommon;
-	private TwoCol[]		tCols;
+	[SerializeField] private TwoCol[]		tCols;
 
 	[SerializeField] private float 		animSpeed = 1.0f;
 

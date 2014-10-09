@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class TwoColSquare : TwoCol {
 
 	[SerializeField] private Vector2 bottomLeft 	= Vector2.zero;

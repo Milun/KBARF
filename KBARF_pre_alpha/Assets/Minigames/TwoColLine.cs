@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class TwoColLine : TwoCol {
 
 	[SerializeField] private bool scaleable = false;

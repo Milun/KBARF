@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class TwoColCircle : TwoCol {
 
 	[SerializeField] private float rad 			= 1.0f;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Serializable]
 public class TwoCol : MonoBehaviour {
 
 	public enum ColType {
