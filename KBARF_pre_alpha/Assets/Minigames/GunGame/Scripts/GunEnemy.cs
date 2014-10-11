@@ -18,7 +18,7 @@ public class GunEnemy : MonoBehaviour {
 	void Start () {
 	
 		// Find the hero (so you can always face it).
-		heroPos = GameObject.Find ("Hero").transform;
+		heroPos = GameObject.Find ("gun_hero").transform;
 		myPos = transform;
 
 		// Initialising the mesh for the enemy.
