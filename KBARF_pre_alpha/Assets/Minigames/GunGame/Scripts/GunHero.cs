@@ -43,6 +43,8 @@ public class GunHero : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		charController.Move( Vector3.down * Time.deltaTime * 30.0f);
+
 		Move ();
 	}
 }
