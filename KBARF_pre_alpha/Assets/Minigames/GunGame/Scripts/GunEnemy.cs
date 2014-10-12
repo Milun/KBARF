@@ -59,16 +59,35 @@ public class GunEnemy : MonoBehaviour {
 	private void UpdateUVs()
 	{
 		//print( Vector3.Angle (myPos.forward, myPos.position - heroPos.position) );
-		float angle = Vector3.Angle (myPos.forward, myPos.position - heroPos.position);
+		float angle 	= Vector3.Angle (myPos.forward, myPos.position - heroPos.position);
+		Vector3 normal 	= Vector3.Cross (myPos.forward, myPos.position - heroPos.position);
+		Vector3 perp 	= Vector3.Cross (Vector3.down, myPos.forward);
 
-		angle = Mathf.Ceil ( (angle-22.5f) /45.0f);
+		float offset = Mathf.Ceil ( (angle-22.5f) /45.0f);
+		// Prevent off angles at close ranges.
+		if ((myPos.position - heroPos.position).magnitude < 15.0f)
+		{
+			if (offset == 1) offset = 0;
+			if (offset == 3) offset = 4;
+		}
 
-		UVs [0] = new Vector2 (0.20f * (angle+1.0f), 1.0f);
-		UVs [1] = new Vector2 (0.20f * (angle+1.0f), 0.0f);
-		UVs [2] = new Vector2 (0.20f * angle, 0.0f);
-		UVs [3] = new Vector2 (0.20f * angle, 1.0f);
+		angle *= Mathf.Sign(Vector3.Dot(perp, myPos.position - heroPos.position));
+		if (offset == 0 || offset == 4 || (angle > -22.5f && angle < 157.5f))
+		{
+			UVs [0] = new Vector2 (0.20f * (offset + 1.0f), 1.0f);
+			UVs [1] = new Vector2 (0.20f * (offset + 1.0f), 0.0f);
+			UVs [2] = new Vector2 (0.20f * offset, 0.0f);
+			UVs [3] = new Vector2 (0.20f * offset, 1.0f);
+		}
+		else
+		{
+			UVs [0] = new Vector2 (0.20f * offset, 1.0f);
+			UVs [1] = new Vector2 (0.20f * offset, 0.0f);
+			UVs [2] = new Vector2 (0.20f * (offset + 1.0f), 0.0f);
+			UVs [3] = new Vector2 (0.20f * (offset + 1.0f), 1.0f);
+		}
 
-		mesh.uv 		= UVs;
+		mesh.uv = UVs;
 	}
 
 	private void FacePlayer()
