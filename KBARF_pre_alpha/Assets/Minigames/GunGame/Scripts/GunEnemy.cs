@@ -9,6 +9,7 @@ public class GunEnemy : MonoBehaviour {
 
 	[SerializeField] private Vector2 dimensions;
 	[SerializeField] private Material mat;
+	[SerializeField] private int xTile = 1;
 
 	private Transform myPos; 
 	private Transform heroPos;
@@ -35,10 +36,10 @@ public class GunEnemy : MonoBehaviour {
 		vertices [2] = new Vector3 (-dimensions.x, 0.0f, -dimensions.y);
 		vertices [3] = new Vector3 (-dimensions.x, 0.0f,  dimensions.y);
 
-		UVs [0] = new Vector2 (1.0f, 0.0f);
-		UVs [1] = new Vector2 (1.0f, 1.0f);
-		UVs [2] = new Vector2 (0.0f, 1.0f);
-		UVs [3] = new Vector2 (0.0f, 0.0f);
+		UVs [0] = new Vector2 (1.0f, 1.0f);
+		UVs [1] = new Vector2 (1.0f, 0.0f);
+		UVs [2] = new Vector2 (0.0f, 0.0f);
+		UVs [3] = new Vector2 (0.0f, 1.0f);
 
 		tris [0] = 0;
 		tris [1] = 1;
@@ -52,6 +53,22 @@ public class GunEnemy : MonoBehaviour {
 		mesh.triangles	= tris;
 
 		mesh.RecalculateNormals();
+	}
+
+	// Change the column the UV's display based on the angle the enemy is being viewed from.
+	private void UpdateUVs()
+	{
+		//print( Vector3.Angle (myPos.forward, myPos.position - heroPos.position) );
+		float angle = Vector3.Angle (myPos.forward, myPos.position - heroPos.position);
+
+		angle = Mathf.Ceil ( (angle-22.5f) /45.0f);
+
+		UVs [0] = new Vector2 (0.20f * (angle+1.0f), 1.0f);
+		UVs [1] = new Vector2 (0.20f * (angle+1.0f), 0.0f);
+		UVs [2] = new Vector2 (0.20f * angle, 0.0f);
+		UVs [3] = new Vector2 (0.20f * angle, 1.0f);
+
+		mesh.uv 		= UVs;
 	}
 
 	private void FacePlayer()
@@ -74,6 +91,7 @@ public class GunEnemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		UpdateUVs ();
 		FacePlayer ();
 	}
 }
