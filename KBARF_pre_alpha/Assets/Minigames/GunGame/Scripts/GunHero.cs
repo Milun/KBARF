@@ -5,9 +5,35 @@ public class GunHero : MonoBehaviour {
 
 	CharacterController charController;
 
+	private Vector3 groundNormal = Vector3.zero;
+
+	private float viewAngle = 0;
+
 	// Use this for initialization
 	void Awake () {
 		charController = GetComponent<CharacterController> ();
+	}
+
+	void OnControllerColliderHit(ControllerColliderHit col)
+	{
+		groundNormal = col.normal;
+		print (groundNormal.x + " " + groundNormal.y + " " + groundNormal.z);
+		//this.transform.up = col.normal;
+
+		//Vector3 fwd = transform.forward;
+		this.transform.up = groundNormal;
+		//this.transform.forward = fwd;
+
+		//transform.rotation = Quaternion.FromToRotation (Vector3.up, col.normal);/* * Quaternion.AngleAxis( viewAngle, col.normal)*/;
+
+		//Quaternion quatHit = Quaternion.FromToRotation(Vector3.up , col.normal);
+		//Quaternion quatForward = Quaternion.FromToRotation(this.transform.up, this.transform.forward);
+		//Quaternion quatC = quatHit * quatForward;
+		//transform.rotation = quatC;
+
+		//this.transform.RotateAround(this.transform.position, col.normal, viewAngle);
+
+		//this.transform.eulerAngles = 
 	}
 
 	private void Move()
@@ -32,18 +58,18 @@ public class GunHero : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.LeftArrow))
 		{
-			this.transform.eulerAngles = this.transform.eulerAngles - new Vector3(0.0f, 1.5f, 0.0f);
+			viewAngle -= 1.0f;
 		}
 		if (Input.GetKey(KeyCode.RightArrow))
 		{
-			this.transform.eulerAngles = this.transform.eulerAngles + new Vector3(0.0f, 1.5f, 0.0f);
+			viewAngle += 1.0f;
 		}
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		charController.Move( Vector3.down * Time.deltaTime * 30.0f);
+		charController.Move(-groundNormal * Time.deltaTime * 30.0f);
 
 		Move ();
 	}
