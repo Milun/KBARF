@@ -16,7 +16,7 @@ public class GunHero : MonoBehaviour {
 
 	void OnControllerColliderHit(ControllerColliderHit col)
 	{
-		groundNormal = col.normal;
+		/*groundNormal = col.normal;
 		print (groundNormal.x + " " + groundNormal.y + " " + groundNormal.z);
 		//this.transform.up = col.normal;
 
@@ -33,7 +33,7 @@ public class GunHero : MonoBehaviour {
 
 		//this.transform.RotateAround(this.transform.position, col.normal, viewAngle);
 
-		//this.transform.eulerAngles = 
+		//this.transform.eulerAngles = */
 	}
 
 	private void Move()
@@ -69,7 +69,7 @@ public class GunHero : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		charController.Move(-groundNormal * Time.deltaTime * 30.0f);
+		//charController.Move(-groundNormal * Time.deltaTime * 30.0f);
 
 		Move ();
 	}

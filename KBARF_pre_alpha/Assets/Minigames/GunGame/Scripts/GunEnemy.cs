@@ -14,6 +14,7 @@ public class GunEnemy : MonoBehaviour {
 	private Transform myPos; 
 	private Transform heroPos;
 	private Mesh mesh;
+	private float xTileMulti = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,8 @@ public class GunEnemy : MonoBehaviour {
 		// Find the hero (so you can always face it).
 		heroPos = GameObject.Find ("gun_hero").transform;
 		myPos = transform;
+
+		xTileMulti = xTile / 1.0f;
 
 		// Initialising the mesh for the enemy.
 		mesh = new Mesh ();
@@ -74,17 +77,17 @@ public class GunEnemy : MonoBehaviour {
 		angle *= Mathf.Sign(Vector3.Dot(perp, myPos.position - heroPos.position));
 		if (offset == 0 || offset == 4 || (angle > -22.5f && angle < 157.5f))
 		{
-			UVs [0] = new Vector2 (0.20f * (offset + 1.0f), 1.0f);
-			UVs [1] = new Vector2 (0.20f * (offset + 1.0f), 0.0f);
-			UVs [2] = new Vector2 (0.20f * offset, 0.0f);
-			UVs [3] = new Vector2 (0.20f * offset, 1.0f);
+			UVs [0] = new Vector2 (xTileMulti * (offset + 1.0f), 1.0f);
+			UVs [1] = new Vector2 (xTileMulti * (offset + 1.0f), 0.0f);
+			UVs [2] = new Vector2 (xTileMulti * offset, 0.0f);
+			UVs [3] = new Vector2 (xTileMulti * offset, 1.0f);
 		}
 		else
 		{
-			UVs [0] = new Vector2 (0.20f * offset, 1.0f);
-			UVs [1] = new Vector2 (0.20f * offset, 0.0f);
-			UVs [2] = new Vector2 (0.20f * (offset + 1.0f), 0.0f);
-			UVs [3] = new Vector2 (0.20f * (offset + 1.0f), 1.0f);
+			UVs [0] = new Vector2 (xTileMulti * offset, 1.0f);
+			UVs [1] = new Vector2 (xTileMulti * offset, 0.0f);
+			UVs [2] = new Vector2 (xTileMulti * (offset + 1.0f), 0.0f);
+			UVs [3] = new Vector2 (xTileMulti * (offset + 1.0f), 1.0f);
 		}
 
 		mesh.uv = UVs;
