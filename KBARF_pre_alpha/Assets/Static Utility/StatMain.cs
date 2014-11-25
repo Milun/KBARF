@@ -22,4 +22,10 @@ public static class StatMain {
 	{
 	
 	}
+
+	public static int BoolToInt(bool val)
+	{
+		if (val) return 1;
+		else 	 return 0;
+	}
 }

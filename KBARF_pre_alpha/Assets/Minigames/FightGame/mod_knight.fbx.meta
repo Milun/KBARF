@@ -37,6 +37,8 @@ ModelImporter:
     100062: Cube
     100064: Cube_001
     100066: //RootNode
+    100068: Armature_002
+    100070: Cube_003
     400000: Armature
     400002: b_chest
     400004: b_chest_hand_L
@@ -71,8 +73,11 @@ ModelImporter:
     400062: Cube
     400064: Cube_001
     400066: //RootNode
+    400068: Armature_002
+    400070: Cube_003
     4300000: Cube_001
     4300002: Cube
+    4300004: Cube_003
     7400000: Default Take
     7400002: AC_slash
     7400004: AC_stand
@@ -84,9 +89,15 @@ ModelImporter:
     7400016: anim_jump
     7400018: anim_run
     7400020: anim_win
+    7400022: anim_att_jab1
+    7400024: anim_att_jab2
+    7400026: anim_idle
+    7400028: anim_walk
     9500000: //RootNode
+    11100000: //RootNode
     13700000: Cube
     13700002: Cube_001
+    13700004: Cube_003
   materials:
     importMaterials: 1
     materialName: 0
@@ -101,7 +112,865 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: -1
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_att_jab1
+      takeName: anim_att_jab1
+      firstFrame: 0
+      lastFrame: 3
+      wrapMode: 8
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_att_jab2
+      takeName: anim_att_jab2
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 8
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_blink
+      takeName: anim_blink
+      firstFrame: -1
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_die_pit
+      takeName: anim_die_pit
+      firstFrame: -1
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_die_wall
+      takeName: anim_die_wall
+      firstFrame: -1
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_idle
+      takeName: anim_idle
+      firstFrame: 0
+      lastFrame: 42
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_jump
+      takeName: anim_jump
+      firstFrame: -1
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_run
+      takeName: anim_run
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_walk
+      takeName: anim_walk
+      firstFrame: 0
+      lastFrame: 58
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: anim_win
+      takeName: anim_win
+      firstFrame: -1
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature_002
+        weight: 1
+      - path: Armature_002/b_root
+        weight: 1
+      - path: Armature_002/b_root/b_chest
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_L/b_chest_upper_L/b_chest_lower_L/b_chest_hand_L/b_chest_hand_L_001
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_chest_R/b_chest_upper_R/b_chest_lower_R/b_chest_hand_R/b_chest_hand_R_Sword
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head
+        weight: 1
+      - path: Armature_002/b_root/b_chest/b_neck/b_head/b_eyes
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L
+        weight: 1
+      - path: Armature_002/b_root/b_leg_L/b_leg_upper_L/b_leg_lower_L/b_leg_foot_L
+        weight: 1
+      - path: Armature_002/b_root/Bone_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R
+        weight: 1
+      - path: Armature_002/b_root/Bone_R/b_leg_upper_R/b_leg_lower_R/b_leg_foot_R
+        weight: 1
+      - path: Cube_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -137,6 +1006,6 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 1
   additionalBone: 0
   userData: 

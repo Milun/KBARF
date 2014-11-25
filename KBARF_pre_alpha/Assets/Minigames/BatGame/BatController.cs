@@ -36,9 +36,9 @@ public class BatController : MonoBehaviour {
 		//
 	}
 
-	public VectorLine CreateLine(Vector3 p1, Vector3 p2)
+	public VectorLine CreateLine(Vector2 p1, Vector2 p2)
 	{
-		VectorLine vl = VectorLine.SetLine3D (Color.white, p1, p2);
+		VectorLine vl = VectorLine.SetLine3D (Color.white, (Vector3)p1, (Vector3)p2);
 			
 		vl.lineWidth = lineWidth;
 		vl.material = lineMat;
@@ -47,7 +47,7 @@ public class BatController : MonoBehaviour {
 		return vl;
 	}
 
-	public void ResizeLine(VectorLine vl, Vector3 p1, Vector2 p2)
+	public void ResizeLine(VectorLine vl, Vector2 p1, Vector2 p2)
 	{
 		Vector3[] v = new Vector3[2];
 		v [0] = p1;
