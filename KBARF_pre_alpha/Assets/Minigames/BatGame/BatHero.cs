@@ -21,6 +21,8 @@ public class BatHero : MonoBehaviour {
 	[SerializeField] private BatHUDBar energyBar;
 	[SerializeField] private BatHUDBar weightBar;
 
+	[SerializeField] private BatVectorAnim anim;
+
 	private float energy = 1.0f;
 	private float weight = 1.0f;
 
@@ -34,6 +36,7 @@ public class BatHero : MonoBehaviour {
 
 	void Start()
 	{
+		anim.InitSprites ();
 		controller = GameObject.Find("cam_main").GetComponent<BatController>();
 	}
 
@@ -57,6 +60,8 @@ public class BatHero : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		anim.Draw (this.transform.position);
 
 		if (col)
 		{
