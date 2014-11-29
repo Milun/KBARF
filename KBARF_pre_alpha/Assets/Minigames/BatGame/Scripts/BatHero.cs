@@ -121,7 +121,10 @@ public class BatHero : MonoBehaviour {
 			}
 		}
 
-		xSpeed = Mathf.Clamp(xSpeed, -xSpeedMax, xSpeedMax);
+		if (xSpeed > xSpeedMax || xSpeed < -xSpeedMax)
+		{
+			xSpeed *= 0.95f;
+		}
 
 		if (ySpeed > -ySpeedMax)
 		{
@@ -132,6 +135,15 @@ public class BatHero : MonoBehaviour {
 		{
 			ySpeed += flapHeight;
 
+			if (Input.GetKey("right"))
+			{
+				xSpeed -= xSpeedAccel - xSpeedAccel*xSpeedAccelChange*weight*50.0f;
+			}
+			else if (Input.GetKey("left"))
+			{
+				xSpeed += xSpeedAccel - xSpeedAccel*xSpeedAccelChange*weight*50.0f;
+			}
+
 			energy -= 0.05f;
 			if (energy < 0.0f) energy = 0.0f;
 
@@ -140,6 +152,8 @@ public class BatHero : MonoBehaviour {
 
 			energyBar.SetValue(energy);
 			weightBar.SetValue(weight);
+
+			anim.PlayOnce(0, 4, 0.04f);
 		}
 
 		if (Input.GetKey("up"))

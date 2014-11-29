@@ -28,7 +28,10 @@ public class BatCroc : MonoBehaviour {
 
 			if (Mathf.Abs(dist) > 0.1f)
 			{
-				transform.position += new Vector3( (dist)/100.0f, 0.0f, 0.0f );
+				float multi = (batHero.transform.position.y - this.transform.position.y)*2.0f;
+				if (multi <= 2.0f) multi = 2.0f;
+
+				transform.position += new Vector3( dist/multi, 0.0f, 0.0f );
 			}
 		}
 	}
