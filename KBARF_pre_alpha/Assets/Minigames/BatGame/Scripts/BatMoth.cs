@@ -10,11 +10,19 @@ public class BatMoth : MonoBehaviour {
 
 	private int deadEndTurn = 0;
 
+	[SerializeField] private BatVectorAnim anim;
+
 	// Use this for initialization
 	void Awake ()
 	{
 		col = GetComponents<TwoColLine> ();
 		colCirc = GetComponent<TwoColCircle> ();
+	}
+
+	void Start ()
+	{
+		anim.InitSprites ();
+		anim.PlayLoop (0, 1, 0.1f);
 	}
 
 	public void Die()
@@ -25,6 +33,8 @@ public class BatMoth : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		anim.Draw (this.transform.position);
+
 		TwoCol colC = colCirc.ColManager.IsCol (colCirc, TwoCol.ColType.COMBAT_DEF);
 		if (colC)
 		{

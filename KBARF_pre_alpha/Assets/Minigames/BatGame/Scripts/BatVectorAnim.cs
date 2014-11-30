@@ -41,21 +41,15 @@ public class BatVectorAnim {
 		animInterval = animSpeed;
 	}
 
+	public void PlayLoop(int s, int e, float speed)
+	{
+		PlayOnce (s, e, speed);
+
+		animLoop = true;
+	}
+
 	private void Play()
 	{
-		// If loop or no loop in reverse
-		if (currentFrame <= startFrame && animSpeed < 0.0f)
-		{
-			if (animLoop) currentFrame = endFrame;
-			else return;
-		}
-
-		if (currentFrame >= endFrame && animSpeed > 0.0f)
-		{
-			if (animLoop) currentFrame = startFrame;
-			else return;
-		}
-
 		if (animInterval > 0.0f)
 		{
 			animInterval -= Time.deltaTime;
@@ -66,13 +60,26 @@ public class BatVectorAnim {
 
 			animInterval = animSpeed;
 
-			if (animSpeed > 0.0f && currentFrame < endFrame)
+			if (animSpeed > 0.0f && currentFrame <= endFrame)
 			{
 				currentFrame++;
 			}
-			else if (animSpeed < 0.0f && currentFrame > startFrame)
+			else if (animSpeed < 0.0f && currentFrame >= startFrame)
 			{
 				currentFrame--;
+			}
+
+			// If loop or no loop in reverse
+			if (currentFrame < startFrame && animSpeed < 0.0f)
+			{
+				if (animLoop) currentFrame = endFrame;
+				else currentFrame = startFrame;
+			}
+			else if (currentFrame > endFrame && animSpeed > 0.0f)
+			{
+				
+				if (animLoop) currentFrame = startFrame;
+				else currentFrame = endFrame;
 			}
 		}
 	}
