@@ -97,9 +97,31 @@ public class BatVectorAnim {
 			}
 			else
 			{
-				sprites[i].Draw (Vector2.one * -100.0f);
+				sprites[i].Hide();
 			}
 		}
+	}
 
+	public void Delete() {
+		for (int i = 0; i < sprites.Length; i++)
+		{
+			sprites[i].Delete();
+		}
+	}
+
+	public void Explode(Vector2 pos) {
+		animSpeed = 0.0f;
+
+		for (int i = 0; i < sprites.Length; i++)
+		{
+			sprites[i].Explode(pos);
+		}
+	}
+
+	public void Scale(float s) {
+		for (int i = 0; i < sprites.Length; i++)
+		{
+			sprites[i].Scale(s);
+		}
 	}
 }

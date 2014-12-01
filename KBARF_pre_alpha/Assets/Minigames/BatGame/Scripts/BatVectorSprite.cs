@@ -13,7 +13,8 @@ public class BatVectorSprite {
 	[SerializeField] private string fileName;
 
 	private List<Vector2> lines;
-	private VectorLine[] vl;
+	private BatVector[] vl;
+	private bool hidden = false;
 
 	// Use this for initialization
 	public void InitSprite () {
@@ -22,22 +23,64 @@ public class BatVectorSprite {
 
 		int vlLength = (int)(lines.Count/2);
 
-		vl = new VectorLine[vlLength];
+		vl = new BatVector[vlLength];
 
 		for (int i = 0; i < vlLength; i++)
 		{
-			vl[i] = controller.CreateLine(lines[i*2], lines[i*2+1]);
+			vl[i] = new BatVector();
+			vl[i].InitLine(controller, lines[i*2], lines[i*2+1]);
 		}
-
-
 	}
 
 	public void Draw(Vector2 pos) {
 		if (vl == null || vl.Length == 0) return;
 
+		Show ();
+
 		for (int i = 0; i < vl.Length; i++)
 		{
-			controller.ResizeLine(vl[i], lines[i*2] + pos, lines[i*2+1] + pos);
+			vl[i].Draw(pos);
+		}
+	}
+
+	public void Hide() {
+		if (hidden) return;
+		hidden = true;
+
+		for (int i = 0; i < vl.Length; i++)
+		{
+			vl[i].Hide();
+		}
+	}
+
+	public void Show() {
+		if (!hidden) return;
+		hidden = false;
+
+		for (int i = 0; i < vl.Length; i++)
+		{
+			vl[i].Show ();
+		}
+	}
+
+	public void Delete() {
+		for (int i = 0; i < vl.Length; i++)
+		{
+			vl[i].Delete();
+		}
+	}
+
+	public void Explode(Vector2 pos) {
+		for (int i = 0; i < vl.Length; i++)
+		{
+			vl[i].Explode(pos);
+		}
+	}
+
+	public void Scale(float s) {
+		for (int i = 0; i < vl.Length; i++)
+		{
+			vl[i].Scale(s);
 		}
 	}
 

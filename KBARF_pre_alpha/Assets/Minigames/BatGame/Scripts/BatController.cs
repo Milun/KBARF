@@ -18,6 +18,8 @@ public class BatController : MonoBehaviour {
 	}
 
 	void Start() {
+		Random.seed = 42;
+
 		hero = GameObject.Find ("pre_bat");
 
 		VectorLine vl = new VectorLine("help", new Vector3[60], lineMat, lineWidth, LineType.Discrete, Joins.Weld);

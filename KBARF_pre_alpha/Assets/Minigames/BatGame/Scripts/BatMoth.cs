@@ -23,10 +23,12 @@ public class BatMoth : MonoBehaviour {
 	{
 		anim.InitSprites ();
 		anim.PlayLoop (0, 1, 0.1f);
+		anim.Scale (0.4f);
 	}
 
 	public void Die()
 	{
+		anim.Delete ();
 		Destroy (this.gameObject);
 	}
 
