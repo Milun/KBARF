@@ -12,6 +12,8 @@ public class PlatGravity : MonoBehaviour {
 
 	private int onGround = 0;
 
+	private bool on = true;
+
 	private float anchorLength = 1.0f;
 
 	void Awake ()
@@ -22,6 +24,8 @@ public class PlatGravity : MonoBehaviour {
 
 	void Update()
 	{
+		if (!on) return;
+
 		if (tColPhys.Move.y > 0.0f && pCommon.YSpeed <= 0.0f )
 		{
 			pCommon.YSpeed = 0.0f;
@@ -37,6 +41,14 @@ public class PlatGravity : MonoBehaviour {
 		if (pCommon.YSpeed < -ySpeedMax)
 		{
 			pCommon.YSpeed = -ySpeedMax;
+		}
+	}
+
+	public bool On
+	{
+		set
+		{
+			on = value;
 		}
 	}
 

@@ -14,9 +14,16 @@ public class PlatHero : MonoBehaviour {
 	[SerializeField] private float attackDuration = 1.0f;
 	[SerializeField] private float jumpForce = 2.0f;
 
+	[SerializeField] private GameObject deathFlash;
+	[SerializeField] private float deathSleep = 2.0f;
+	private float deathTimer = 0.0f;
+
 	private bool jump = false;
 	private float attacking = 0.0f;
 	private float lastXSpeed = 0.0f;
+
+	private Vector2 spawnPoint = Vector2.zero;
+	private Vector2 spawnSpeed = Vector2.zero;
 
 	private MiniInput input;
 
@@ -35,36 +42,60 @@ public class PlatHero : MonoBehaviour {
 		pGlobal = StatMini.GetMiniContainer(transform).GetComponent<TwoGlobal> ();
 
 		input =	 StatMini.GetMiniContainer(transform).GetComponent<MiniInput> ();
+
+
 	}
 
 	void Start()
 	{
 		pRoom = passRoom.GetComponent<PlatRoom> ();
+
+		deathFlash.renderer.enabled = false;
+
+		spawnPoint = this.pCommon.Pos;
 	}
 
 	public void Die()
 	{
-		pCommon.Pos = new Vector2 (16.0f, 112.0f);
+		if (deathTimer > 0.0f)
+		{
+			return;
+		}
+
 		pCommon.YSpeed = 0.0f;
+		pCommon.XSpeed = 0.0f;
+
+		pGravity.On = false;
+
+		deathTimer = deathSleep;
+		deathFlash.renderer.enabled = true;
 	}
 
 	private void MoveRoom()
 	{
 		if (pCommon.XSpeed > 0.0f && pCommon.X + tCol.localTR.x > pGlobal.ROOM_SIZE.x)
 		{
+
+
 			PlatRoom room = pRoom.MoveRight();
 			
 			if (room != null)
 			{
 				GameObject.Destroy(pRoom.gameObject);
 				pRoom = room;
-				
-				pCommon.X = tCol.localBL.x;
+
+				pCommon.X = tCol.localTR.x;
+
+				spawnPoint = pCommon.Pos;
+				spawnSpeed = pCommon.Vel;
 			}
 			else
 			{
 				pCommon.XSpeed = 0.0f;
 				pCommon.X = pGlobal.ROOM_SIZE.x - tCol.localTR.x;
+
+				//spawnPoint = pCommon.Pos;
+				//spawnSpeed = pCommon.Vel;
 			}
 		}
 		else if (pCommon.XSpeed < 0.0f && pCommon.X + tCol.localBL.x < 0.0f)
@@ -77,11 +108,17 @@ public class PlatHero : MonoBehaviour {
 				pRoom = room;
 				
 				pCommon.X = pGlobal.ROOM_SIZE.x - tCol.localTR.x;
+
+				spawnPoint = pCommon.Pos;
+				spawnSpeed = pCommon.Vel;
 			}
 			else
 			{
 				pCommon.XSpeed = 0.0f;
 				pCommon.X = tCol.localBL.x;
+
+				//spawnPoint = pCommon.Pos;
+				//spawnSpeed = pCommon.Vel;
 			}
 		}
 
@@ -97,11 +134,17 @@ public class PlatHero : MonoBehaviour {
 				pRoom = room;
 				
 				pCommon.Y = tCol.localBL.y;
+
+				spawnPoint = pCommon.Pos;
+				spawnSpeed = pCommon.Vel;
 			}
 			else
 			{
 				pCommon.YSpeed = 0.0f;
 				pCommon.Y = pGlobal.ROOM_SIZE.y - tCol.localTR.y;
+
+				//spawnPoint = pCommon.Pos;
+				//spawnSpeed = pCommon.Vel;
 			}
 
 		}
@@ -115,11 +158,17 @@ public class PlatHero : MonoBehaviour {
 				pRoom = room;
 				
 				pCommon.Y = pGlobal.ROOM_SIZE.y - tCol.localTR.y;
+
+				spawnPoint = pCommon.Pos;
+				spawnSpeed = pCommon.Vel;
 			}
 			else
 			{
 				pCommon.YSpeed = 0.0f;
 				pCommon.Y = tCol.localBL.y;
+
+				//spawnPoint = pCommon.Pos;
+				//spawnSpeed = pCommon.Vel;
 
 				Die ();
 			}
@@ -134,6 +183,19 @@ public class PlatHero : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (deathTimer > 0.0f)
+		{
+			deathTimer -= Time.deltaTime;
+			if (deathTimer <= 0.0f)
+			{
+				pCommon.Pos = spawnPoint;
+				pGravity.On = true;
+				deathFlash.renderer.enabled = false;
+			}
+
+			return;
+		}
+
 		MoveRoom ();
 
 		if (tCol.ColManager.IsCol(tCol, TwoCol.ColType.COMBAT_OFF))
@@ -200,6 +262,7 @@ public class PlatHero : MonoBehaviour {
 		{
 			jump = true;
 			attacking = 0.0f;
+			pCommon.Y++;
 			pCommon.YSpeed = jumpForce;
 		}
 	}

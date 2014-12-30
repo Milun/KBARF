@@ -53,7 +53,7 @@ public class PetHero : MonoBehaviour {
 		//anim.get
 
 		//test2.name = test.name;
-		this.GetComponent<SpriteRenderer>().material.SetTexture("_MainTex", test);
+		//this.GetComponent<SpriteRenderer>().material.SetTexture("_MainTex", test);
 
 		/*string skin;
 		SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
@@ -78,7 +78,7 @@ public class PetHero : MonoBehaviour {
 	}
 
 	private void Anim () {
-		//GetComponent<Animator>().speed = animSpeed * moveSpeed * 2.0f;
+		GetComponent<Animator>().speed = animSpeed * moveSpeed * 2.0f;
 	}
 
 	private void Age() {
@@ -148,7 +148,7 @@ public class PetHero : MonoBehaviour {
 	{
 		//make this ReadOnlyCollectionBase happen when the Sprite (name) changes
 
-		string skin;
+		/*string skin;
 		SpriteRenderer[] renderers = GetComponentsInChildren<SpriteRenderer>();
 
 		for (int i = 0; i < renderers.Length; i++) {
@@ -156,7 +156,7 @@ public class PetHero : MonoBehaviour {
 			MaterialPropertyBlock block = new MaterialPropertyBlock();
 			block.AddTexture("_MainTex", test);
 			renderers[i].SetPropertyBlock(block);
-		}
+		}*/
 	}
 
 	public bool Joy

@@ -53,7 +53,7 @@ public class Anim : MonoBehaviour
 	/**
 	 * Just plays the animation. It smooths the length = to transitionTime.
 	 */
-	public void PlayAnimation(string animName, float newLength, float transitionTime = 0.05f)
+	public void PlayAnimation(string animName, float newLength, float transitionTime)
 	{
 		if (animation.GetClip(animName) == null) {Debug.Log(this.gameObject.name + " missing " + animName); return;}
 
@@ -66,7 +66,7 @@ public class Anim : MonoBehaviour
 	/**
 	 * Will keep looping the animation if being called.
 	 */
-	public void PlayAnimationLooped(string animName, float newLength, float transitionTime = 0.05f)
+	public void PlayAnimationLooped(string animName, float newLength, float transitionTime)
 	{
 		if (animation.GetClip(animName) == null) {Debug.Log(this.gameObject.name + " missing " + animName); return;}
 		
@@ -77,7 +77,7 @@ public class Anim : MonoBehaviour
 	/**
 	 * Sets the time period in the animation
 	 */
-	public void SetAnimationTime(string animName, float time = 0.0f)
+	public void SetAnimationTime(string animName, float time)
 	{
 		if (animation.GetClip(animName) == null) {Debug.Log(this.gameObject.name + " missing " + animName); return;}
 
@@ -87,7 +87,7 @@ public class Anim : MonoBehaviour
 	/**
 	 * Play a single frame. The frame that is played at time % of the animation.
 	 */
-	public void PlayAnimationFrame(string animName, float time = 0.0f, float transitionTime = 0.05f)
+	public void PlayAnimationFrame(string animName, float time, float transitionTime)
 	{
 		if(animation.GetClip(animName) == null)
 		{

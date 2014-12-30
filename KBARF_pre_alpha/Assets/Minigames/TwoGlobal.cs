@@ -11,11 +11,26 @@ public class TwoGlobal : MonoBehaviour {
 	private float							frameTime = 0.0f;
 	private bool 							frameActive = false;
 
+	private float frameDelayToggle = 0.0f;
+	private float pixelJumpToggle = 0.0f;
+
+	[SerializeField] private GameObject frameDelayToggleGo;
+	[SerializeField] private GameObject frameDelayJumpGo;
+
 	void Awake()
 	{
 		if (frameDelay == 0.0f)
 		{
 			frameActive = true;
+		}
+	}
+
+	void Start()
+	{
+		if (frameDelayToggle != null && frameDelayJumpGo != null)
+		{
+			frameDelayToggleGo.renderer.enabled = false;
+			frameDelayJumpGo.renderer.enabled = false;
 		}
 	}
 
@@ -28,7 +43,40 @@ public class TwoGlobal : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (frameDelay == 0.0f)
+		if (Input.GetKeyDown("f"))
+		{
+			if (frameDelayToggle == 0.0f)
+			{
+				frameDelayToggle = 0.04f;
+				if (frameDelayToggle != null && frameDelayJumpGo != null) frameDelayToggleGo.renderer.enabled = true;
+			}
+			else
+			{	
+				if (frameDelayToggle != null && frameDelayJumpGo != null) frameDelayToggleGo.renderer.enabled = false;
+				frameDelayToggle = 0.0f;
+				frameDelay = 0.0f;
+				frameTime = 0.0f;
+				frameActive = true;
+			}
+
+			print (frameDelayToggle);
+		}
+
+		if (Input.GetKeyDown("p"))
+		{
+			if (pixelJumpToggle == 0.0f)
+			{
+				pixelJumpToggle = 1.0f;
+				if (frameDelayToggle != null && frameDelayJumpGo != null) frameDelayJumpGo.renderer.enabled = true;
+			}
+			else
+			{
+				pixelJumpToggle = 0.0f;
+				if (frameDelayToggle != null && frameDelayJumpGo != null) frameDelayJumpGo.renderer.enabled = false;
+			}
+		}
+
+		if (frameDelay + frameDelayToggle <= 0.01f)
 		{
 			return;
 		}
@@ -36,7 +84,7 @@ public class TwoGlobal : MonoBehaviour {
 		if (frameTime < 0.0f)
 		{
 			frameActive = true;
-			frameTime = frameDelay;
+			frameTime = frameDelay + frameDelayToggle;
 		}
 		else
 		{
@@ -50,7 +98,7 @@ public class TwoGlobal : MonoBehaviour {
 	{
 		get
 		{
-			return pixelJump;
+			return pixelJump + pixelJumpToggle;
 		}
 	}
 
