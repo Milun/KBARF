@@ -8,6 +8,7 @@ public class PlatHero : MonoBehaviour {
 	private PlatGravity 	pGravity;
 	private PlatPhysRamp 	pRamp;
 	private TwoGlobal pGlobal;
+	private TwoColPhysics tColPhys;
 
 	[SerializeField] private float moveSpeed = 0.5f;
 	[SerializeField] private float attackSpeedMulti = 1.2f;
@@ -35,6 +36,7 @@ public class PlatHero : MonoBehaviour {
 	{
 		pCommon = GetComponent<TwoCommon> ();	
 		tCol = GetComponent<TwoColSquare> ();
+		tColPhys = GetComponent<TwoColPhysics> ();
 
 		pGravity = GetComponent<PlatGravity> ();
 		pRamp = GetComponent<PlatPhysRamp> ();
@@ -253,6 +255,11 @@ public class PlatHero : MonoBehaviour {
 
 			// Make it so you don't move after bumping into a wall.
 			if (pCommon.YSpeed < 0.0f && pCommon.XSpeed == 0.0f) lastXSpeed = 0.0f;
+
+			if (tColPhys.Move.x != 0.0f)
+			{
+				lastXSpeed = 0.0f;
+			}
 
 			pCommon.XSpeed = lastXSpeed;
 

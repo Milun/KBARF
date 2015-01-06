@@ -36,14 +36,16 @@ public class TwoColPhysics : MonoBehaviour {
 
 	void Update()
 	{
+		// Check all physics collisions (the ones most likely to make you move).
+		move = tColSquare.ColManager.CheckColPhys (tColSquare, ref tCommon);
+
+		print (move.x);
+
 		if (noUpdate)
 		{
 			noUpdate = false;
 			return;
 		}
-
-		// Check all physics collisions (the ones most likely to make you move).
-		move = tColSquare.ColManager.CheckColPhys (tColSquare, ref tCommon);
 
 		if (move != Vector2.zero)
 		{

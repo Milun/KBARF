@@ -8,6 +8,7 @@ public class PlatPhysRamp : MonoBehaviour {
 	private TwoColLine		tColLine;
 	private TwoCommon		tCommon;
 	private TwoColPhysics	tColPhys;
+	//private TwoColSquarePlat 	make it change size or something.
 	private PlatGravity		pGrav;
 
 	private bool onRamp 	= false;

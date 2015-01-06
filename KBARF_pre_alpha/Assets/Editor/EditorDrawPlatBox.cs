@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 
-[CustomEditor(typeof(PlatBox), true)]
+/*[CustomEditor(typeof(PlatBox), true)]
 public class EditorDrawPlatBox : Editor {
 	
 
@@ -37,4 +37,4 @@ public class EditorDrawPlatBox : Editor {
 			myTarget.transform.position + p2);
 
 	}
-}
+}*/

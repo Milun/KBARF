@@ -31,7 +31,7 @@ public class PlatPhys: MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 
 		Vector2 move = tCol.ColManager.CheckColMove (tCol, TwoCol.ColType.PHYSICS_DEF);
 
