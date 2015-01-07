@@ -32,57 +32,71 @@ public class PlatColor : MonoBehaviour {
 	void Start () {
 		if (spriteRenderer == null || spriteColor == null) return;
 
-		switch (spriteColor)
+		spriteRenderer.color = GetColor (spriteColor);
+	}
+
+	public SpriteColor SprColor
+	{
+		get
+		{
+			return spriteColor;
+		}
+	}
+
+	public Color GetColor (SpriteColor sc)
+	{
+		switch (sc)
 		{
 		case SpriteColor.WHITE:
-			spriteRenderer.color = new Color32(255, 255, 255, 255);
+			return new Color32(255, 255, 255, 255);
 			break;
-
+			
 		case SpriteColor.RED:
-			spriteRenderer.color = new Color32(136, 57, 50, 255);
+			return new Color32(136, 57, 50, 255);
 			break;
-
+			
 		case SpriteColor.PINK:
-			spriteRenderer.color = new Color32(184, 105, 98, 255);
+			return new Color32(184, 105, 98, 255);
 			break;
-
+			
 		case SpriteColor.ORANGE:
-			spriteRenderer.color = new Color32(139, 84, 41, 255);
+			return new Color32(139, 84, 41, 255);
 			break;
-
+			
 		case SpriteColor.YELLOW:
-			spriteRenderer.color = new Color32(191, 206, 114, 255);
+			return new Color32(191, 206, 114, 255);
 			break;
-
+			
 		case SpriteColor.GREEN_LIGHT:
-			spriteRenderer.color = new Color32(148, 224, 137, 255);
+			return new Color32(148, 224, 137, 255);
 			break;
-
+			
 		case SpriteColor.GREEN_DARK:
-			spriteRenderer.color = new Color32(85, 160, 73, 255);
+			return new Color32(85, 160, 73, 255);
 			break;
-
+			
 		case SpriteColor.BLUE:
-			spriteRenderer.color = new Color32(103, 182, 189, 255);
+			return new Color32(103, 182, 189, 255);
 			break;
-
+			
 		case SpriteColor.PURPLE_LIGHT:
-			spriteRenderer.color = new Color32(120, 105, 196, 255);
+			return new Color32(120, 105, 196, 255);
 			break;
-
+			
 		case SpriteColor.PURPLE_DARK:
-			spriteRenderer.color = new Color32(64, 49, 141, 255);
+			return new Color32(64, 49, 141, 255);
 			break;
-
+			
 		case SpriteColor.MAGENTA:
-			spriteRenderer.color = new Color32(139, 63, 150, 255);
+			return new Color32(139, 63, 150, 255);
 			break;
-
+			
 		case SpriteColor.BROWN:
-			spriteRenderer.color = new Color32(87, 66, 0, 255);
+			return new Color32(87, 66, 0, 255);
 			break;
-
+			
 		default:
+			return new Color32(255, 255, 255, 255);
 			break;
 		}
 	}

@@ -6,6 +6,8 @@ using System.Collections;
 public class EditModeSnap : MonoBehaviour {
 	public float snapValueX = 1f;
 	public float snapValueY = 1f;
+	public float snapOffsetX = 0f;
+	public float snapOffsetY = 0f;
 	public float SnapValueScale = 1f;
 	public float depth = 0.0f;
 
@@ -24,8 +26,8 @@ public class EditModeSnap : MonoBehaviour {
 		
 		// if snapValue = .5, x = 1.45 -> snapInverse = 2 -> x*2 => 2.90 -> round 2.90 => 3 -> 3/2 => 1.5
 		// so 1.45 to nearest .5 is 1.5
-		x = Mathf.Round(transform.position.x * snapInverseX)/snapInverseX;
-		y = Mathf.Round(transform.position.y * snapInverseY)/snapInverseY;
+		x = Mathf.Round( (transform.position.x - snapOffsetX) * snapInverseX)/snapInverseX + snapOffsetX;
+		y = Mathf.Round( (transform.position.y - snapOffsetY) * snapInverseY)/snapInverseY + snapOffsetY;
 		z = depth; // depth from camera
 
 		xs = (Mathf.Round(transform.localScale.x / SnapValueScale)) * SnapValueScale;
